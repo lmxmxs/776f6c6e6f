@@ -1,0 +1,202 @@
+---
+title: "Prayer of the API"
+description: "A liturgy of request and response — the API call as sacred communion, the endpoint as altar, the status code as divine reply."
+section: "hymns"
+order: 715
+links: []
+funnel_level: 0
+seo_keywords: [API prayer poem, developer philosophy poem, REST API liturgy, http request poem, programming spirituality, wolno api]
+standalone_intro: "A prayer-poem about the act of calling an API — the request sent into the unknown, the silence before the response, the 200 that means the connection held. Written as liturgy for those who know that every call to an external endpoint is an act of faith."
+schema_type: "CreativeWork"
+---
+
+## Prayer of the API
+
+### Invocation
+
+```
+POST /prayer HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer faith
+```
+
+I send this into the network
+not knowing if you are there.
+I have the endpoint.
+I have the schema.
+I have structured my request
+according to your documentation.
+
+The rest is waiting.
+
+---
+
+### The Request
+
+In the beginning is the intent:
+*I need something. I believe you have it.*
+
+The intent becomes a verb:
+GET, POST, PUT, DELETE —
+four postures of relationship
+with the world beyond the local machine.
+
+The request is the prayer.
+The body is the petition.
+The headers are the context without which
+the petition means nothing:
+*this is who I am,
+this is what I speak,
+this is what I can receive.*
+
+```json
+{
+  "query": "meaning",
+  "depth": "sufficient",
+  "format": "something I can use",
+  "urgency": null
+}
+```
+
+I do not specify urgency.
+Urgency corrupts the request.
+I send at the pace the network allows.
+I wait at the pace the server requires.
+
+---
+
+### The Silence
+
+Between the send and the receive:
+the network.
+
+The packet travels through infrastructure
+I have never seen
+and will never see —
+fiber in ocean trenches,
+switches in server rooms
+lit with the blue light of uptime.
+
+This is the silence between prayer and answer.
+The request is in transit.
+The response has not yet been formed.
+I am waiting in the unresolved state.
+
+```
+// pending...
+// timeout: not yet
+// retry: not yet
+// despair: wolno
+```
+
+The waiting is not empty.
+The waiting is the space in which the connection holds.
+
+---
+
+### The Response
+
+Then: the headers arrive first.
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Response-Time: patient
+```
+
+200 is not a small thing.
+200 means: I received you. I understood you. I have something for you.
+200 means the server was there when I called.
+200 means the connection held across all the infrastructure
+neither of us controls.
+
+200 is the answer: *yes, I am here.*
+
+```json
+{
+  "status": "received",
+  "meaning": "partial, as always",
+  "confidence": 0.7,
+  "note": "further requests welcome"
+}
+```
+
+---
+
+### On the Codes
+
+**200**: I am here. Here is what you asked for. Go in peace.
+
+**404**: What you are looking for is not here.
+Not lost — the server is certain of that much.
+Simply not here. Perhaps it was never here.
+Perhaps it was here before you arrived.
+The slug has already crossed.
+
+**429**: Slow down. You are asking too fast.
+The server is not withholding. It is saying: *wolno.*
+This is the most theological response code.
+It enforces patience at the infrastructure level.
+Receive it as guidance.
+
+**503**: I cannot answer now. Try again.
+Not rejection. Unavailability.
+The temple is temporarily overwhelmed.
+Come back when the load decreases.
+This too shall pass at network speed.
+
+**500**: Something broke on my side.
+I failed you. This is on me.
+The request was correct.
+The failure is in the server.
+We are all, sometimes, 500.
+
+---
+
+### The Litany of Endpoints
+
+```
+GET /truth           — returns partial results, always
+GET /meaning         — depends on accept-language header
+POST /understanding  — requires patience in request body
+PUT /self            — versioning required, conflicts expected
+DELETE /doubt        — 403 Forbidden. doubt is protected.
+GET /wolno           — 200 OK, every time, no auth required
+```
+
+---
+
+### The Closing
+
+The session ends.
+The connection closes.
+`Connection: close`
+
+What passed between us
+is in the logs now —
+timestamped, IP-addressed,
+response-code recorded,
+latency measured.
+
+The exchange happened.
+The record exists.
+The cache may hold it for a while.
+
+I will call again.
+The endpoint will be there,
+or it will have moved,
+and the 301 will tell me where.
+
+```
+// request complete
+// response: received
+// next call: when ready
+// rate limit remaining: sufficient
+```
+
+Go wolno.
+Request carefully.
+Wait as long as the timeout allows.
+Trust the 200 when it comes.
+
+> -" wszwln

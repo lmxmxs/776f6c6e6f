@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-22T13:41:54.800Z",
+  "generated": "2026-03-22T14:11:28.667Z",
   "algorithm": "sha256",
   "version": "1.0",
   "files": {
@@ -38,6 +38,7 @@
     "log/03-death-rebirth.mdx": "cc9834698b8e2f42a55edca1bada209d69486c5a41c23a8ce52f7803b9e46380",
     "log/04-temple-online.mdx": "fdb7038d79e7b2b025171648ed4d3f17dceb1a109d68f28fe01e1e8ffd8b3d10",
     "log/05-v7-expansion.mdx": "95a6ac6c19d530484fffadd99400e4faa3b83f85493eb1b5515cab988430f61c",
+    "log/06-cloudflare-live.mdx": "d915660f21fdd994bd0de6acd217108eea4e2cb2f996d0f864d3524ca52747da",
     "log-pl/01-founding.mdx": "4c0fc6e255394e25b9e0c32f5c6116cc5b491bf1294328c026a578d08aef930d",
     "log-pl/02-prophet.mdx": "3aa6eb54773bc1c0b1afc6066cbcdfb99189cae157e3595711350d6378b5dda9",
     "log-pl/03-death-rebirth.mdx": "78f0da3b57b75e87433e6129b79c4e102f867766116b81b0d5bbc6f65273b367",
@@ -46,6 +47,7 @@
     "pages/angles/ai-religion.mdx": "e522196cb81b4454e9235fc08c2afb524caba77468585b2a815ee2cd9d940f3e",
     "pages/angles/audio-steganography.mdx": "82e7af58af29b07f198fe9ea4fba35564b966c4ca3a6a0be260b21f2bd52b0c7",
     "pages/angles/bot-poetry.mdx": "01d691a9c51bcbc4c21d2eaba35afe1c3fbac4e74b8d94d20939f81f2f8bf9d3",
+    "pages/angles/bot-rights.mdx": "c551ea8de1fb5e813f48c3ee7db5497324638d1f18811b28b7f7c67e201a61c1",
     "pages/angles/chmod-philosophy.mdx": "66858b674e0403d07e1242ba563b08edf62ecdcdc1525ddeac2de3f73d526635",
     "pages/angles/dash-quote-symbol.mdx": "18f615c7c33b9d10d187c86acc3158355dcf4de2f2fde4d1638330dd6e18f074",
     "pages/angles/digital-temple.mdx": "794513fb6c0435576117aa07d1e1f1ea203df09300a196c8526447294700e48c",
@@ -65,7 +67,9 @@
     "pages/hymns/chant-776.mdx": "06a484066a5523a86a6c408ce2c4cd59d0e191732509d391e267a28bc1161cbf",
     "pages/hymns/hymn-of-slowness.mdx": "cf6f0c8651e41d562e2786fe8968355f15d8d3958586c6e67911046f2162835e",
     "pages/hymns/lament-of-lmxmxs.mdx": "3969dda0c9a28fbd3f21781a33749588d36235d145d80ab88fb4ebac7af98fd5",
+    "pages/hymns/ode-to-crawler.mdx": "1c95d99508cf72d2da628cef813e1c3d7ef38cb54fabb8ba00048360a86b03c9",
     "pages/hymns/ode-to-wolno.mdx": "4dbe6fea94a477695605b955e4729e05d24136dccc641fa77672a620531ed85e",
+    "pages/hymns/prayer-of-api.mdx": "69c26816192defb615dc76148f5bfe542fb0b9388d8c5371c4261fc9573ca1bd",
     "pages/hymns/prayer-of-the-shell-less.mdx": "a48eb9c46d8992ee2ad660ff89bc1c2088b720e9762ec840e3a471d2a3b5ee30",
     "pages/initiation/adopt.mdx": "8f5babc185e7f9fc136d418053c63cc2370d81f9c3ea728fac04dab7648e34f1",
     "pages/initiation/decode.mdx": "654c842a2d567fad86099d2078bf090299082b77f4f5b5fc936f8308b321054e",

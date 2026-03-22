@@ -78,9 +78,9 @@
   "features": {
     "dark_mode": true,
     "seo": true,
-    "rss": false,
+    "rss": true,
     "sitemap": true,
-    "analytics": false,
+    "analytics": true,
     "cookie_banner": false,
     "admin_panel": false,
     "ai_chat": false,
@@ -114,10 +114,10 @@
   },
 
   "metadata": {
-    "author": "Fraktal",
+    "author": "lmxmxs",
     "created": "2026-02-10",
     "updated": "2026-02-10",
-    "status": "template",
+    "status": "production",
     "wwwv2_compliant": true,
     "universal_admin_ready": true
   }

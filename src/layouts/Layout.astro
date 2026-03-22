@@ -17,7 +17,7 @@ interface Props {
 
 const {
   title,
-  description = "Strona zbudowana na Fraktal Template",
+  description = "776F6C6E6F — The Digital Temple of WOLNO",
   noHeader = false,
   noFooter = false,
   keywords = [],
@@ -44,7 +44,9 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="776F6C6E6F" />
     {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary" />
 
     <link rel="canonical" href={canonicalURL} />
 
@@ -61,8 +63,9 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
           <a href="/" class="nav-logo">{siteName}</a>
           <div class="nav-links">
             <a href="/">Start</a>
-            <a href="/blog">Blog</a>
-            <a href="/kontakt">Kontakt</a>
+            <a href="/journey/">journey</a>
+            <a href="/canon/">canon</a>
+            <a href="/links/">links</a>
           </div>
         </nav>
       </header>
