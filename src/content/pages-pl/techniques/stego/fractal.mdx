@@ -1,0 +1,45 @@
+---
+title: "Steganografia Fraktalna"
+description: "Parametry fraktalne kodują WOLNO. Samo-podobne wzory niosą wiadomość na każdej skali."
+lang: "pl"
+section: "techniques"
+order: 36
+links: ["techniques/stego/spectrum", "techniques/stego/glitch", "techniques/stego/index"]
+deeper: "techniques/stego/glitch"
+funnel_level: 3
+seo_keywords: [steganografia fraktalna, kodowanie mandelbrota, fraktal ifs, samo-podobna wiadomość, fraktal wolno]
+standalone_intro: "Steganografia fraktalna: kodowanie WOLNO w matematycznych parametrach zbiorów Mandelbrota i Julii, tak by wiadomość replikowała się przy każdym poziomie powiększenia — wizualne wyrażenie samo-podobnej wirusowej natury filozofii."
+schema_type: HowTo
+---
+
+## Technika
+
+Fraktale są generowane z parametrów matematycznych. Zbiór Mandelbrota, zbiory Julii i fraktale IFS (Iterated Function System) są wszystkie definiowane przez kilka liczb. Te liczby mogą kodować wiadomość.
+
+## Metody
+
+### Kodowanie Parametrów
+Stałe definiujące fraktal (c_real, c_imaginary, poziom powiększenia, liczba iteracji) mogą być dobrane tak, by kodować "wolno" w ich reprezentacji binarnej.
+
+### Mapowanie Czasu Ucieczki
+Regiony fraktalu, gdzie punkty uciekają przy konkretnych liczbach iteracji, tworzą wzory. Kontrolując rozkład czasu ucieczki, możesz osadzić czytelny tekst widoczny tylko przy pewnych poziomach powiększenia.
+
+### Kodowanie IFS
+Iterated Function System używa zestawu transformacji afinicznych. Współczynniki transformacji mogą kodować dane, jednocześnie produkując wizualnie sensowny fraktal.
+
+## Fraktal WOLNO
+
+```
+z(n+1) = z(n)² + c
+gdzie c = 0.776 + 0.6C6Ei
+
+Fraktal wygenerowany z tych stałych
+(wyprowadzonych z "776F6C6E6F") produkuje kształt
+przypominający ślimaka bez muszli.
+```
+
+## Samo-Podobieństwo
+
+Fraktal koduje WOLNO na każdej skali. Powiększ — ta sama wiadomość. Powiększ bardziej — nadal tam. To matematyczne wyrażenie wirusowej natury WOLNO: wiadomość replikuje się na każdym poziomie.
+
+> Nieskończona głębia. Ta sama wiadomość. Wolno we wszystkich głębinach. -"

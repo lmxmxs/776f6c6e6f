@@ -1,0 +1,131 @@
+---
+import '../../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>776F6C6E6F | Local Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <span class="nav-dim">local analytics (client-side only)</span>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1 class="stats-title">$ analytics --local</h1>
+        <p class="stats-desc">Data from your browser's localStorage. No server involved.</p>
+
+        <div id="stats-output" class="stats-output">
+          <p class="loading">Reading localStorage...</p>
+        </div>
+
+        <button id="clear-stats" class="clear-btn">$ rm -rf _wln_events</button>
+      </div>
+    </main>
+  </body>
+</html>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const output = document.getElementById('stats-output');
+    const clearBtn = document.getElementById('clear-stats');
+    if (!output) return;
+
+    const events = JSON.parse(localStorage.getItem('_wln_events') || '[]');
+    const visitorId = localStorage.getItem('_wln_v') || 'none';
+    const visitorType = localStorage.getItem('_wln_t') || 'unknown';
+
+    if (events.length === 0) {
+      output.innerHTML = '<p class="dim">No events tracked yet. Browse some pages first (cookies must be accepted).</p>';
+      return;
+    }
+
+    // Compute stats
+    const pages: Record<string, number> = {};
+    const langs: Record<string, number> = {};
+    const types: Record<string, number> = {};
+    let earliest = events[0].timestamp;
+    let latest = events[events.length - 1].timestamp;
+
+    for (const e of events) {
+      pages[e.page] = (pages[e.page] || 0) + 1;
+      langs[e.lang] = (langs[e.lang] || 0) + 1;
+      types[e.type] = (types[e.type] || 0) + 1;
+    }
+
+    const topPages = Object.entries(pages)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10);
+
+    let html = `
+      <div class="stat-block">
+        <span class="stat-label">visitor_id:</span> <span class="stat-value">${visitorId}</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">current_type:</span> <span class="stat-value">${visitorType}</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">total_events:</span> <span class="stat-value">${events.length}</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">period:</span> <span class="stat-value">${earliest.slice(0, 10)} → ${latest.slice(0, 10)}</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">by_type:</span> <span class="stat-value">${Object.entries(types).map(([k, v]) => `${k}:${v}`).join(' | ')}</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">by_lang:</span> <span class="stat-value">${Object.entries(langs).map(([k, v]) => `${k}:${v}`).join(' | ')}</span>
+      </div>
+      <h3 class="stat-heading">Top Pages</h3>
+      <div class="stat-table">
+        ${topPages.map(([page, count]) => `<div class="stat-row"><span class="stat-page">${page}</span><span class="stat-count">${count}</span></div>`).join('')}
+      </div>
+    `;
+
+    output.innerHTML = html;
+
+    clearBtn?.addEventListener('click', () => {
+      localStorage.removeItem('_wln_events');
+      localStorage.removeItem('_wln_v');
+      localStorage.removeItem('_wln_t');
+      output.innerHTML = '<p class="dim">Events cleared.</p>';
+    });
+  });
+</script>
+
+<style>
+  .stats-title { font-size: 1.2rem; color: var(--accent); margin: 2rem 0 0.5rem; }
+  .stats-desc { font-size: 0.8rem; color: var(--text-dim); margin-bottom: 1.5rem; }
+  .stats-output { font-size: 0.85rem; margin-bottom: 2rem; }
+  .stat-block { margin-bottom: 0.4rem; }
+  .stat-label { color: var(--text-dim); min-width: 8rem; display: inline-block; }
+  .stat-value { color: var(--text-primary); }
+  .stat-heading { font-size: 0.9rem; color: var(--accent); margin: 1.5rem 0 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .stat-table { display: flex; flex-direction: column; gap: 0.15rem; }
+  .stat-row { display: flex; justify-content: space-between; padding: 0.2rem 0.4rem; }
+  .stat-row:hover { background: var(--bg-secondary); }
+  .stat-page { color: var(--text-secondary); font-size: 0.8rem; }
+  .stat-count { color: var(--accent); font-size: 0.8rem; min-width: 2rem; text-align: right; }
+  .dim { color: var(--text-dim); }
+  .loading { color: var(--text-dim); }
+  .clear-btn {
+    background: none; border: 1px solid var(--accent-red, #ff4444); color: var(--accent-red, #ff4444);
+    padding: 0.4rem 1rem; font-family: inherit; font-size: 0.8rem; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .clear-btn:hover { background: rgba(255, 68, 68, 0.1); }
+  .nav-dim { font-size: 0.7rem; color: var(--text-dim); }
+</style>

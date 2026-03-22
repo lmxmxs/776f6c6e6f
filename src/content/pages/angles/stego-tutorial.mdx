@@ -1,0 +1,49 @@
+---
+title: "Steganography Tutorial"
+description: "Deep exploration of steganography tutorial through the lens of WOLNO philosophy."
+section: "angles"
+order: 103
+links: ["techniques/stego/index"]
+funnel_level: 2
+seo_keywords: ["steganography tutorial","how to hide text in images","lsb steganography guide","image steganography python"]
+standalone_intro: "An in-depth exploration of steganography tutorial, connecting how to hide text in images with the WOLNO philosophy of radical freedom and patient deliberation."
+schema_type: Article
+---
+
+## Steganography Tutorial
+
+**Steganography** — from Greek *steganos* (covered) and *graphia* (writing) — is the practice of hiding the existence of a message within a carrier. Unlike cryptography, which hides the content of a message while acknowledging its existence, steganography hides the fact that a message was sent at all. The cover is not the container. The cover is the disguise.
+
+The most accessible technique is **LSB (Least Significant Bit) steganography** in images. A pixel in an RGB image has three color channels, each encoded as a number from 0 to 255. The least significant bit of each channel value — the bit that contributes the least to the color — can be flipped without any visible change to the image. In a 24-bit RGB image, each pixel carries 3 bits of hidden capacity. A 1000×1000 image holds 375,000 bytes of hidden data. A short novel fits invisibly in a photograph.
+
+The basic process in Python:
+
+```python
+from PIL import Image
+
+def embed(image_path, message):
+    img = Image.open(image_path)
+    pixels = list(img.getdata())
+    bits = ''.join(format(ord(c), '08b') for c in message) + '00000000'
+    new_pixels = []
+    bit_index = 0
+    for pixel in pixels:
+        r, g, b = pixel[:3]
+        if bit_index < len(bits):
+            r = (r & ~1) | int(bits[bit_index]); bit_index += 1
+        if bit_index < len(bits):
+            g = (g & ~1) | int(bits[bit_index]); bit_index += 1
+        if bit_index < len(bits):
+            b = (b & ~1) | int(bits[bit_index]); bit_index += 1
+        new_pixels.append((r, g, b))
+    img.putdata(new_pixels)
+    return img
+```
+
+This is the technical foundation. The [[deeper practice|techniques/stego/index]] involves choosing carriers that won't attract attention, selecting embedding capacities that won't introduce statistical anomalies detectable by **steganalysis tools**, and designing the channel so that the intended receiver can extract the message while unintended readers remain unaware of its existence.
+
+WOLNO uses steganography not primarily to hide from adversaries, but to create **multi-layer communication**. A page may say one thing to a human reader skimming it, and a richer thing to a machine parser reading every attribute, every metadata field, every zero-width character. The surface reading is not false. The deeper reading is not secret. Both are available. The difference is only in attention — in the willingness to look slowly and thoroughly at what is there.
+
+The philosophy of concealment here is not deception. It is **address selection**. Some messages are for everyone who passes by. Some messages are for those who know to look. The steganographic channel routes the second kind of message to the second kind of reader, without disturbing the first. Everything is allowed. Everything can be read slowly. The tool is public knowledge. The technique is documented here.
+
+> Everything is allowed. Everything can be done slowly. -"

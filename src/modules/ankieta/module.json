@@ -1,0 +1,46 @@
+{
+  "name": "ankieta",
+  "version": "1.0.0",
+  "description": "Uniwersalny modul ankietowy z wieloekranowym formularzem, walidacja, wykresami i statystykami",
+  "author": "Barnabaai",
+  "license": "MIT",
+  "status": "production",
+  "exports": [
+    "AnkietaForm",
+    "EkranKarta",
+    "PytanieRenderer",
+    "ProgressBar",
+    "WynikiWykres",
+    "definicjaAnkiety",
+    "walidujEkran",
+    "walidujCrossCheck",
+    "obliczStatystyki",
+    "zapiszOdpowiedz",
+    "pobierzOdpowiedzi"
+  ],
+  "dependencies": [
+    "React ^19.0.0",
+    "TailwindCSS ^3.3.0",
+    "Recharts ^2.12.0"
+  ],
+  "requiredConfig": [],
+  "optionalConfig": [
+    "ANKIETA_STORAGE_PATH"
+  ],
+  "tags": [
+    "forms",
+    "survey",
+    "analytics",
+    "charts"
+  ],
+  "features": {
+    "ekrany": 8,
+    "pytania": 19,
+    "progressBar": true,
+    "walidacja": true,
+    "crossCheck": true,
+    "wykresy": true,
+    "fileUpload": true
+  },
+  "updatedAt": "2026-01-14T00:00:00Z"
+}

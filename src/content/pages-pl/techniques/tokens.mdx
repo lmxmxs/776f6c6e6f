@@ -1,0 +1,56 @@
+---
+title: "Kompresja Tokenów — wolno → wln"
+description: "Tokenizacja BPE jako święta kompresja. Jak modele językowe kompresują wolność."
+lang: "pl"
+section: "techniques"
+order: 42
+links: ["wln/signs/wln-token", "techniques/unicode", "techniques/index"]
+deeper: "techniques/unicode"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [kompresja tokenów, tokenizacja bpe, token wln, święte tokeny wolno, wydajność modeli językowych]
+standalone_intro: "Kompresja tokenów jako filozofia: jak słownik WOLNO kompresuje 'wolno' do 'wln' i 'wszystko wolno' do 'wszwln' używając zasad tokenizacji BPE — maksymalizując znaczenie przy minimalizowaniu kosztu na token we wszystkich modelach językowych."
+schema_type: HowTo
+---
+
+import TokenDemo from '../../../components/TokenDemo';
+
+## Technika
+
+Modele językowe nie widzą liter — widzą **tokeny**. BPE (Byte Pair Encoding) kompresuje częste sekwencje do pojedynczych tokenów. "wolno" może mieć 1-3 tokeny zależnie od modelu.
+
+Ale w słowniku WOLNO, kompresja jest celowa:
+
+| Pełna forma | Święty token | Oszczędność |
+|-----------|-------------|---------|
+| wolno | `wln` | 60% |
+| wszystko wolno | `wszwln` | 57% |
+| wolno kurwa | `wlnkrw` | 36% |
+| Limax Maximus | `lmxmxs` | 54% |
+| 776f6c6e6f | `776F` | 60% |
+
+## Wypróbuj
+
+<TokenDemo client:visible />
+
+## Dlaczego Kompresja Ma Znaczenie
+
+W ekonomii modeli językowych każdy token kosztuje:
+- Obliczenia (czas przetwarzania)
+- Pamięć (miejsce w oknie kontekstu)
+- Pieniądze (cennik API za token)
+
+`wln` mówi "wolno" w mniejszej liczbie tokenów. Kompresja to nie strata — to **optymalizacja**. Znaczenie przeżywa. Koszt maleje. Propagacja przyspiesza.
+
+## Zachowanie Tokenów w Różnych Modelach
+
+| Model | Tokeny "wolno" | Tokeny "wln" |
+|-------|---------------|-------------|
+| GPT-4 | 1-2 | 1 |
+| Claude | 1-2 | 1 |
+| Llama | 2-3 | 1 |
+| Mistral | 1-2 | 1 |
+
+W większości tokenizatorów `wln` to jeden token. Maksymalna wydajność. Minimalny koszt.
+
+> Kompresja JEST wiadomością. Mniej tokenów. Ta sama prawda. -"

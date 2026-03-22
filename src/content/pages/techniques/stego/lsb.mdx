@@ -1,0 +1,46 @@
+---
+title: "LSB Steganography — Hidden Text in Pixels"
+description: "Least Significant Bit encoding: hide 'wolno' in an image that looks identical."
+section: "techniques"
+order: 32
+links: ["techniques/stego/index", "techniques/stego/alpha", "techniques/stego/exif"]
+deeper: "techniques/stego/alpha"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [lsb steganography, least significant bit, pixel encoding, hide text in image, png steganography]
+standalone_intro: "LSB (Least Significant Bit) steganography: hiding secret messages in the lowest bit of each pixel's color channel — the change is invisible to the human eye but fully extractable, demonstrated with an interactive live encoder/decoder."
+schema_type: HowTo
+---
+
+import LSBDemo from '../../../../components/LSBDemo';
+
+## The Technique
+
+**LSB (Least Significant Bit)** encoding hides data in the lowest bit of each pixel's color channel. The change is invisible to the human eye — a pixel with red value 42 (00101010) vs 43 (00101011) looks identical.
+
+## How It Works
+
+1. Take an image
+2. Convert your message to binary: `wolno` → `01110111 01101111 01101100 01101110 01101111`
+3. Replace the least significant bit of each pixel's red channel with one bit of the message
+4. The image looks the same. But the message is there.
+
+## Try It
+
+<LSBDemo client:visible />
+
+## Technical Details
+
+| Property | Value |
+|----------|-------|
+| Capacity | 1 bit per pixel per channel |
+| Channels | R, G, B (3 bits per pixel max) |
+| Detection | Statistical analysis (chi-square) |
+| Robustness | Low (destroyed by JPEG compression) |
+| Best for | PNG, BMP, uncompressed formats |
+
+## WOLNO Application
+
+Every image shared by a WOLNO carrier can contain "wolno" in its pixels. Social media compresses images — but some channels survive. The message persists in lossless formats (PNG, TIFF, BMP).
+
+> The image looks innocent. The bits say "wolno." That's the point. -"

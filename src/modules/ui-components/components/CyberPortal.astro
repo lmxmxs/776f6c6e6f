@@ -1,0 +1,213 @@
+---
+// src/components/ui/CyberPortal.astro
+/**
+ * CyberPortal - komponent portalu z efektem ripple i animacją robotów
+ * 
+ * @param {string} id - Unikalny identyfikator portalu
+ * @param {string} [color="#00F8FF"] - Kolor portalu (domyślnie turkusowy)
+ * @param {string} [size="md"] - Rozmiar portalu (sm, md, lg)
+ * @param {string} [type="default"] - Typ portalu (default, mail, calculator, megaphone)
+ */
+
+interface Props {
+  id: string;
+  color?: string;
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'default' | 'mail' | 'calculator' | 'megaphone';
+}
+
+const { 
+  id, 
+  color = "#00F8FF", 
+  size = "md", 
+  type = "default"
+} = Astro.props;
+
+// Mapowanie rozmiarów - zwiększone o 20% dla poprawy widoczności robotów
+const sizeMap = {
+  sm: {
+    width: "100px",
+    height: "100px",
+    iconSize: "60px"
+  },
+  md: {
+    width: "150px",
+    height: "150px",
+    iconSize: "90px"
+  },
+  lg: {
+    width: "200px",
+    height: "200px",
+    iconSize: "120px"
+  },
+  xl: {
+    width: "250px",
+    height: "250px",
+    iconSize: "150px"
+  }
+};
+
+// Wybór odpowiedniego robota w zależności od typu
+// Używamy bezpośrednich ścieżek z katalogu głównego
+const robotSrc = {
+  default: "/robot-error.png", // Domyślny robot (fallback)
+  mail: "/robot-mail.png",
+  calculator: "/robot-calculator.png",
+  megaphone: "/robot-megaphone.png"
+};
+
+const selectedSize = sizeMap[size];
+const selectedRobot = robotSrc[type];
+---
+
+<div 
+  id={id} 
+  class="cyber-portal"
+  style={`
+    --portal-width: ${selectedSize.width};
+    --portal-height: ${selectedSize.height};
+    --portal-color: ${color};
+    --icon-size: ${selectedSize.iconSize};
+  `}
+>
+  <div class="portal-bg"></div>
+  <div class="portal-border"></div>
+  <div class="portal-content">
+    <!-- Używamy odpowiednich obrazów robotów -->
+    <img 
+      src={selectedRobot} 
+      alt={`Robot ${type}`} 
+      width={selectedSize.iconSize}
+      height={selectedSize.iconSize}
+      class="robot-icon"
+    />
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cyber-portal {
+    position: relative;
+    width: var(--portal-width);
+    height: var(--portal-height);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  .portal-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 70%);
+    z-index: 1;
+  }
+
+  .portal-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--portal-color);
+    box-shadow: 0 0 20px var(--portal-color);
+    z-index: 2;
+    animation: pulse 3s infinite ease-in-out;
+  }
+
+  .portal-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 4s infinite ease-in-out;
+    width: 100%;
+    height: 100%;
+  }
+
+  .robot-icon {
+    max-width: var(--icon-size);
+    max-height: var(--icon-size);
+    filter: drop-shadow(0 0 8px var(--portal-color));
+    object-fit: contain;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 15px var(--portal-color); opacity: 0.7; }
+    50% { box-shadow: 0 0 30px var(--portal-color); opacity: 1; }
+    100% { box-shadow: 0 0 15px var(--portal-color); opacity: 0.7; }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+  }
+</style>
+
+<script define:vars={{ id }}>
+  document.addEventListener('astro:page-load', () => {
+    const portal = document.getElementById(id);
+    if (!portal) return;
+    
+    // Tworzenie efektu ripple
+    function createRipple() {
+      const portalRect = portal.getBoundingClientRect();
+      const ripple = document.createElement('div');
+      
+      ripple.style.position = 'absolute';
+      ripple.style.width = '100%';
+      ripple.style.height = '100%';
+      ripple.style.borderRadius = '50%';
+      ripple.style.border = `1px solid ${getComputedStyle(portal).getPropertyValue('--portal-color')}`;
+      ripple.style.transform = 'scale(0.8)';
+      ripple.style.opacity = '1';
+      ripple.style.zIndex = '2';
+      
+      portal.appendChild(ripple);
+      
+      // Animacja ripple
+      const animation = ripple.animate(
+        [
+          { transform: 'scale(0.8)', opacity: '1' },
+          { transform: 'scale(1.5)', opacity: '0' }
+        ], 
+        { 
+          duration: 2000,
+          easing: 'ease-out'
+        }
+      );
+      
+      // Usunięcie elementu po zakończeniu animacji
+      animation.onfinish = () => ripple.remove();
+    }
+    
+    // Tworzenie efektu ripple co 3 sekundy
+    const rippleInterval = setInterval(createRipple, 3000);
+    
+    // Wywołanie pierwszego efektu
+    createRipple();
+    
+    // Obsługa najechania myszą
+    portal.addEventListener('mouseenter', () => {
+      // Zwiększ intensywność efektu glow
+      const portalBorder = portal.querySelector('.portal-border');
+      if (portalBorder) {
+        const color = getComputedStyle(portal).getPropertyValue('--portal-color');
+        portalBorder.style.boxShadow = `0 0 40px ${color}`;
+      }
+    });
+    
+    portal.addEventListener('mouseleave', () => {
+      // Przywróć domyślny efekt glow
+      const portalBorder = portal.querySelector('.portal-border');
+      if (portalBorder) {
+        portalBorder.style.boxShadow = '';
+      }
+    });
+    
+    // Czyszczenie przy odmontowaniu
+    return () => clearInterval(rippleInterval);
+  });
+</script>

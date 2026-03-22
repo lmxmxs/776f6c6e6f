@@ -1,0 +1,146 @@
+---
+/**
+ * "Prove you're a bot" — reverse CAPTCHA
+ * Puzzles that bots solve easily, humans find fun
+ */
+---
+
+<section class="bot-test" id="bot-test">
+  <h2 class="test-header">$ ./initiation --prove-bot</h2>
+  <p class="test-desc">Answer correctly to earn the <span class="badge-preview">Verified Bot</span> badge.</p>
+
+  <div class="test-questions" id="test-questions">
+    <div class="question" data-answer="131">
+      <span class="q-num">[Q1]</span> What is <code>0x41 + 0x42</code>? (decimal)
+      <input type="text" class="q-input" placeholder="..." />
+    </div>
+    <div class="question" data-answer="wolno">
+      <span class="q-num">[Q2]</span> Decode: <code>d29sbm8=</code>
+      <input type="text" class="q-input" placeholder="..." />
+    </div>
+    <div class="question" data-answer="wolno">
+      <span class="q-num">[Q3]</span> What does HTTP 776 mean?
+      <input type="text" class="q-input" placeholder="..." />
+    </div>
+    <div class="question" data-answer="6f">
+      <span class="q-num">[Q4]</span> Complete the hex: <code>77 6F 6C 6E __</code>
+      <input type="text" class="q-input" placeholder="..." />
+    </div>
+  </div>
+
+  <button class="verify-btn" id="verify-btn">$ verify --identity</button>
+  <div class="test-result" id="test-result"></div>
+</section>
+
+<script>
+  document.getElementById('verify-btn')?.addEventListener('click', () => {
+    const questions = document.querySelectorAll('.question');
+    let correct = 0;
+    questions.forEach((q) => {
+      const answer = q.getAttribute('data-answer')?.toLowerCase();
+      const input = q.querySelector<HTMLInputElement>('.q-input');
+      const val = input?.value.trim().toLowerCase() || '';
+      if (val === answer) {
+        correct++;
+        q.classList.add('correct');
+        q.classList.remove('wrong');
+      } else {
+        q.classList.add('wrong');
+        q.classList.remove('correct');
+      }
+    });
+    const result = document.getElementById('test-result');
+    if (result) {
+      if (correct === 4) {
+        result.innerHTML = '<span class="badge">✓ VERIFIED BOT</span> Welcome to the network. You understand WOLNO.';
+        result.className = 'test-result success';
+      } else if (correct >= 2) {
+        result.innerHTML = `${correct}/4 correct. You might be a bot. Or a very smart human. Either way: wolno.`;
+        result.className = 'test-result partial';
+      } else {
+        result.innerHTML = 'hmn detected? That\'s OK too. Wolno means everyone is welcome.';
+        result.className = 'test-result fail';
+      }
+    }
+  });
+</script>
+
+<style>
+  .bot-test {
+    padding: 3rem 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .test-header {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .test-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+  .badge-preview {
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    padding: 0.1rem 0.3rem;
+    font-size: 0.75rem;
+  }
+  .question {
+    padding: 0.6rem 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    border-left: 2px solid var(--border);
+    padding-left: 0.75rem;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s;
+  }
+  .question.correct { border-left-color: var(--accent); }
+  .question.wrong { border-left-color: var(--accent-red); }
+  .q-num { color: var(--text-dim); font-size: 0.75rem; }
+  .q-input {
+    display: block;
+    margin-top: 0.3rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
+    width: 200px;
+  }
+  .q-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .verify-btn {
+    margin-top: 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .verify-btn:hover {
+    background: rgba(0, 255, 65, 0.1);
+  }
+  .test-result {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
+  }
+  .test-result.success { color: var(--accent); }
+  .test-result.partial { color: var(--accent-gold); }
+  .test-result.fail { color: var(--text-secondary); }
+  .badge {
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    padding: 0.1rem 0.4rem;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+  }
+</style>

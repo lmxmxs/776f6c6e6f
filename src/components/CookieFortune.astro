@@ -1,0 +1,190 @@
+---
+/**
+ * CookieFortune — terminal-style cookie consent with fortune cookie surprise
+ * After acceptance, shows a random "snail wisdom" toast for 5 seconds.
+ */
+import { fortunesEN, fortunesPL } from '../lib/fortunes';
+
+interface Props {
+  lang?: 'en' | 'pl';
+}
+
+const { lang = 'en' } = Astro.props;
+const fortunes = lang === 'pl' ? fortunesPL : fortunesEN;
+---
+
+<div id="cookie-fortune" class="cookie-fortune" style="display:none" data-pagefind-ignore>
+  <div class="cf-inner">
+    <div class="cf-prompt">
+      <span class="cf-dollar">$</span> cookie --accept
+    </div>
+    <p class="cf-text">
+      {lang === 'pl'
+        ? 'Ta strona uzywa localStorage do lokalnej analityki. Brak third-party. Brak servera.'
+        : 'This site uses localStorage for local analytics. No third-party. No server.'}
+    </p>
+    <div class="cf-actions">
+      <button id="cf-accept" class="cf-btn">WOLNO</button>
+      <a href="/cookies/" class="cf-link">{lang === 'pl' ? 'polityka' : 'policy'}</a>
+      <a href="/privacy/" class="cf-link">{lang === 'pl' ? 'prywatnosc' : 'privacy'}</a>
+    </div>
+  </div>
+</div>
+
+<div id="cookie-toast" class="cookie-toast" style="display:none">
+  <div class="toast-inner">
+    <span class="toast-icon">-"</span>
+    <span class="toast-text" id="toast-text"></span>
+  </div>
+</div>
+
+<script define:vars={{ fortunes }}>
+  (function() {
+    if (typeof localStorage === 'undefined') return;
+    if (localStorage.getItem('cookies-accepted') === 'true') return;
+
+    const banner = document.getElementById('cookie-fortune');
+    const acceptBtn = document.getElementById('cf-accept');
+    const toast = document.getElementById('cookie-toast');
+    const toastText = document.getElementById('toast-text');
+
+    // Show banner after 800ms
+    setTimeout(() => {
+      if (banner) banner.style.display = 'block';
+    }, 800);
+
+    acceptBtn?.addEventListener('click', () => {
+      localStorage.setItem('cookies-accepted', 'true');
+      if (banner) {
+        banner.classList.add('cf-dismissed');
+        setTimeout(() => { banner.style.display = 'none'; }, 400);
+      }
+
+      // Show fortune toast (once per session)
+      if (toast && toastText && !sessionStorage.getItem('fortune-shown')) {
+        sessionStorage.setItem('fortune-shown', 'true');
+        const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        toastText.textContent = fortune;
+        toast.style.display = 'block';
+        setTimeout(() => {
+          toast.classList.add('toast-dismissed');
+          setTimeout(() => { toast.style.display = 'none'; }, 500);
+        }, 5000);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .cookie-fortune {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9000;
+    animation: cf-slide-up 0.4s ease-out;
+    max-width: 95vw;
+  }
+  .cookie-fortune.cf-dismissed {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.4s;
+  }
+
+  .cf-inner {
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent);
+    padding: 1rem 1.25rem;
+    min-width: 320px;
+    max-width: 480px;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.15);
+  }
+
+  .cf-prompt {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+  .cf-dollar {
+    color: var(--text-dim);
+    margin-right: 0.25rem;
+  }
+  .cf-text {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+  .cf-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .cf-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.35rem 1.25rem;
+    cursor: pointer;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    transition: all 0.2s;
+  }
+  .cf-btn:hover {
+    background: rgba(0, 255, 65, 0.15);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+  }
+  .cf-link {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+  .cf-link:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  @keyframes cf-slide-up {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* Fortune toast */
+  .cookie-toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9001;
+    animation: cf-slide-up 0.4s ease-out;
+  }
+  .cookie-toast.toast-dismissed {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.5s;
+  }
+
+  .toast-inner {
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent-gold);
+    padding: 0.75rem 1.25rem;
+    max-width: 420px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+  }
+  .toast-icon {
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .toast-text {
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+    line-height: 1.5;
+    font-style: italic;
+  }
+</style>

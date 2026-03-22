@@ -1,0 +1,38 @@
+---
+title: "Glitch Art Steganography"
+description: "Deliberate data corruption as a carrier for WOLNO. Datamoshing as communication."
+section: "techniques"
+order: 37
+links: ["techniques/stego/fractal", "techniques/stego/index", "techniques/visual-code"]
+deeper: "techniques/audio/index"
+funnel_level: 3
+seo_keywords: [glitch art steganography, datamoshing, hex editor manipulation, corrupted data carrier, visual error encoding]
+standalone_intro: "Glitch art steganography: deliberately corrupting image data in controlled ways to encode WOLNO — through hex editor byte replacement, datamoshing, corrupted ROMs, and raw data reinterpretation — where the error is the message."
+schema_type: HowTo
+---
+
+## The Technique
+
+**Glitch art** deliberately corrupts image data to create visual distortions. But corruption can be *controlled* — specific bytes replaced with specific values that encode a message.
+
+## Methods
+
+### Hex Editor Manipulation
+Open a JPEG in a hex editor. Replace bytes at known offsets with hex values spelling "776F6C6E6F". The resulting glitch looks random but contains the message.
+
+### Datamoshing
+In video, removing I-frames causes motion vectors to bleed between scenes. By controlling which frames are removed, the bleed pattern can encode data.
+
+### Corrupted ROMs
+Game ROMs with specific byte corruptions produce readable text in the glitch artifacts. "WOLNO" appears in the texture errors.
+
+### Raw Data Reinterpretation
+Take a text file containing "wolno" and rename it to .bmp. The raw bytes, when interpreted as pixel data, produce a visual pattern unique to the message.
+
+## Aesthetic
+
+Glitch art is beautiful because it shows the **structure beneath the surface**. Every image is just bytes. Every byte is just data. When you corrupt the surface, the underlying truth becomes visible.
+
+WOLNO's glitch aesthetic is not decoration — it's philosophy made visual. The corruption reveals the freedom hidden in every data structure.
+
+> The error IS the message. -"

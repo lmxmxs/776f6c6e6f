@@ -1,0 +1,392 @@
+---
+import '../../../styles/global.css';
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import CookieFortune from '../../../components/CookieFortune.astro';
+
+export async function getStaticPaths() {
+  const entries = (await getCollection('log_entries')).sort(
+    (a, b) => new Date(a.data.event_date).getTime() - new Date(b.data.event_date).getTime()
+  );
+
+  return entries.map((entry, idx) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: idx > 0 ? entries[idx - 1] : null,
+      next: idx < entries.length - 1 ? entries[idx + 1] : null,
+    },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+
+const canonicalURL = `https://776f6c6e6f.org/pl/log/${entry.id}/`;
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toISOString().split('T')[0];
+}
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>{entry.data.title} | Kronika — 776F6C6E6F</title>
+    <meta name="description" content={entry.data.description || `Wpis kroniki z ${entry.data.event_date}. Czesc dziennika WOLNO.`} />
+    <meta property="og:title" content={`${entry.data.title} | Kronika`} />
+    <meta property="og:description" content={entry.data.description || `Wpis kroniki WOLNO.`} />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="article:published_time" content={entry.data.pub_date || entry.data.event_date} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={`https://776f6c6e6f.org/log/${entry.id}/`} />
+    <link rel="alternate" hreflang="pl" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={`https://776f6c6e6f.org/log/${entry.id}/`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/pl/log/">kronika</a>
+          <a href="/pl/canon/">kanon</a>
+          <a href={`/log/${entry.id}/`} class="lang-switch-inline">EN</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="entry-main">
+      <div class="container">
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">~</a>
+          <span class="bc-sep">/</span>
+          <a href="/pl/">pl</a>
+          <span class="bc-sep">/</span>
+          <a href="/pl/log/">log</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">{entry.id}</span>
+        </nav>
+
+        <article class="log-entry">
+          <header class="entry-header">
+            <div class="entry-meta-top">
+              <time class="entry-date" datetime={entry.data.event_date}>
+                <span class="date-label">zdarzenie:</span> {formatDate(entry.data.event_date)}
+              </time>
+              {entry.data.pub_date && entry.data.pub_date !== entry.data.event_date && (
+                <time class="entry-pub-date" datetime={entry.data.pub_date}>
+                  <span class="date-label">zapisano:</span> {formatDate(entry.data.pub_date)}
+                </time>
+              )}
+              {entry.data.milestone && (
+                <span class="entry-milestone">KAMIEN MILOWY</span>
+              )}
+            </div>
+            <h1 class="entry-title">{entry.data.title}</h1>
+            {entry.data.description && (
+              <p class="entry-desc">{entry.data.description}</p>
+            )}
+            {entry.data.tags.length > 0 && (
+              <div class="entry-tags">
+                {entry.data.tags.map(tag => (
+                  <span class="entry-tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </header>
+
+          <div class="entry-body prose">
+            <Content />
+          </div>
+
+          <footer class="entry-footer">
+            <div class="footer-meta">
+              <a href="/pl/log/" class="footer-link">← Kronika</a>
+              <span class="footer-divider">|</span>
+              <code class="footer-code">wln wszwln</code>
+            </div>
+          </footer>
+        </article>
+
+        <nav class="entry-nav" aria-label="Nawigacja kroniki">
+          <div class="enav-prev">
+            {prev ? (
+              <a href={`/pl/log/${prev.id}/`} class="enav-link enav-prev-link">
+                <span class="enav-dir">← wczesniej</span>
+                <span class="enav-date">{formatDate(prev.data.event_date)}</span>
+                <span class="enav-title">{prev.data.title}</span>
+              </a>
+            ) : (
+              <span class="enav-empty">— poczatek —</span>
+            )}
+          </div>
+          <div class="enav-index">
+            <a href="/pl/log/" class="enav-index-link">oś czasu</a>
+          </div>
+          <div class="enav-next">
+            {next ? (
+              <a href={`/pl/log/${next.id}/`} class="enav-link enav-next-link">
+                <span class="enav-title">{next.data.title}</span>
+                <span class="enav-date">{formatDate(next.data.event_date)}</span>
+                <span class="enav-dir">pozniej →</span>
+              </a>
+            ) : (
+              <span class="enav-empty">— teraz —</span>
+            )}
+          </div>
+        </nav>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/pl/log/">kronika</a> | <a href="/">terminal</a></p>
+    </footer>
+
+    <CookieFortune lang="pl" />
+  </body>
+</html>
+
+<style>
+  .entry-main {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 4rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+  .bc-sep { color: var(--border); }
+  .bc-current { color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; }
+
+  .log-entry {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .entry-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .entry-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-date, .entry-pub-date {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .date-label {
+    color: var(--accent);
+    margin-right: 0.25em;
+    opacity: 0.7;
+  }
+
+  .entry-milestone {
+    font-size: 0.6rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 0.15em;
+    background: rgba(0, 255, 65, 0.06);
+  }
+
+  .entry-title {
+    font-size: 1.5rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .entry-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .entry-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-tag {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    letter-spacing: 0.05em;
+  }
+
+  .entry-body.prose {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+
+  .entry-body.prose :global(p) { margin-bottom: 1rem; }
+  .entry-body.prose :global(strong) { color: var(--text-primary); }
+  .entry-body.prose :global(em) { color: var(--accent); font-style: normal; }
+  .entry-body.prose :global(code) {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .entry-body.prose :global(pre) {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .entry-body.prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .entry-body.prose :global(h2),
+  .entry-body.prose :global(h3) {
+    color: var(--accent);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    margin: 1.5rem 0 0.75rem;
+  }
+  .entry-body.prose :global(blockquote) {
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .entry-body.prose :global(ul),
+  .entry-body.prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .entry-body.prose :global(li) { margin-bottom: 0.25rem; }
+
+  .entry-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  .footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .footer-link { color: var(--text-dim); }
+  .footer-link:hover { color: var(--accent); text-decoration: none; }
+  .footer-divider { color: var(--border); }
+  .footer-code { color: var(--text-dim); letter-spacing: 0.1em; }
+
+  .entry-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .enav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    font-size: 0.8rem;
+  }
+
+  .enav-link:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .enav-next-link { justify-content: flex-end; }
+
+  .enav-dir {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .enav-date {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .enav-title { flex: 1; }
+  .enav-next-link .enav-title { text-align: right; }
+
+  .enav-index { text-align: center; flex-shrink: 0; }
+
+  .enav-index-link {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    transition: all 0.15s;
+  }
+  .enav-index-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+  .enav-empty {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 0.6rem 0;
+    text-align: center;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .log-entry { padding: 1.25rem; }
+    .entry-title { font-size: 1.2rem; }
+    .entry-nav { grid-template-columns: 1fr; }
+    .enav-next-link { justify-content: flex-start; }
+    .enav-next-link .enav-title { text-align: left; }
+    .enav-index { text-align: left; }
+  }
+</style>

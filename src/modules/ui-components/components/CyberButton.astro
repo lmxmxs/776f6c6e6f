@@ -1,0 +1,394 @@
+---
+// @PATH:/src/components/ui/CyberButton.astro
+// @PROJECT:barnabaai
+interface Props {
+  text: string;
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  color?: 'green' | 'blue' | 'magenta' | 'yellow' | string;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  id?: string;
+}
+
+const { 
+  text, 
+  href, 
+  type = 'button',
+  color = 'green',
+  size = 'md',
+  class: className, 
+  id 
+} = Astro.props;
+
+  // Mapowanie kolorów
+const colorConfig = {
+  green: {
+    borderColor: "#00ffe1",
+    backgroundColor: "rgba(45, 175, 18, 0.82)",
+    fireflyColor: "#fbff00",
+    textColor: "#FFFFFF"
+  },
+  blue: {
+    borderColor: "#00F8FF",
+    backgroundColor: "rgba(0, 120, 255, 0.8)",
+    fireflyColor: "#FFFFFF",
+    textColor: "#FFFFFF"
+  },
+  magenta: {
+    borderColor: "#FF00FF",
+    backgroundColor: "rgba(180, 0, 180, 0.8)",
+    fireflyColor: "#FFFF00",
+    textColor: "#FFFFFF"
+  },
+  yellow: {
+    borderColor: "#FFCC00",
+    backgroundColor: "rgba(255, 204, 0, 0.8)",
+    fireflyColor: "#FFFFFF",
+    textColor: "#000000"
+  }
+};
+
+// Mapowanie rozmiarów
+const sizeConfig = {
+  sm: {
+    fontSize: 14,
+    paddingH: 20,
+    paddingV: 8,
+    fireflySize: 6,
+    fireflyGlow: 10, // Zmniejszona wartość dla lepszej wydajności
+    fireflyCount: 5
+  },
+  md: {
+    fontSize: 16,
+    paddingH: 27,
+    paddingV: 12,
+    fireflySize: 8,
+    fireflyGlow: 15, // Zmniejszona wartość dla lepszej wydajności
+    fireflyCount: 5
+  },
+  lg: {
+    fontSize: 18,
+    paddingH: 35,
+    paddingV: 16,
+    fireflySize: 10,
+    fireflyGlow: 20, // Zmniejszona wartość dla lepszej wydajności
+    fireflyCount: 5
+  }
+};
+
+const colorTheme = colorConfig[color] || {
+  borderColor: color,
+  backgroundColor: "rgba(0, 120, 255, 0.8)", // Domyślny
+  fireflyColor: "#FFFFFF",
+  textColor: "#FFFFFF"
+};
+const sizeTheme = sizeConfig[size] || sizeConfig.md;
+
+// Generowanie unikalnego ID
+const buttonId = id || `cyber-button-${Math.random().toString(36).substring(2, 11)}`;
+
+// Predefiniowane pozycje świetlików dla lepszej widoczności
+const fireflyPositions = [
+  { x: -40, y: -30 },
+  { x: 40, y: -30 },
+  { x: -50, y: 20 },
+  { x: 50, y: 20 },
+  { x: 0, y: -50 },
+  { x: 0, y: 40 },
+  { x: -70, y: 0 },
+  { x: 70, y: 0 }
+];
+---
+
+<div class={`cyber-button-container ${className || ''}`} id={`container-${buttonId}`}>
+  <!-- Statyczne świetliki jako fallback -->
+  <div class="fireflies-container" id={`fireflies-${buttonId}`}>
+    {Array(sizeTheme.fireflyCount).fill(0).map((_, index) => (
+      <div 
+        class="firefly static-firefly" 
+        style={`left: calc(50% + ${fireflyPositions[index % fireflyPositions.length].x}px); 
+                top: calc(50% + ${fireflyPositions[index % fireflyPositions.length].y}px);`}>
+      </div>
+    ))}
+  </div>
+  
+  {href ? (
+    <a href={href} class="cyber-button" id={buttonId}>
+      {text}
+    </a>
+  ) : (
+    <button type={type} class="cyber-button" id={buttonId}>
+      {text}
+    </button>
+  )}
+</div>
+
+<style define:vars={{
+  borderColor: colorTheme.borderColor,
+  backgroundColor: colorTheme.backgroundColor,
+  textColor: colorTheme.textColor,
+  fontSize: `${sizeTheme.fontSize}px`,
+  paddingH: `${sizeTheme.paddingH}px`,
+  paddingV: `${sizeTheme.paddingV}px`,
+  fireflyColor: colorTheme.fireflyColor,
+  fireflySize: `${sizeTheme.fireflySize}px`,
+  fireflyGlow: `${sizeTheme.fireflyGlow}px`
+}}>
+  .cyber-button-container {
+    position: relative;
+    display: inline-block;
+    isolation: isolate;
+  }
+
+  .fireflies-container {
+    position: absolute;
+    width: 600px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5; /* Zwiększony z-index ponad przycisk */
+  }
+
+  .cyber-button {
+    position: relative;
+    padding: var(--paddingV) var(--paddingH);
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+    font-size: var(--fontSize);
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    border: 3px solid var(--borderColor);
+    border-radius: 27px;
+    cursor: pointer;
+    z-index: 3; /* Środkowy z-index jako punkt odniesienia */
+    box-shadow: 0 0 8px var(--borderColor);
+    transition: all 0.5s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .cyber-button:hover {
+    box-shadow: 0 0 22px var(--borderColor);
+    transform: scale(1.05);
+  }
+
+  .cyber-button:active {
+    transform: scale(0.98);
+  }
+  
+  .firefly {
+    position: absolute;
+    width: var(--fireflySize);
+    height: var(--fireflySize);
+    background-color: var(--fireflyColor);
+    border-radius: 50%;
+    /* Bardzo uproszczony efekt świecenia - tylko jeden box-shadow */
+    box-shadow: 0 0 var(--fireflyGlow) var(--fireflyColor);
+    opacity: 0.95;
+    pointer-events: none;
+    will-change: transform, left, top; /* Wskazówka dla przeglądarki o optymalizacji */
+  }
+  
+  /* Klasa dla świetlików pod przyciskiem */
+  .firefly-below {
+    opacity: 0.4;
+    /* Tylko pojedynczy, prosty efekt świecenia */
+    box-shadow: 0 0 calc(var(--fireflyGlow) * 0.7) var(--fireflyColor);
+  }
+  
+  .static-firefly {
+    animation: fireflyPulse 4s infinite alternate ease-in-out;
+  }
+  
+  @keyframes fireflyPulse {
+    0% {
+      transform: scale(0.85);
+      opacity: 0.75;
+    }
+    100% {
+      transform: scale(1.15);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script define:vars={{ buttonId, sizeTheme, colorTheme }}>
+  // Zmienne do śledzenia pozycji kursora
+  let mouseX = 0;
+  let mouseY = 0;
+  let isMouseOver = false;
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('CyberButton initialized:', buttonId);
+    initDynamicFireflies();
+  });
+  
+  document.addEventListener('astro:page-load', function() {
+    console.log('Astro page loaded:', buttonId);
+    initDynamicFireflies();
+  });
+  
+  // Fallback w przypadku gdy żadne z powyższych zdarzeń nie zadziała
+  setTimeout(() => {
+    console.log('CyberButton timeout fallback:', buttonId);
+    initDynamicFireflies();
+  }, 500);
+  
+  function initDynamicFireflies() {
+    const container = document.getElementById(`container-${buttonId}`);
+    const firefliesContainer = document.getElementById(`fireflies-${buttonId}`);
+    
+    if (!container || !firefliesContainer) {
+      console.error('CyberButton containers not found:', buttonId);
+      return;
+    }
+    
+    console.log('Initializing dynamic fireflies for:', buttonId);
+    
+    // Nasłuchiwanie zdarzeń myszy dla kontenera
+    container.addEventListener('mousemove', handleMouseMove);
+    container.addEventListener('mouseenter', () => { isMouseOver = true; });
+    container.addEventListener('mouseleave', () => { isMouseOver = false; });
+    
+    // Usunięcie statycznych świetlików
+    const staticFireflies = firefliesContainer.querySelectorAll('.static-firefly');
+    staticFireflies.forEach(firefly => {
+      firefly.classList.remove('static-firefly');
+      animateFirefly(firefly, firefliesContainer);
+    });
+  }
+  
+  function handleMouseMove(event) {
+    const container = document.getElementById(`container-${buttonId}`);
+    if (!container) return;
+    
+    const rect = container.getBoundingClientRect();
+    
+    // Pozycja myszy względem środka kontenera
+    mouseX = event.clientX - (rect.left + rect.width / 2);
+    mouseY = event.clientY - (rect.top + rect.height / 2);
+  }
+  
+  function animateFirefly(firefly, container) {
+    // Zmniejszona prędkość o kolejne 10%
+    let time = Math.random() * 100;
+    const baseSpeed = (0.027 + Math.random() * 0.0135); // Zmniejszona o 10% od poprzedniej
+    let currentSpeed = baseSpeed; // Aktualna prędkość, może się zmieniać
+    
+    // Proste parametry ruchu
+    let radius = 60 + Math.random() * 30; 
+    let phase = Math.random() * Math.PI * 2;
+    
+    // Pozycja świetlika - początkowe wartości
+    let currentX = parseInt(firefly.style.left) || 0;
+    let currentY = parseInt(firefly.style.top) || 0;
+    
+    // Zindeksowanie dla warstw
+    let zIndexAbove = 5;
+    let zIndexBelow = 1;
+    
+    // Ustawiamy kolor świecenia i właściwości tylko raz zamiast w każdej klatce
+    const glowColor = getComputedStyle(firefly).getPropertyValue('--fireflyColor');
+    const baseGlow = parseFloat(getComputedStyle(firefly).getPropertyValue('--fireflyGlow'));
+    
+    // Losujemy czy rozpoczynamy nad czy pod przyciskiem
+    if (Math.random() < 0.3) {
+      firefly.classList.add('firefly-below');
+      firefly.style.zIndex = zIndexBelow;
+      
+      // Ustawiamy efekt świecenia na stałe (raz zamiast w każdej klatce)
+      firefly.style.boxShadow = `0 0 ${baseGlow * 2}px ${glowColor}`;
+      firefly.style.opacity = "0.4";
+    } else {
+      firefly.style.zIndex = zIndexAbove;
+      
+      // Ustawiamy efekt świecenia na stałe (raz zamiast w każdej klatce)
+      firefly.style.boxShadow = `0 0 ${baseGlow * 3}px ${glowColor}`;
+      firefly.style.opacity = "0.9";
+    }
+    
+    // Dla wydajności ustawiamy te style tylko raz
+    firefly.style.background = glowColor;
+    
+    // Używamy transform dla lepszej wydajności
+    let transformValue = "";
+    
+    function animate() {
+      // Dynamiczna prędkość - szybciej gdy myszka jest nad przyciskiem
+      if (isMouseOver) {
+        currentSpeed = baseSpeed * 2.25; // Również zmniejszone o 10% (z 2.5x)
+      } else {
+        // Płynnie wracamy do normalnej prędkości
+        currentSpeed = currentSpeed * 0.95 + baseSpeed * 0.05;
+      }
+      
+      time += currentSpeed;
+      
+      // Bardzo prosta eliptyczna trajektoria bez rotacji
+      let targetX = Math.cos(time + phase) * radius * 0.8;
+      let targetY = Math.sin(time + phase) * radius * 1.2;
+      
+      // Zwiększony zasięg i reakcja na kursor
+      const distanceX = mouseX - targetX;
+      const distanceY = mouseY - targetY;
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+      
+      // Jeszcze większy zasięg reakcji (350px) i silniejsze przyciąganie
+      if (distance < 350) {
+        // Znacznie silniejsze przyciąganie gdy bliżej kursora
+        const baseAttraction = isMouseOver ? 0.25 : 0.15; // Silniejsze przyciąganie
+        
+        // Odwrócona zależność od odległości - silniejszy efekt bliżej kursora
+        const distanceFactor = Math.pow(1 - Math.min(1, distance / 350), 2);
+        const attraction = baseAttraction * distanceFactor;
+        
+        // Bezpośrednia zmiana trajektorii w kierunku kursora
+        targetX = targetX * (1 - attraction) + mouseX * attraction;
+        targetY = targetY * (1 - attraction) + mouseY * attraction;
+      }
+      
+      // Proste śledzenie celu bez bufora - dla płynniejszego ruchu
+      currentX = currentX * 0.88 + targetX * 0.12; // Szybsza konwergencja (było 0.9/0.1)
+      currentY = currentY * 0.88 + targetY * 0.12;
+      
+      // Bezpośrednia aktualizacja pozycji
+      firefly.style.left = `calc(50% + ${currentX}px)`;
+      firefly.style.top = `calc(50% + ${currentY}px)`;
+      
+      // Przechodzenie pod/nad przyciskiem (rzadziej)
+      if (Math.random() < 0.005) {
+        if (firefly.classList.contains('firefly-below')) {
+          firefly.classList.remove('firefly-below');
+          firefly.style.zIndex = zIndexAbove;
+          firefly.style.boxShadow = `0 0 ${baseGlow * 3}px ${glowColor}`;
+          firefly.style.opacity = "0.9";
+        } else {
+          firefly.classList.add('firefly-below');
+          firefly.style.zIndex = zIndexBelow;
+          firefly.style.boxShadow = `0 0 ${baseGlow * 2}px ${glowColor}`;
+          firefly.style.opacity = "0.4";
+        }
+      }
+      
+      // Prosta pulsacja dostosowana do aktualnej prędkości
+      const pulseFreq = isMouseOver ? 2 : 1.5; // Szybsza pulsacja gdy myszka nad
+      const pulse = 0.9 + Math.sin(time * pulseFreq) * 0.15;
+      
+      // Używamy transform zamiast manipulować wieloma właściwościami
+      transformValue = `scale(${pulse})`;
+      firefly.style.transform = transformValue;
+      
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+  }
+</script>
+
+<!-- 🐌 2025-04-23 | /components/ui/CyberButton.astro -->

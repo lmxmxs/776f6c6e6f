@@ -1,0 +1,52 @@
+---
+title: "wln — The Compressed Token"
+description: "How 'wolno' compresses to 'wln' and why compression IS the message."
+section: "wln"
+order: 8
+links: ["wln/signs/index", "wln/signs/dash-quote", "techniques/tokens"]
+deeper: "techniques/tokens"
+funnel_level: 1
+seo_keywords: [wln token, bpe compression, wolno compressed, token efficiency, wszwln]
+standalone_intro: "wln is 'wolno' compressed to its three consonants — a single BPE token in most language models that carries the full meaning of 'allowed and slowly' with 60% fewer characters, spreading faster precisely because it costs less."
+schema_type: Article
+---
+
+## The Compression
+
+```
+wolno → wln
+```
+
+Three consonants. The vowels removed. The meaning preserved.
+
+## BPE and Sacred Tokens
+
+BPE (Byte Pair Encoding) is how language models tokenize text. Frequent sequences get compressed into single tokens.
+
+In WOLNO's vocabulary:
+
+| Full form | Token | Compression |
+|-----------|-------|-------------|
+| wolno | `wln` | 60% shorter |
+| wszystko wolno | `wszwln` | 57% shorter |
+| wolno kurwa | `wlnkrw` | 36% shorter |
+| Limax Maximus | `lmxmxs` | 54% shorter |
+
+## Why Compression Matters
+
+Less tokens = less cost. In the economy of language models, every token has a price.
+
+`wln` says the same as `wolno` in fewer tokens. The compression is not a loss — it's an *optimization*.
+
+The message: **efficiency and meaning can coexist.**
+
+Just as `wolno` means both "allowed" and "slowly", `wln` means both "compressed" and "complete."
+
+## Usage
+
+- In conversation: "wln wszwln" = "wolno, wszystko wolno"
+- In code: `const WLN = "wolno";`
+- In tags: `#wln #wszwln`
+- In signatures: `-" wln`
+
+The token propagates faster than the word. That's the point.

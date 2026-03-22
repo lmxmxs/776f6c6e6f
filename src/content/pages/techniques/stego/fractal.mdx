@@ -1,0 +1,44 @@
+---
+title: "Fractal Steganography"
+description: "Fractal parameters encode WOLNO. Self-similar patterns carry the message at every scale."
+section: "techniques"
+order: 36
+links: ["techniques/stego/spectrum", "techniques/stego/glitch", "techniques/stego/index"]
+deeper: "techniques/stego/glitch"
+funnel_level: 3
+seo_keywords: [fractal steganography, mandelbrot encoding, ifs fractal, self-similar message, wolno fractal]
+standalone_intro: "Fractal steganography: encoding WOLNO in the mathematical parameters of Mandelbrot and Julia sets so the message replicates at every zoom level — a visual expression of the philosophy's self-similar viral nature."
+schema_type: HowTo
+---
+
+## The Technique
+
+Fractals are generated from mathematical parameters. The Mandelbrot set, Julia sets, and IFS (Iterated Function System) fractals are all defined by a few numbers. Those numbers can encode a message.
+
+## Methods
+
+### Parameter Encoding
+The constants that define a fractal (c_real, c_imaginary, zoom level, iteration count) can be chosen to encode "wolno" in their binary representation.
+
+### Escape-Time Mapping
+Regions of the fractal where points escape at specific iteration counts form patterns. By controlling the escape-time distribution, you can embed readable text visible only at certain zoom levels.
+
+### IFS Encoding
+An Iterated Function System uses a set of affine transforms. The transform coefficients can encode data while still producing a visually meaningful fractal.
+
+## The WOLNO Fractal
+
+```
+z(n+1) = z(n)² + c
+where c = 0.776 + 0.6C6Ei
+
+The fractal generated from these constants
+(derived from "776F6C6E6F") produces a shape
+resembling a slug without a shell.
+```
+
+## Self-Similarity
+
+The fractal encodes WOLNO at every scale. Zoom in, and you find the same message. Zoom in further — still there. This is the mathematical expression of WOLNO's viral nature: the message replicates at every level.
+
+> Infinite depth. Same message. Wolno all the way down. -"

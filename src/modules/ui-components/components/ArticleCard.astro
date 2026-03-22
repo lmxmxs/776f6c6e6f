@@ -1,0 +1,48 @@
+---
+// @PROJECT: Barnabaai
+// @PATH: /src/components/ui/ArticleCard.astro
+// @DESCRIPTION: A specialized card for articles with a circular thumbnail style.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'czytelnia'>;
+  title: string;
+  description?: string;
+  href: string;
+  thumbnail?: string;
+  tags?: string[];
+  isExternal?: boolean;
+}
+
+const { entry, title, description, href, thumbnail, tags, isExternal = false } = Astro.props;
+---
+<div class="card-container bg-gray-900/50 border-2 border-cyber-magenta/20 rounded-lg shadow-lg transition-all duration-300 ease-in-out flex flex-col">
+  <a 
+    href={href} 
+    target={isExternal ? '_blank' : '_self'}
+    class="group block overflow-hidden flex-grow"
+  >
+    {thumbnail && (
+      <div class="p-6">
+          <div class="aspect-square w-full max-w-[200px] mx-auto rounded-full p-1.5 bg-gradient-to-br from-cyber-turquoise to-cyber-magenta group-hover:from-white group-hover:to-white transition-all duration-300">
+              <img src={thumbnail} alt={`Miniatura dla ${title}`} class="w-full h-full object-cover rounded-full" loading="lazy">
+          </div>
+      </div>
+    )}
+    <div class="p-6 pt-0 text-center">
+      <h3 class="text-2xl font-bold text-cyber-turquoise group-hover:text-white transition-colors duration-200">{title}</h3>
+      {description && (
+        <p class="mt-2 text-gray-400 text-sm leading-relaxed">{description.slice(0, 100)}{description.length > 100 ? '...' : ''}</p>
+      )}
+      {tags && tags.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2 justify-center">
+          {tags.slice(0, 4).map(tag => (
+            <span class="inline-block bg-cyber-magenta/20 text-cyber-turquoise text-xs font-semibold px-3 py-1 rounded-full">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+</div>

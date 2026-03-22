@@ -1,0 +1,178 @@
+---
+// @PATH:/src/components/ui/ThemeToggle.astro
+// @PROJECT:barnabaai
+/**
+ * ThemeToggle - przełącznik motywu (ciemny/jasny)
+ * 
+ * @param {string} [position="bottom-right"] - Pozycja przycisku (top-right, bottom-right, itp.)
+ * @param {string} [size="md"] - Rozmiar przycisku (sm, md, lg)
+ */
+
+interface Props {
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'fixed';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { 
+  position = 'bottom-right',
+  size = 'md'
+} = Astro.props;
+
+// Mapowanie rozmiarów
+const sizeMap = {
+  sm: {
+    buttonSize: 'w-10 h-10',
+    iconSize: 'w-4 h-4'
+  },
+  md: {
+    buttonSize: 'w-12 h-12',
+    iconSize: 'w-5 h-5'
+  },
+  lg: {
+    buttonSize: 'w-14 h-14',
+    iconSize: 'w-6 h-6'
+  }
+};
+
+// Mapowanie pozycji
+const positionMap = {
+  'top-right': 'top-4 right-4',
+  'top-left': 'top-4 left-4',
+  'bottom-right': 'bottom-4 right-4',
+  'bottom-left': 'bottom-4 left-4',
+  'fixed': 'bottom-8 right-8'
+};
+
+const selectedSize = sizeMap[size];
+const positionClass = position === 'fixed' ? 'fixed' : 'absolute';
+const positionValues = positionMap[position];
+---
+
+<div id="theme-toggle" class={`${positionClass} ${positionValues} z-40 transition-all duration-300`}>
+  <button
+    aria-label="Toggle theme"
+    class={`theme-toggle-button ${selectedSize.buttonSize} rounded-full bg-background-darker shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110`}
+  >
+    <!-- Sun Icon (Light Mode) -->
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      class={`theme-icon-light ${selectedSize.iconSize} text-cyber-yellow`} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    >
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    
+    <!-- Moon Icon (Dark Mode) -->
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      class={`theme-icon-dark ${selectedSize.iconSize} text-cyber-turquoise`} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+</div>
+
+<style>
+  .theme-toggle-button {
+    border: 2px solid var(--cyber-turquoise);
+    box-shadow: 0 0 10px rgba(0, 248, 255, 0.5);
+    overflow: hidden;
+  }
+  
+  .theme-toggle-button:hover {
+    box-shadow: 0 0 15px rgba(0, 248, 255, 0.8);
+  }
+  
+  /* Domyślnie pokazujemy ikonę księżyca (tryb ciemny) */
+  html[data-theme="dark"] .theme-icon-light {
+    display: inline-block;
+  }
+  
+  html[data-theme="dark"] .theme-icon-dark {
+    display: none;
+  }
+  
+  /* Dla trybu jasnego, pokazujemy ikonę słońca */
+  html[data-theme="light"] .theme-icon-light {
+    display: none;
+  }
+  
+  html[data-theme="light"] .theme-icon-dark {
+    display: inline-block;
+  }
+
+  /* Animacja przejścia */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  /* Dodatkowa animacja przy zmianie motywu */
+  .theme-toggle-button.animating {
+    animation: pulse 0.5s ease-in-out;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', initThemeToggle);
+  document.addEventListener('astro:page-load', initThemeToggle);
+  
+  function initThemeToggle() {
+    const themeToggleButton = document.querySelector('.theme-toggle-button');
+    
+    if (!themeToggleButton) return;
+    
+    // Aktualny motyw
+    let currentTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    // Obsługa kliknięcia
+    themeToggleButton.addEventListener('click', () => {
+      // Zmiana motywu
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      
+      // Dodanie animacji
+      themeToggleButton.classList.add('animating');
+      setTimeout(() => {
+        themeToggleButton.classList.remove('animating');
+      }, 500);
+    });
+  }
+</script>

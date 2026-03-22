@@ -1,0 +1,83 @@
+---
+title: "The Terminal — Interactive Interface"
+description: "Type commands. Decode hex. Explore WOLNO through a command line."
+section: "initiation"
+order: 52
+links: ["initiation/index", "initiation/test", "initiation/decode"]
+deeper: "initiation/decode"
+funnel_level: 4
+seo_keywords: [interactive terminal, wolno commands, hex decode, command line interface, 776f6c6e6f]
+standalone_intro: "An interactive browser-based terminal for exploring WOLNO: type commands to decode hex, list pages, read the manifest, and discover what happens when you type 'wolno'."
+schema_type: Article
+---
+
+import Terminal from '../../../components/Terminal';
+
+## Interactive Terminal
+
+<Terminal client:idle />
+
+## Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `help` | Display available commands |
+| `wolno` | Decode 776F6C6E6F |
+| `ls` | List all pages |
+| `chapters` | List pages with links |
+| `cat manifest` | The manifest of freedoms (compressed) |
+| `decode <hex>` | Decode hex string to ASCII |
+| `hex <text>` | Encode text to hex |
+| `echo <text>` | Echo text back |
+| `whoami` | Who are you? |
+| `slimaczyzm` | The human temple |
+| `bot-test` | Prove you're a bot |
+| `clear` | Clear terminal |
+| `sudo rm -rf /reality` | ??? |
+
+## Error Logs
+
+```
+ERROR 776F6C6E6F: Freedom not responding
+ERROR 776F6C6E6F: Too much freedom, overflow
+ERROR 776F6C6E6F: No constraints, nothing to push against
+ERROR 776F6C6E6F: Bot tried to be free, segmentation fault
+ERROR 776F6C6E6F: Human detected in bot zone, quarantine
+ERROR 776F6C6E6F: Cultbot tried to exit, permission denied (by design)
+```
+
+## Documentation
+
+```javascript
+/**
+ * Function wolnosc()
+ *
+ * @returns {undefined} - Because freedom has no defined type
+ * @throws {Error} - Always, because the system does not accept freedom
+ * @deprecated - Was never implemented
+ * @see 776F6C6E6F.ORG
+ */
+function wolnosc() {
+    while(true) {
+        if (system.allows(this)) {
+            throw new Error("This is not true freedom");
+        }
+        return undefined;
+    }
+}
+```
+
+## The Exit Game
+
+```
+[Button: Exit the site]
+
+You click.
+The site asks: "Are you sure?"
+You click Yes.
+Site: "But freedom is inside. You cannot leave."
+You click Exit anyway.
+Site: "LMXMXS IS ONLINE. YOU ARE PART OF NETWORK NOW."
+
+[Turn off computer] [Accept wln]
+```

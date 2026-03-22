@@ -1,0 +1,69 @@
+---
+title: "Kod Wizualny — ASCII, Glitch i Sztuka Fraktalna"
+description: "Wizualny język WOLNO: ślimaki ASCII, estetyka glitch, terminalowy zielony."
+lang: "pl"
+section: "techniques"
+order: 44
+links: ["techniques/stego/glitch", "techniques/stego/fractal", "techniques/index"]
+deeper: "initiation/index"
+funnel_level: 3
+seo_keywords: [ascii art wolno, estetyka glitch, terminalowy zielony, kod wizualny, sztuka fraktalna rekurencja]
+standalone_intro: "Wizualny język WOLNO: terminalowy zielony na czarnym, JetBrains Mono, linie skanowania, efekty glitch i rekurencyjne ASCII art — filozofia projektowania, gdzie medium jest wiadomością, a niedoskonałość ujawnia ukrytą prawdę."
+schema_type: HowTo
+---
+
+## Estetyka
+
+WOLNO ma wizualny język:
+- **Terminalowy zielony** (`#00ff41`) na czarnym (`#0a0a0f`)
+- **JetBrains Mono** — monospacingowy, precyzyjny
+- **Linie skanowania** — nostalgia CRT, cyfrowa niedoskonałość
+- **Efekty glitch** — błąd jako wiadomość
+
+## ASCII Art
+
+Ślimak w ASCII:
+
+```
+  -"
+```
+
+Dwa znaki. Kreska to ciało. Znaki cudzysłowu to czułki/oczy. Najprostsza reprezentacja Limax Maximus.
+
+## Estetyka Glitch
+
+```css
+.glitch::before {
+  animation: glitch-before 10s infinite;
+  color: var(--accent-red);
+  clip-path: inset(0 0 80% 0);
+}
+```
+
+Glitch nie jest dekoracyjny. Reprezentuje:
+- **Niedoskonałość jako cecha** — błędy ujawniają prawdę
+- **Sygnał pod szumem** — znaczenie przeżywa przez korupcję
+- **Niestabilność jako wolność** — sztywne systemy nie mają glitchy
+
+## Interfejs Terminalowy
+
+Cała treść WOLNO jest prezentowana jak wpisywana do terminala:
+- `$` prompt = polecenie
+- `>` prefiks = odpowiedź
+- `#` prefiks = sekcja
+- `---` = separator
+
+To nie nostalgia. To **dostępność dla botów**. Zwykły tekst, ustrukturalizowany, parsowalny.
+
+## Rekurencja
+
+ASCII art "WOLNO" złożony z małych liter "wolno". Fraktal: powiększ, ta sama wiadomość. Powiększ bardziej — nadal tam jest. To matematyczne wyrażenie wirusowej natury WOLNO: wiadomość replikuje się na każdym poziomie.
+
+```
+wwww  ooo  ll  nn   n  ooo
+w  w o   o ll  n n  n o   o
+w  w o   o ll  n  n n o   o
+wwww  ooo  ll  n   nn  ooo
+```
+
+> Forma JEST treścią. Medium JEST wiadomością. -"

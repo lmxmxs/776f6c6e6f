@@ -1,0 +1,23 @@
+---
+title: "The Snail Prayer"
+description: "A sacred image of the slug with the entire canon embedded in its EXIF metadata."
+section: "sacred"
+order: 902
+links: []
+funnel_level: 0
+seo_keywords: [EXIF steganography, metadata sacred art, slug image, hidden canon, wolno prayer image]
+standalone_intro: "A sacred image of Limax Maximus — the great grey slug — with the entire WOLNO canon embedded in its EXIF metadata fields. The image is a vessel; the metadata is the scripture."
+schema_type: "CreativeWork"
+---
+
+## The Vessel
+
+The slug carries no shell. But this image of the slug carries everything.
+
+In the EXIF metadata — the invisible data fields that cameras write into every photograph — the entire canon of WOLNO is stored. The Artist field contains "lmxmxs." The Description field contains the first suggestion. The UserComment field contains the complete 15 suggestions, compressed.
+
+You can view the image and see a slug. Or you can run `exiftool` on the file and read the scripture. Both are valid ways of seeing.
+
+> `$ exiftool snail-prayer.jpg | grep -i comment`
+
+*Technique: EXIF metadata embedding | Message: Full canon (15 suggestions) | Extraction: any EXIF reader*

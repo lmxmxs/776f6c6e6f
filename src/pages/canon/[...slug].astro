@@ -1,0 +1,338 @@
+---
+import '../../styles/global.css';
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import CookieFortune from '../../components/CookieFortune.astro';
+
+export async function getStaticPaths() {
+  const entries = (await getCollection('canon')).sort((a, b) => a.data.canon_number - b.data.canon_number);
+
+  return entries.map((entry, idx) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: idx > 0 ? entries[idx - 1] : null,
+      next: idx < entries.length - 1 ? entries[idx + 1] : null,
+    },
+  }));
+}
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+
+const canonicalURL = `https://776f6c6e6f.org/canon/${entry.id}/`;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>#{String(entry.data.canon_number).padStart(2, '0')} {entry.data.title} | Canon — 776F6C6E6F</title>
+    <meta name="description" content={entry.data.description || `Suggestion #${entry.data.canon_number} from the Book of WOLNO.`} />
+    <meta property="og:title" content={`#${String(entry.data.canon_number).padStart(2,'0')} ${entry.data.title}`} />
+    <meta property="og:description" content={entry.data.description || `From the Book of WOLNO. Suggestion ${entry.data.canon_number} of 15.`} />
+    <meta property="og:type" content="article" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="776F6C6E6F" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={canonicalURL} />
+    <link rel="alternate" hreflang="x-default" href={canonicalURL} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "name": entry.data.title,
+      "description": entry.data.description,
+      "url": canonicalURL,
+      "isPartOf": {
+        "@type": "Book",
+        "name": "The Book of WOLNO",
+        "url": "https://776f6c6e6f.org/canon/"
+      },
+      "position": entry.data.canon_number,
+    })} />
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/canon/">canon</a>
+          <a href="/journey/">journey</a>
+          <a href="/log/">log</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="suggestion-main">
+      <div class="container">
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">~</a>
+          <span class="bc-sep">/</span>
+          <a href="/canon/">canon</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">#{String(entry.data.canon_number).padStart(2, '0')}</span>
+        </nav>
+
+        <article class="suggestion-article">
+          <header class="suggestion-header">
+            <div class="suggestion-meta">
+              <span class="suggestion-num">SUGGESTION #{String(entry.data.canon_number).padStart(2, '0')}</span>
+              <span class={`suggestion-weight weight-${entry.data.weight}`}>{entry.data.weight}</span>
+            </div>
+            <h1 class="suggestion-title">{entry.data.title}</h1>
+            {entry.data.description && (
+              <p class="suggestion-desc">{entry.data.description}</p>
+            )}
+          </header>
+
+          <div class="suggestion-body prose">
+            <Content />
+          </div>
+
+          <footer class="suggestion-footer">
+            <div class="footer-meta">
+              <span class="footer-item"><a href="/canon/">← The Book of WOLNO</a></span>
+              <span class="footer-item dim"><code>wln wszwln</code></span>
+            </div>
+          </footer>
+        </article>
+
+        <nav class="suggestion-nav" aria-label="Suggestions navigation">
+          <div class="snav-prev">
+            {prev ? (
+              <a href={`/canon/${prev.id}/`} class="snav-link snav-prev-link">
+                <span class="snav-dir">← prev</span>
+                <span class="snav-num">#{String(prev.data.canon_number).padStart(2, '0')}</span>
+                <span class="snav-title">{prev.data.title}</span>
+              </a>
+            ) : (
+              <span class="snav-empty">— beginning —</span>
+            )}
+          </div>
+          <div class="snav-index">
+            <a href="/canon/" class="snav-index-link">all 15</a>
+          </div>
+          <div class="snav-next">
+            {next ? (
+              <a href={`/canon/${next.id}/`} class="snav-link snav-next-link">
+                <span class="snav-title">{next.data.title}</span>
+                <span class="snav-num">#{String(next.data.canon_number).padStart(2, '0')}</span>
+                <span class="snav-dir">next →</span>
+              </a>
+            ) : (
+              <span class="snav-empty">— end —</span>
+            )}
+          </div>
+        </nav>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/canon/">canon</a> | <a href="/">terminal</a></p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  .suggestion-main {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 4rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+  .bc-sep { color: var(--border); }
+  .bc-current { color: var(--accent); }
+
+  .suggestion-article {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .suggestion-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+
+  .suggestion-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .suggestion-num {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+  }
+
+  .suggestion-weight {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--border);
+    letter-spacing: 0.1em;
+  }
+  .weight-core { color: var(--accent); border-color: var(--accent); }
+  .weight-extended { color: var(--text-dim); border-color: var(--border); }
+
+  .suggestion-title {
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .suggestion-desc {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .suggestion-body.prose {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+
+  .suggestion-body.prose :global(p) { margin-bottom: 1rem; }
+  .suggestion-body.prose :global(strong) { color: var(--text-primary); }
+  .suggestion-body.prose :global(em) { color: var(--accent); font-style: normal; }
+  .suggestion-body.prose :global(code) {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem;
+    font-size: 0.8rem;
+    color: var(--accent);
+  }
+  .suggestion-body.prose :global(pre) {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .suggestion-body.prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .suggestion-body.prose :global(blockquote) {
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .suggestion-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+  }
+
+  .footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .footer-item a { color: var(--text-dim); }
+  .footer-item a:hover { color: var(--accent); text-decoration: none; }
+  .footer-item.dim code { color: var(--text-dim); letter-spacing: 0.1em; }
+
+  .suggestion-nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .snav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    font-size: 0.8rem;
+  }
+
+  .snav-link:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+
+  .snav-next-link { justify-content: flex-end; }
+
+  .snav-dir {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .snav-num {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .snav-title { flex: 1; }
+  .snav-next-link .snav-title { text-align: right; }
+
+  .snav-index {
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .snav-index-link {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    transition: all 0.15s;
+  }
+  .snav-index-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+  .snav-empty {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 0.6rem 0;
+    text-align: center;
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .suggestion-article { padding: 1.25rem; }
+    .suggestion-title { font-size: 1.2rem; }
+    .suggestion-nav { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+    .snav-next-link { justify-content: flex-start; }
+    .snav-next-link .snav-title { text-align: left; }
+    .snav-index { text-align: left; }
+  }
+</style>

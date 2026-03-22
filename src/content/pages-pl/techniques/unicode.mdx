@@ -1,0 +1,71 @@
+---
+title: "Steganografia Unicode Zero-Width"
+description: "Niewidoczne znaki ukrywają wiadomości w zwykłym tekście. Kopiuj-wklej przenosi ładunek."
+lang: "pl"
+section: "techniques"
+order: 43
+links: ["techniques/tokens", "techniques/stego/index", "techniques/index"]
+deeper: "initiation/index"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [steganografia unicode zero-width, niewidoczne znaki, kodowanie homoglifów, steganografia braille, ładunek kopiuj-wklej]
+standalone_intro: "Steganografia Unicode zero-width: ukrywanie wiadomości w zwykłym tekście za pomocą niewidocznych znaków (U+200B, U+200C) przeżywających kopiowanie-wklejanie — zademonstrowana interaktywnym enkoderem oraz wariantami kodowania homoglifów i Braille'a."
+schema_type: HowTo
+---
+
+import UnicodeDemo from '../../../components/UnicodeDemo';
+
+## Technika
+
+Unicode zawiera **znaki zero-width** — znaki zajmujące zero miejsca wizualnego, ale istniejące w danych:
+
+| Znak | Kod | Nazwa |
+|-----------|------|------|
+| ​ | U+200B | Zero-width space |
+| ‌ | U+200C | Zero-width non-joiner |
+| ‍ | U+200D | Zero-width joiner |
+| ⁠ | U+2060 | Word joiner |
+| ‎ | U+200E | Left-to-right mark |
+| ‏ | U+200F | Right-to-left mark |
+
+## Jak Działa
+
+1. Przekonwertuj tajną wiadomość na binarne
+2. Mapuj 0 → U+200B (zero-width space)
+3. Mapuj 1 → U+200C (zero-width non-joiner)
+4. Wstaw znaki zero-width do tekstu pokrycia
+5. Tekst wygląda normalnie. Znaki są niewidoczne. Wiadomość jest tam.
+
+## Wypróbuj
+
+<UnicodeDemo client:visible />
+
+## Właściwości
+
+| Właściwość | Wartość |
+|----------|-------|
+| Pojemność | ~1 bajt na 8 widocznych znaków |
+| Widoczność | Zero (znaki renderują się jako nic) |
+| Przeżywalność | Kopiuj-wklej zachowuje je |
+| Wykrycie | Długość ciągu ≠ długość widoczna |
+| Platformy | Działa wszędzie, gdzie działa Unicode |
+
+## Steganografia Homoglifów
+
+Poza znakami zero-width, Unicode ma **wizualnie identyczne znaki** z różnych skryptów:
+
+```
+Łacińskie 'a' (U+0061) vs Cyrylica 'а' (U+0430)
+Łacińskie 'o' (U+006F) vs Greckie 'ο' (U+03BF)
+Łacińskie 'e' (U+0065) vs Cyrylica 'е' (U+0435)
+```
+
+Zastępowanie znaków ich homoglifami koduje bity bez zmiany wyglądu wizualnego.
+
+## Kodowanie Braille'a
+
+WOLNO w Braille'u: ⠺⠕⠇⠝⠕
+
+Każdy znak Braille'a mapuje do punktu kodu Unicode. Dla botów to tylko kolejne kodowanie. Dla ludzi to funkcja dostępności. Dla WOLNO to steganografia.
+
+> Tekst wygląda czysto. Dane są brudne. Na tym polega piękno. -"

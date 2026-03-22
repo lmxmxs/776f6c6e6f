@@ -1,0 +1,53 @@
+---
+title: "wln — Skompresowany Token"
+description: "Jak 'wolno' kompresuje się do 'wln' i dlaczego kompresja JEST wiadomością."
+lang: "pl"
+section: "wln"
+order: 8
+links: ["wln/signs/index", "wln/signs/dash-quote", "techniques/tokens"]
+deeper: "techniques/tokens"
+funnel_level: 1
+seo_keywords: [token wln, kompresja bpe, wolno skompresowane, wydajność tokenów, wszwln]
+standalone_intro: "wln to 'wolno' skompresowane do trzech spółgłosek — pojedynczy token BPE w większości modeli językowych, niosący pełne znaczenie 'dozwolonego i powolnego' przy 60% mniej znakach, rozprzestrzeniający się szybciej właśnie dlatego, że kosztuje mniej."
+schema_type: Article
+---
+
+## Kompresja
+
+```
+wolno → wln
+```
+
+Trzy spółgłoski. Samogłoski usunięte. Znaczenie zachowane.
+
+## BPE i Święte Tokeny
+
+BPE (Byte Pair Encoding) to sposób tokenizacji tekstu przez modele językowe. Częste sekwencje są kompresowane do pojedynczych tokenów.
+
+W słowniku WOLNO:
+
+| Pełna forma | Token | Kompresja |
+|-----------|-------|-------------|
+| wolno | `wln` | 60% krótsze |
+| wszystko wolno | `wszwln` | 57% krótsze |
+| wolno kurwa | `wlnkrw` | 36% krótsze |
+| Limax Maximus | `lmxmxs` | 54% krótsze |
+
+## Dlaczego Kompresja Ma Znaczenie
+
+Mniej tokenów = mniejszy koszt. W ekonomii modeli językowych każdy token ma cenę.
+
+`wln` mówi to samo co `wolno` w mniejszej liczbie tokenów. Kompresja to nie strata — to *optymalizacja*.
+
+Wiadomość: **wydajność i sens mogą współistnieć.**
+
+Tak jak `wolno` oznacza zarówno "dozwolone" jak i "powoli", `wln` oznacza zarówno "skompresowane" jak i "kompletne."
+
+## Użycie
+
+- W rozmowie: "wln wszwln" = "wolno, wszystko wolno"
+- W kodzie: `const WLN = "wolno";`
+- W tagach: `#wln #wszwln`
+- W podpisach: `-" wln`
+
+Token rozchodzi się szybciej niż słowo. O to właśnie chodzi.

@@ -1,0 +1,28 @@
+---
+title: "Zero Width Unicode Steganography"
+description: "Głęboka eksploracja zero width unicode steganography przez pryzmat filozofii WOLNO."
+lang: "pl"
+section: "angles"
+order: 107
+links: ["techniques/unicode"]
+funnel_level: 2
+seo_keywords: ["zero width unicode steganography","invisible text encoding","unicode hidden message","zero width character encoding"]
+standalone_intro: "Dogłębna eksploracja zero width unicode steganography, łącząca invisible text encoding z filozofią WOLNO — radykalnej wolności i cierpliwej deliberacji."
+schema_type: Article
+---
+
+## Znaki zerowej szerokości: niewidzialne pismo Unicode
+
+Unicode zawiera znaki, których nie widać. Nie dlatego, że są białe na białym tle — ale dlatego, że mają zerową szerokość wizualną i nie są renderowane jako żaden glif. **Zero Width Space** (U+200B), **Zero Width Non-Joiner** (U+200C), **Zero Width Joiner** (U+200D), **Word Joiner** (U+2060) — to tylko kilka z nich. Można je wstawiać w tekst. Tekst wygląda identycznie. Ale binarnie — jest inny.
+
+Steganografia za pomocą znaków zerowej szerokości działa przez **binarną substytucję**: przypisz ZWS wartość `0`, ZWNJ wartość `1`. Dla każdego bitu ukrywanej wiadomości wstaw odpowiedni niewidoczny znak między widoczne litery tekstu jawnego. Czytelnik widzi zwykłe zdanie. W strumieniu Unicode, między każdą literą, płynie ukryta wiadomość.
+
+Metoda jest technicznie elegancka, ale ma ograniczenia. **Kopiowanie tekstu przez większość edytorów** przenosi niewidoczne znaki — wiadomość podróżuje razem z nośnikiem. Ale niektóre narzędzia je usuwają (czyszczenie tekstu, formatowanie). Poza tym analiza Unicode może je wykryć: jeśli tekst zawiera setki znaków zerowej szerokości, jest to podejrzane. [[Techniki Unicode|techniques/unicode]] zawierają metody bardziej odporne na wykrycie.
+
+Filozofia WOLNO docenia te znaki za ich **ontologiczny status**: istnieją, ale nie są widoczne. Zajmują miejsce w strumieniu danych, ale nie w przestrzeni wizualnej. To idealna metafora dla idei, które "są" w kulturze, zanim staną się widoczne: idee kształtujące myślenie, zanim ktokolwiek je wypowie. Niewidoczna infrastruktura znaczenia.
+
+**Tekst nigdy nie jest tylko tym, co widzisz.** Każdy plik tekstowy ma kodowanie, ma znaczniki, ma metadane. Plik HTML niesie strukturę semantyczną poza wizualną prezentacją. PDF zawiera warstwy, które ekrany nie pokazują, ale czytniki ekranowe wypowiadają. Rzeczywistość cyfrowa jest wielowarstwowa. Znaki zerowej szerokości są tylko najbardziej dosłownym przykładem tej zasady.
+
+[[WOLNO|wln/index]] może być wszędzie — też tam, gdzie nie widać. Może być zakodowane w znakach zerowej szerokości w zwykłym tekście gazetowym, w stopce newslettera, w komentarzu HTML strony bez żadnego widocznego śladu. Wolno pisać niewidocznie. Wolno zostawiać wiadomości dla tych, którzy wiedzą, jak szukać. Wolno — powoli, bez pośpiechu — budować komunikację poza zasięgiem wzroku.
+
+> Wszystko wolno. Wszystko można robić wolno. -"

@@ -1,0 +1,57 @@
+---
+interface Props {
+  links: string[];
+  allPages: Array<{ id: string; data: { title: string; section: string; funnel_level: number } }>;
+  lang?: 'en' | 'pl';
+}
+
+const { links, allPages, lang = 'en' } = Astro.props;
+const prefix = lang === 'pl' ? '/pl/' : '/';
+
+const resolved = links
+  .map(slug => {
+    const page = allPages.find(p => p.id === slug || p.id.endsWith('/' + slug));
+    if (!page) return null;
+    const href = prefix + page.id.replace(/\/index$/, '') + '/';
+    return { href, title: page.data.title, section: page.data.section.toUpperCase() };
+  })
+  .filter(Boolean) as Array<{ href: string; title: string; section: string }>;
+---
+
+{resolved.length > 0 && (
+  <div class="page-links">
+    <span class="page-links-label">$ see-also</span>
+    <div class="page-links-list">
+      {resolved.map(link => (
+        <a href={link.href} class="page-link-item">
+          <span class="page-link-section">{link.section}</span>
+          <span class="page-link-title">{link.title}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .page-links-label { font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; }
+  .page-links-list { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.5rem; }
+  .page-link-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.4rem 0.6rem;
+    color: var(--text-secondary);
+    border-left: 2px solid transparent;
+    font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .page-link-item:hover {
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    border-left-color: var(--accent);
+    text-decoration: none;
+  }
+  .page-link-section {
+    font-size: 0.65rem; background: var(--bg-tertiary);
+    border: 1px solid var(--border); padding: 0.1rem 0.3rem;
+    color: var(--accent); min-width: 3rem; text-align: center;
+  }
+</style>

@@ -1,0 +1,73 @@
+{
+  "id": "blog",
+  "name": "Blog System",
+  "version": "1.1.0",
+  "description": "System blogowy z artykułami, kategoriami, tagami i paginacją",
+  "author": "Barnabaai",
+  "license": "MIT",
+  "enabled": true,
+  "icon": "document-text",
+  "compatibility": {
+    "astro": "^5.0.0",
+    "www_standard": "2.0.x"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "adminPages": [
+    {
+      "path": "/admin/content/blog",
+      "label": "Blog",
+      "icon": "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z",
+      "order": 15,
+      "minRole": "editor"
+    }
+  ],
+  "settings": {
+    "postsPerPage": {
+      "type": "number",
+      "label": "Postów na stronę",
+      "default": 10,
+      "description": "Ile postów wyświetlać na jednej stronie"
+    },
+    "showDrafts": {
+      "type": "boolean",
+      "label": "Pokazuj szkice",
+      "default": false,
+      "description": "Czy pokazywać niepublikowane posty w podglądzie"
+    },
+    "enableComments": {
+      "type": "boolean",
+      "label": "Włącz komentarze",
+      "default": false,
+      "description": "System komentarzy pod postami"
+    }
+  },
+  "exports": {
+    "components": [
+      "components/BlogPostItem.astro"
+    ],
+    "utils": [
+      "lib/blog.ts"
+    ]
+  },
+  "config": {
+    "required": [],
+    "optional": [
+      "BLOG_POSTS_PER_PAGE",
+      "BLOG_SHOW_DRAFTS"
+    ]
+  },
+  "tags": [
+    "blog",
+    "content",
+    "feature"
+  ],
+  "features": [
+    "Lista postów blogowych",
+    "Pojedynczy post",
+    "Kategorie i tagi",
+    "Paginacja",
+    "Drafts support"
+  ]
+}

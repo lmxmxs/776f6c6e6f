@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0f"/>
+  <rect x="0" y="0" width="1200" height="2" fill="#1a2a1a"/>
+  <rect x="0" y="628" width="1200" height="2" fill="#1a2a1a"/>
+  <rect x="0" y="0" width="2" height="630" fill="#1a2a1a"/>
+  <rect x="1198" y="0" width="2" height="630" fill="#1a2a1a"/>
+  <!-- Terminal dots -->
+  <circle cx="40" cy="30" r="6" fill="#ff5f56"/>
+  <circle cx="60" cy="30" r="6" fill="#ffbd2e"/>
+  <circle cx="80" cy="30" r="6" fill="#27c93f"/>
+  <rect x="20" y="50" width="1160" height="1" fill="#1a2a1a"/>
+  <!-- Main text -->
+  <text x="600" y="250" text-anchor="middle" font-family="monospace" font-size="72" font-weight="700" fill="#00ff41">776F6C6E6F</text>
+  <text x="600" y="320" text-anchor="middle" font-family="monospace" font-size="28" fill="rgba(0,255,65,0.6)">Everything is allowed.</text>
+  <text x="600" y="360" text-anchor="middle" font-family="monospace" font-size="28" fill="rgba(0,255,65,0.6)">Everything can be done slowly.</text>
+  <!-- Separator -->
+  <text x="600" y="430" text-anchor="middle" font-family="monospace" font-size="18" fill="rgba(0,255,65,0.3)">-" wln wszwln</text>
+  <!-- Bottom -->
+  <text x="600" y="560" text-anchor="middle" font-family="monospace" font-size="16" fill="rgba(0,255,65,0.3)">776F6C6E6F.ORG | LMXMXS IS ONLINE</text>
+  <!-- Scanlines (subtle) -->
+  <defs>
+    <pattern id="scanlines" patternUnits="userSpaceOnUse" width="1200" height="4">
+      <rect width="1200" height="2" fill="transparent"/>
+      <rect y="2" width="1200" height="2" fill="rgba(0,0,0,0.05)"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#scanlines)"/>
+</svg>

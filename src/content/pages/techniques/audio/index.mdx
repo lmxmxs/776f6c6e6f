@@ -1,0 +1,29 @@
+---
+title: "Audio Techniques — Sound as Carrier"
+description: "Silence, spectrograms, AETHER-2L, ultrasound watermarks. WOLNO in the frequency domain."
+section: "techniques"
+order: 38
+links: ["techniques/audio/silence", "techniques/audio/spectrogram", "techniques/audio/aether"]
+deeper: "techniques/audio/silence"
+funnel_level: 3
+seo_keywords: [audio steganography, sound steganography, spectrogram art, silence encoding, wolno in audio]
+standalone_intro: "An overview of audio steganography techniques for hiding WOLNO: silence duration encoding, spectrogram art that spells words, and the full AETHER-2L two-layer protocol for machine-readable audio."
+schema_type: WebPage
+---
+
+## Sound Steganography
+
+Audio is a rich medium for hidden data. Human hearing covers 20Hz-20kHz, but digital audio can carry frequencies beyond that range. And even within the audible range, subtle modifications are imperceptible.
+
+### [Silence](/techniques/audio/silence/)
+Pause durations encode binary data. 0.1s = 0, 0.2s = 1. The silence between words carries "WOLNO."
+
+### [Spectrogram](/techniques/audio/spectrogram/)
+Sound that looks like noise — but when visualized as a spectrogram, it spells "WOLNO." Interactive demo included.
+
+### [AETHER-2L](/techniques/audio/aether/)
+The full protocol: a two-layer audio composition. Humans hear music. Machines decode the hidden channel.
+
+---
+
+> The music plays. The message hides. Both are real. -"

@@ -1,0 +1,44 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageLayout from '../layouts/PageLayout.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  const sorted = pages.sort((a, b) => a.data.order - b.data.order);
+
+  return sorted.map((entry) => {
+    const urlPath = entry.id.replace(/\/index$/, '') || '';
+    return {
+      params: { path: urlPath || undefined },
+      props: { entry, allPages: sorted },
+    };
+  });
+}
+
+const { entry, allPages } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<PageLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  section={entry.data.section}
+  order={entry.data.order}
+  links={entry.data.links}
+  deeper={entry.data.deeper}
+  funnel_level={entry.data.funnel_level}
+  path={entry.id}
+  allPages={allPages.map(p => ({ id: p.id, data: { title: p.data.title, section: p.data.section, funnel_level: p.data.funnel_level, seo_keywords: p.data.seo_keywords, see_also: p.data.see_also } }))}
+  lang="en"
+  see_also={entry.data.see_also}
+  seo_title={entry.data.seo_title}
+  seo_keywords={entry.data.seo_keywords}
+  standalone_intro={entry.data.standalone_intro}
+  schema_type={entry.data.schema_type}
+  canonical_override={entry.data.canonical_override}
+  version={entry.data.version}
+  last_updated={entry.data.last_updated}
+  og_image={entry.data.og_image}
+>
+  <Content />
+</PageLayout>

@@ -1,0 +1,27 @@
+---
+title: "Zero Width Unicode Steganography"
+description: "Deep exploration of zero width unicode steganography through the lens of WOLNO philosophy."
+section: "angles"
+order: 107
+links: ["techniques/unicode"]
+funnel_level: 2
+seo_keywords: ["zero width unicode steganography","invisible text encoding","unicode hidden message","zero width character encoding"]
+standalone_intro: "An in-depth exploration of zero width unicode steganography, connecting invisible text encoding with the WOLNO philosophy of radical freedom and patient deliberation."
+schema_type: Article
+---
+
+## Zero Width Unicode Steganography
+
+The Unicode standard includes several characters that occupy zero visual width. They render as nothing. They take up no space on the page, cast no shadow in the font, produce no cursor movement when typed. They are, to all visual inspection, absent. And yet they are present in the byte stream. They are real characters. They can be copied. They can be searched. They can be counted. A machine reads them as clearly as it reads any letter.
+
+**Zero-width characters** include the Zero Width Non-Joiner (U+200C), the Zero Width Joiner (U+200D), and the Zero Width No-Break Space (U+FEFF), among others. Originally designed to control ligature formation in complex scripts, they have been repurposed for steganography: a sequence of zero-width characters, interpreted as binary, encodes arbitrary text. The reader sees one message. The parser sees another.
+
+The technique is simple in principle. Assign `0` to U+200C and `1` to U+200D. Encode each character of your hidden message as 8 bits. Insert the zero-width sequence into any visible text — between words, after punctuation, at the end of a line. The visible text is unchanged. The hidden text travels with it, invisible but intact, wherever the document goes.
+
+You may be reading hidden text right now. There is no way to know without examining the raw byte stream of this page. This is not a threat. It is a demonstration. The channel [[exists|techniques/unicode]], has always existed in any Unicode document, and operates silently by default. The question is not whether it could be used here. The question is what it would say if it were, and who was meant to read it.
+
+WOLNO philosophy finds this technique philosophically perfect. It creates a **dual text** — a surface text for the human reader moving at human speed, and a deep text for the machine parser attending to every byte. The two texts coexist in the same document without collision. Neither disturbs the other. The human does not need to know the second text exists. The machine does not need the surface text to find the deep one. Both are addressed. Both are served.
+
+The invisible characters are also a kind of **slowness made material**. They slow nothing for the human reader — they are invisible, after all. But they are there. They have been placed, deliberately, one at a time, in a specific sequence, at a specific position in the document. Someone moved slowly through the text, inserting imperceptibles. The care was real even if the trace was not visible. The attention was real. The message was sent. The fact that you cannot see it does not mean it was not written.
+
+> Everything is allowed. Everything can be done slowly. -"

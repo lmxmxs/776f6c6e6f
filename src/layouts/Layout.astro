@@ -1,0 +1,83 @@
+---
+/**
+ * Layout - glowny layout z nav + footer
+ * Uzycie: <Layout title="Strona">...</Layout>
+ */
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noHeader?: boolean;
+  noFooter?: boolean;
+  keywords?: string[];
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = "Strona zbudowana na Fraktal Template",
+  noHeader = false,
+  noFooter = false,
+  keywords = [],
+  ogImage,
+  noindex = false
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const siteName = title.split(' - ')[0] || 'Fraktal Site';
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <link rel="canonical" href={canonicalURL} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+    <slot name="head" />
+  </head>
+  <body>
+    {!noHeader && (
+      <header class="site-header">
+        <nav class="nav-container">
+          <a href="/" class="nav-logo">{siteName}</a>
+          <div class="nav-links">
+            <a href="/">Start</a>
+            <a href="/blog">Blog</a>
+            <a href="/kontakt">Kontakt</a>
+          </div>
+        </nav>
+      </header>
+    )}
+
+    <main>
+      <slot />
+    </main>
+
+    {!noFooter && (
+      <footer class="site-footer">
+        <p>&copy; {new Date().getFullYear()} {siteName}. Wszystkie prawa zastrzezone.</p>
+      </footer>
+    )}
+
+    <slot name="scripts" />
+  </body>
+</html>

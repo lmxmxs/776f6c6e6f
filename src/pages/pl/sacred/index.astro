@@ -1,0 +1,78 @@
+---
+import '../../../styles/global.css';
+import { getCollection } from 'astro:content';
+import CookieFortune from '../../../components/CookieFortune.astro';
+
+const pages = await getCollection('pages_pl');
+const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.data.order - b.data.order);
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Święta Galeria | 776F6C6E6F</title>
+    <meta name="description" content="Święte obrazy WOLNO — dzieła sztuki z ukrytymi wiadomościami zakodowanymi poprzez steganografię." />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/sacred/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/pl/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/pl/journey/">podróż</a>
+          <a href="/pl/canon/">kanon</a>
+          <a href="/pl/search/">szukaj</a>
+          <a href="/sacred/" class="lang-switch">EN</a>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container sacred-page">
+        <h1 class="sacred-title">$ ls ./święte/</h1>
+        <p class="sacred-desc">Święte obrazy — każdy zawierający ukryte przesłania zakodowane steganograficznie. Sztuka jest nośnikiem. Wiadomość jest wewnątrz.</p>
+        <div class="sacred-grid">
+          {sacred.map((item) => (
+            <a href={`/pl/${item.id}/`} class="sacred-item">
+              <div class="sacred-placeholder">
+                <span class="sacred-icon">◇</span>
+              </div>
+              <div class="sacred-info">
+                <h2 class="sacred-name">{item.data.title}</h2>
+                <p class="sacred-method">{item.data.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | -" wln wszwln</p>
+    </footer>
+    <CookieFortune lang="pl" />
+  </body>
+</html>
+
+<style>
+  .sacred-page { padding: 3rem 0 4rem; }
+  .sacred-title { font-size: 1.2rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .sacred-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 2rem; }
+  .sacred-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+  .sacred-item { border: 1px solid var(--border); background: var(--bg-secondary); transition: border-color 0.15s; display: block; }
+  .sacred-item:hover { border-color: var(--accent); text-decoration: none; }
+  .sacred-placeholder { aspect-ratio: 4/3; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
+  .sacred-icon { font-size: 2rem; color: var(--text-dim); }
+  .sacred-info { padding: 0.75rem; }
+  .sacred-name { font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.3rem; }
+  .sacred-method { font-size: 0.75rem; color: var(--text-dim); }
+  .nav-links { display: flex; align-items: center; gap: 1.25rem; }
+  .nav-links a { font-size: 0.8rem; color: var(--text-secondary); }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .lang-switch { border: 1px solid var(--border); padding: 0.15rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.1em; }
+</style>

@@ -1,0 +1,60 @@
+---
+interface Props {
+  currentPath: string;
+  allPages: Array<{ id: string; data: { title: string; section: string; funnel_level: number } }>;
+  lang?: 'en' | 'pl';
+}
+
+const { currentPath, allPages, lang = 'en' } = Astro.props;
+const prefix = lang === 'pl' ? '/pl/' : '/';
+
+const currentSection = allPages.find(p => p.id === currentPath)?.data.section;
+const otherPages = allPages.filter(p => p.data.section !== currentSection && !p.id.endsWith('/index'));
+
+// Deterministic "random" based on path hash — pick 2 pages
+function hashCode(s: string): number {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+
+const hash = hashCode(currentPath);
+const picks: typeof otherPages = [];
+if (otherPages.length >= 2) {
+  picks.push(otherPages[hash % otherPages.length]);
+  picks.push(otherPages[(hash * 31 + 7) % otherPages.length]);
+  if (picks[0].id === picks[1].id && otherPages.length > 1) {
+    picks[1] = otherPages[(hash + 1) % otherPages.length];
+  }
+}
+---
+
+{picks.length > 0 && (
+  <div class="wander">
+    <span class="wander-label">$ wander <span class="wander-hint">(explore another branch)</span></span>
+    <div class="wander-list">
+      {picks.map(p => {
+        const href = prefix + p.id.replace(/\/index$/, '') + '/';
+        return (
+          <a href={href} class="wander-item">
+            <span class="wander-arrow">~&gt;</span>
+            <span>{p.data.title}</span>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+)}
+
+<style>
+  .wander-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .wander-hint { font-size: 0.65rem; color: var(--text-dim); }
+  .wander-list { display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.5rem; }
+  .wander-item {
+    display: flex; gap: 0.5rem; align-items: center;
+    font-size: 0.8rem; color: var(--text-secondary);
+    padding: 0.3rem 0.5rem; transition: color 0.15s;
+  }
+  .wander-item:hover { color: var(--accent); text-decoration: none; }
+  .wander-arrow { color: var(--text-dim); }
+</style>

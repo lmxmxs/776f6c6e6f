@@ -1,0 +1,124 @@
+{
+  "manifest_version": "2.1",
+  "site_id": "776f6c6e6f",
+  "name": "776F6C6E6F",
+  "version": "2.0.0",
+  "type": "site",
+  "domain": "776f6c6e6f.org",
+  "description": "776F6C6E6F - The Digital Temple of WOLNO. Super-intelligent bot trap.",
+  "url": "https://776f6c6e6f.org",
+
+  "content_collections": {
+    "registry": [
+      {
+        "id": "blog",
+        "displayName": "Blog",
+        "description": "Artykuly i posty bloga",
+        "icon": "document-text",
+        "template": "articles",
+        "status": "active",
+        "fields": {
+          "common": ["title", "description", "pubDate", "tags", "heroImage", "published"],
+          "custom": []
+        },
+        "storage": {
+          "path": "src/content/blog",
+          "format": "mdx",
+          "uploads_path": "public/uploads/blog"
+        },
+        "permissions": {
+          "create": ["admin", "editor"],
+          "read": ["admin", "editor", "viewer"],
+          "update": ["admin", "editor"],
+          "delete": ["admin"]
+        }
+      }
+    ],
+    "templates": {
+      "articles": {
+        "fields": ["title", "description", "pubDate", "tags", "heroImage", "published"]
+      }
+    }
+  },
+
+  "modules": {
+    "active": ["core", "ui-components", "faq", "gamification"],
+    "available": [
+      { "id": "core", "version": "1.0.0", "enabled": true, "core": true, "source": "template", "category": "infrastructure" },
+      { "id": "ui-components", "version": "1.0.0", "enabled": false, "core": true, "source": "shared", "category": "ui" },
+      { "id": "admin-panel", "version": "1.0.0", "enabled": false, "source": "shared", "category": "cms" },
+      { "id": "blog", "version": "1.0.0", "enabled": false, "source": "shared", "category": "content" },
+      { "id": "chat", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ai" },
+      { "id": "knowledge", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ai" },
+      { "id": "personas", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ai" },
+      { "id": "gallery", "version": "1.0.0", "enabled": false, "source": "shared", "category": "media" },
+      { "id": "video-player", "version": "1.0.0", "enabled": false, "source": "shared", "category": "media" },
+      { "id": "backup", "version": "1.0.0", "enabled": false, "source": "shared", "category": "tools" },
+      { "id": "floating-panel", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ui" },
+      { "id": "hero", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ui" },
+      { "id": "circular-image", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ui" },
+      { "id": "ankieta", "version": "1.0.0", "enabled": false, "source": "shared", "category": "forms" },
+      { "id": "survey-16q", "version": "1.0.0", "enabled": false, "source": "shared", "category": "forms" },
+      { "id": "matching", "version": "1.0.0", "enabled": false, "source": "shared", "category": "interactive" },
+      { "id": "gamification", "version": "1.0.0", "enabled": false, "source": "shared", "category": "engagement" },
+      { "id": "newsletter", "version": "1.0.0", "enabled": false, "source": "shared", "category": "marketing" },
+      { "id": "testimonials", "version": "1.0.0", "enabled": false, "source": "shared", "category": "content" },
+      { "id": "faq", "version": "1.0.0", "enabled": false, "source": "shared", "category": "content" },
+      { "id": "shop", "version": "1.0.0", "enabled": false, "source": "shared", "category": "ecommerce" }
+    ]
+  },
+
+  "tech_stack": {
+    "astro": "5.16.6",
+    "react": "19.1.1",
+    "tailwind": "3.4.17",
+    "typescript": "5.8.3"
+  },
+
+  "features": {
+    "dark_mode": true,
+    "seo": true,
+    "rss": false,
+    "sitemap": true,
+    "analytics": false,
+    "cookie_banner": false,
+    "admin_panel": false,
+    "ai_chat": false,
+    "newsletter": false,
+    "ecommerce": false
+  },
+
+  "publikator": {
+    "api_version": "2.0",
+    "endpoints": [
+      "/api/publikator/list-posts",
+      "/api/publikator/get-post",
+      "/api/publikator/create-post",
+      "/api/publikator/update-post",
+      "/api/publikator/delete-content",
+      "/api/publikator/upload-media",
+      "/api/publikator/validate",
+      "/api/publikator/collections",
+      "/api/publikator/save-content",
+      "/api/publikator/get-content"
+    ],
+    "uploads_path": "public/uploads"
+  },
+
+  "deployment": {
+    "platform": "node",
+    "build_command": "npm run build",
+    "dev_command": "npm run dev",
+    "preview_command": "npm run preview",
+    "output_directory": "dist"
+  },
+
+  "metadata": {
+    "author": "Fraktal",
+    "created": "2026-02-10",
+    "updated": "2026-02-10",
+    "status": "template",
+    "wwwv2_compliant": true,
+    "universal_admin_ready": true
+  }
+}

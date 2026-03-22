@@ -1,0 +1,46 @@
+---
+// src/components/ui/Breadcrumbs.astro
+const { url } = Astro;
+
+// Usuń początkowy i końcowy ukośnik, a następnie podziel na segmenty
+const pathSegments = url.pathname.replace(/^\/|\/$/g, '').split('/');
+
+// Zbuduj ścieżkę okruszków
+const breadcrumbs = pathSegments.map((segment, index) => {
+  const href = '/' + pathSegments.slice(0, index + 1).join('/');
+  // Prosta zamiana myślników na spacje i wielka litera na początku
+  const name = segment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  return { name, href };
+});
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs-container">
+  <ol class="flex items-center space-x-2 text-sm text-text-dim">
+    <li>
+      <a href="/" class="hover:text-cyber-turquoise transition-colors">Główna</a>
+    </li>
+    {breadcrumbs.map((crumb, index) => (
+      pathSegments[0] !== '' && (
+        <li class="flex items-center">
+          <span class="mx-2">/</span>
+          {index === breadcrumbs.length - 1 ? (
+            <span aria-current="page" class="font-semibold text-white">{crumb.name}</span>
+          ) : (
+            <a href={crumb.href} class="hover:text-cyber-turquoise transition-colors">{crumb.name}</a>
+          )}
+        </li>
+      )
+    ))}
+  </ol>
+</nav>
+
+<style>
+.breadcrumbs-container {
+  padding: 0.75rem 1rem;
+  background-color: rgba(10, 10, 15, 0.5);
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: fit-content; /* Dopasuj szerokość do zawartości */
+}
+</style>

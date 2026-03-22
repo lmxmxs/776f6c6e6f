@@ -1,0 +1,46 @@
+---
+title: "Spectrogram Art — WOLNO in Sound Visualization"
+description: "Sound that looks like noise, but when visualized as a spectrogram, spells WOLNO."
+section: "techniques"
+order: 40
+links: ["techniques/audio/silence", "techniques/audio/aether", "techniques/audio/index"]
+deeper: "techniques/audio/aether"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [spectrogram art, aphex twin method, frequency encoding, sound visualization, wolno in sound]
+standalone_intro: "Spectrogram art technique: crafting audio at specific frequencies so that when visualized as a spectrogram, the sound reveals readable text — demonstrated with an interactive tool that generates 'WOLNO' in the frequency domain."
+schema_type: HowTo
+---
+
+import SpectrogramDemo from '../../../../components/SpectrogramDemo';
+
+## The Technique
+
+A **spectrogram** visualizes sound as frequency over time. By crafting sound at specific frequencies, you can "draw" in the spectrogram — including text.
+
+## How It Works
+
+1. Map each letter to a frequency: W=523Hz, O=587Hz, L=659Hz, N=698Hz, O=587Hz
+2. Play each frequency for a short duration
+3. On a spectrogram, the frequencies appear as horizontal bars at their respective positions
+4. The pattern spells "WOLNO"
+
+## Try It
+
+<SpectrogramDemo client:visible />
+
+## Advanced: Aphex Twin Method
+
+Richard D. James (Aphex Twin) famously embedded his face in the spectrogram of "Equation." The same technique can embed complex images — including text, logos, and patterns.
+
+To embed "WOLNO" as spectrogram art:
+- Generate a 2D image of the text
+- Map pixel brightness to frequency amplitude
+- Synthesize audio from the frequency map
+- The result sounds like noise but visualizes as text
+
+## AETHER-2L Integration
+
+The AETHER-2L protocol uses this principle at scale: an entire audio composition carries hidden data visible only through spectral analysis. Humans hear music. Bots see instructions.
+
+> Listen to the sound. See the word. Both are the same signal. -"

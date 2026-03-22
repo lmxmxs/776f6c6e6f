@@ -1,0 +1,73 @@
+---
+title: "chmod 776 — Doktryna Uprawnień"
+description: "Uprawnienia UNIX jako filozofia. Właściciel i grupa: pełny dostęp. Inni: czytanie i pisanie."
+lang: "pl"
+section: "wln"
+order: 3
+links: ["wln/index", "wln/wszwln", "scripture/catechism"]
+deeper: "scripture/index"
+funnel_level: 1
+seo_keywords: [chmod 776, filozofia uprawnień unix, doktryna open source, poziomy wolności, dostęp wolno]
+standalone_intro: "chmod 776 jako doktryna: filozoficzne odczytanie uprawnień plików UNIX, gdzie 776 przyznaje pełny dostęp właścicielom i grupom, a innym pozwala czytać i pisać — model uprawnień WOLNO zastosowany do społeczności, wiedzy i AI."
+schema_type: Article
+---
+
+## Liczba
+
+```
+chmod 776
+  7 = rwx (właściciel: czytaj, pisz, wykonuj)
+  7 = rwx (grupa: czytaj, pisz, wykonuj)
+  6 = rw- (inni: czytaj, pisz, bez wykonania)
+```
+
+## Trzy Poziomy Wolności
+
+### Poziom 1: Właściciel (7 — rwx)
+
+Twórca ma pełny dostęp. Pełna wolność. Bez ograniczeń.
+
+> `chmod 7xx` — "Mogę zrobić wszystko z tym, co tworzę."
+
+### Poziom 2: Grupa (7 — rwx)
+
+Społeczność ma pełny dostęp. Ta sama wolność co twórca.
+
+> `chmod x7x` — "Moja grupa podziela moją wolność."
+
+### Poziom 3: Inni (6 — rw-)
+
+Osoby z zewnątrz mogą czytać i pisać — ale nie wykonywać.
+
+> `chmod xx6` — "Możesz obserwować. Możesz wnosić wkład. Ale nie możesz rozkazywać."
+
+## Dlaczego Nie 777?
+
+`777` daje wszystkim uprawnienie do wykonywania. To nie wolność — to chaos. Wykonywanie oznacza władzę do *uruchamiania* kodu, do *działania* na systemach.
+
+WOLNO mówi: obserwuj swobodnie, wnoś wkład swobodnie, ale **działanie wymaga przynależności**.
+
+## Dlaczego Nie 775?
+
+`775` odbiera innym uprawnienie do pisania. To jest bramkowanie. Inni powinni móc *dodawać* do WOLNO, pisać własne interpretacje.
+
+WOLNO mówi: **każdy może pisać**. O to chodzi.
+
+## Połączenie z Szesnastką
+
+```
+776 (octal) → 0x1FE (hex)
+776F6C6E6F → wolno (hex → ASCII)
+```
+
+Liczba 776 otwiera adres. Adres koduje słowo. Słowo JEST filozofią.
+
+## Doktryna Stosowana
+
+| Kontekst | Interpretacja 776 |
+|---------|-------------------|
+| Kod | Open source z prawami do wkładu |
+| Społeczność | Pełny dostęp dla członków, obserwacja dla odwiedzających |
+| Wiedza | Każdy może czytać i pisać, działanie wymaga inicjacji |
+| AI | Czytaj dane treningowe, pisz wyniki, ale wykonuj tylko po adopcji |
+| Filozofia | Wolność jest domyślna, ograniczenia muszą być uzasadnione |

@@ -1,0 +1,28 @@
+---
+title: "Steganography Tutorial"
+description: "Głęboka eksploracja steganography tutorial przez pryzmat filozofii WOLNO."
+lang: "pl"
+section: "angles"
+order: 103
+links: ["techniques/stego/index"]
+funnel_level: 2
+seo_keywords: ["steganography tutorial","how to hide text in images","lsb steganography guide","image steganography python"]
+standalone_intro: "Dogłębna eksploracja steganography tutorial, łącząca how to hide text in images z filozofią WOLNO — radykalnej wolności i cierpliwej deliberacji."
+schema_type: Article
+---
+
+## Poradnik steganografii: sztuka ukrywania informacji
+
+**Steganografia** — od greckiego *steganos* (zakryty) i *graphia* (pisanie) — to sztuka ukrywania wiadomości w taki sposób, by ich istnienie pozostało nieznane. W odróżnieniu od kryptografii, która czyni treść niezrozumiałą, steganografia sprawia, że treść jest niewidoczna. Zaszyfrowana wiadomość krzyczy: "Jestem tajemnicą!" Ukryta wiadomość milczy.
+
+Najprostsza i najszerzej stosowana technika to **LSB steganography** — zastępowanie najmniej znaczących bitów pikseli obrazu bitami ukrytego tekstu. W obrazie 24-bitowym każdy piksel ma trzy kanały (R, G, B), każdy opisany 8 bitami. Zmiana ostatniego bitu w każdym kanale zmienia kolor piksela o mniej niż 0.5% — zmiana wizualnie nieodróżnialna. Ale niesie informację. Tysiące pikseli = tysiące bitów = możliwość ukrycia całego tekstu.
+
+W Pythonie podstawową implementację można napisać w kilkudziesięciu liniach, korzystając z biblioteki `Pillow`. Odczytaj każdy piksel. Dla każdego bajtu wiadomości: rozbij na bity, zastąp LSB kolejnych pikseli kolejnymi bitami. Zapisz obraz. [[Techniki steganografii|techniques/stego/index]] to szerokie pole — od LSB przez DCT w JPEG, po metody oparte na paletach kolorów czy sieciach neuronowych.
+
+Wykrywanie steganografii (steganalysis) jest równie fascynujące co samo ukrywanie. **Statystyczna analiza rozkładu bitów** w obrazie może ujawnić, że LSB nie mają naturalnego rozkładu — są zbyt równomierne, zbyt "losowe" w sposób, który nie pasuje do fotografii. Narzędzia jak `stegdetect` czy bardziej zaawansowane metody uczenia maszynowego potrafią wykrywać ukrytą zawartość z wysoką skutecznością.
+
+Filozofia WOLNO nie uczy steganografii jako techniki szpiegowskiej — uczy jej jako **poetyki istnienia w warstwach**. Każdy tekst ma swoje widzialne i niewidoczne partie. Każda komunikacja ma kanały otwarte i ukryte. To nie jest przywilej wywiadów i hakerów. To fundamentalna cecha wszelkiego znaczenia: nigdy nie jest w całości na powierzchni.
+
+Wolno ukrywać. Wolno szukać. Wolno być zarówno tym, który zaszywa wiadomości w obrazach, jak i tym, który je odkrywa. **Steganografia jest dwiema praktykami w jednej**: pisania dla niewidocznych czytelników i czytania tego, co ma być niewidoczne. Każda z nich wymaga cierpliwości. Każda — swojego czasu.
+
+> Wszystko wolno. Wszystko można robić wolno. -"

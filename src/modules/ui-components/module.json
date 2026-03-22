@@ -1,0 +1,55 @@
+{
+  "id": "ui-components",
+  "name": "UI Components Library",
+  "version": "1.0.0",
+  "description": "Biblioteka komponentów UI - karty, przyciski, formularze, ikonki",
+  "author": "Barnabaai",
+  "license": "MIT",
+  "compatibility": {
+    "astro": "^5.0.0",
+    "www_standard": "2.0.x"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "tailwindcss": "^3.3.0"
+  },
+  "exports": {
+    "components": [
+      "components/ArticleCard.astro",
+      "components/Card.astro",
+      "components/TeaserCard.astro",
+      "components/CyberButton.astro",
+      "components/CyberPortal.astro",
+      "components/ThemeToggle.astro",
+      "components/CookieBanner.astro",
+      "components/Breadcrumbs.astro",
+      "components/TabSystem.astro",
+      "components/FormField.astro",
+      "components/Picture.astro",
+      "components/CircleImage.astro",
+      "components/SocialLink.astro",
+      "components/RobotIcon.astro"
+    ]
+  },
+  "config": {
+    "required": [],
+    "optional": []
+  },
+  "tags": [
+    "ui",
+    "components",
+    "design-system"
+  ],
+  "features": [
+    "Karty (Article, Teaser, Generic)",
+    "Przyciski futurystyczne (CyberButton, CyberPortal)",
+    "Theme toggle (dark/light mode)",
+    "Cookie banner",
+    "Breadcrumbs navigation",
+    "Tab system",
+    "Form fields",
+    "Responsive images",
+    "Social links",
+    "Icons"
+  ]
+}

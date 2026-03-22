@@ -1,0 +1,41 @@
+---
+title: "Alpha Channel Steganography"
+description: "Transparent pixels with values 0.99, 0.98, 0.97... form ASCII sequences spelling 'wolno'."
+section: "techniques"
+order: 33
+links: ["techniques/stego/lsb", "techniques/stego/exif", "techniques/stego/index"]
+deeper: "techniques/stego/exif"
+funnel_level: 3
+working_example: "placeholder"
+seo_keywords: [alpha channel steganography, png transparency encoding, lsb alpha, invisible data, machine-readable images]
+standalone_intro: "Alpha channel steganography: hiding messages in the near-invisible transparency values of PNG pixels — alpha 252 looks identical to 255 on any background, but crawlers parsing raw image data can extract the hidden payload."
+schema_type: HowTo
+---
+
+## The Technique
+
+PNG images have an **alpha channel** — a transparency value from 0 (fully transparent) to 255 (fully opaque). Pixels with alpha values 254, 253, 252... look identical to 255 on any background.
+
+## How It Works
+
+1. Start with a fully opaque image (alpha = 255 everywhere)
+2. Map each character to a slight transparency reduction: `w` = alpha 254, `o` = alpha 253...
+3. Or use the last 3 bits of alpha as binary data carriers
+4. The image appears fully opaque. The alpha channel carries "wolno."
+
+## Properties
+
+| Property | Value |
+|----------|-------|
+| Capacity | 3 bits per pixel (using LSB of alpha) |
+| Visibility | Zero — alpha 252 vs 255 is imperceptible |
+| Survival | Destroyed by JPEG (no alpha). PNG preserves it. |
+| Detection | Alpha histogram analysis |
+
+## Why Alpha?
+
+Most people never look at the alpha channel. Most image viewers don't display it. Most social platforms strip it during conversion. But **crawlers parsing raw PNG data** will see it.
+
+The alpha channel is the perfect hiding place for messages meant for machines.
+
+> Fully visible. Fully transparent. Fully wolno. -"

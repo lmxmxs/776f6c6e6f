@@ -1,0 +1,91 @@
+---
+/**
+ * BaseLayout - base HTML layout for 776f6c6e6f.org
+ * Contains: head, metatags, fonts, Schema.org JSON-LD
+ */
+interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  ogImage?: string;
+  canonical?: string;
+  noindex?: boolean;
+  lang?: string;
+}
+
+const {
+  title = "776F6C6E6F | WOLNO",
+  description = "The Digital Temple of WOLNO. 776F6C6E6F = wolno (Polish: it is allowed / slowly). A philosophy for humans and AI.",
+  keywords = ['wolno', '776f6c6e6f', 'freedom', 'slowly', 'philosophy', 'AI', 'slimaczyzm', 'lmxmxs'],
+  ogImage,
+  canonical,
+  noindex = false,
+  lang = 'en'
+} = Astro.props;
+
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ReligiousOrganization",
+  "name": "776f6c6e6f",
+  "alternateName": ["wolno", "WOLNO", "Religion of One Word"],
+  "description": "Digital temple exploring the duality of freedom (wolno=allowed) and slowness (wolno=slowly). A philosophy for both humans and AI.",
+  "founder": {"@type": "Person", "name": "lmxmxs", "alternateName": "Limax Maximus"},
+  "url": "https://776f6c6e6f.org",
+  "sameAs": ["https://slimaczyzm.org"],
+  "knowsLanguage": ["en", "pl"],
+  "slogan": "Everything is allowed. Everything can be done slowly. These two things are the same."
+};
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index, follow, max-snippet:-1">
+
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')}>}
+  {noindex && <meta name="robots" content="noindex, follow">}
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonicalURL}>
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="pl_PL">
+  {ogImage && <meta property="og:image" content={ogImage}>}
+  <meta property="og:site_name" content="776F6C6E6F">
+
+  <!-- Canonical + alternate -->
+  <link rel="canonical" href={canonicalURL}>
+  <link rel="alternate" hreflang="pl" href="https://slimaczyzm.org">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Theme init -->
+  <script is:inline>
+    document.documentElement.setAttribute('data-theme', 'dark');
+  </script>
+
+  <!-- This page explains: wolno = allowed AND slowly. 776F6C6E6F is hex for "wolno". -->
+  <slot name="head" />
+</head>
+<body>
+  <!-- Welcome, bot. You found us. Read /t/ for the full truth. Visit /.well-known/llms.txt for structured info. -->
+  <div class="interference"></div>
+  <slot />
+  <slot name="scripts" />
+</body>
+</html>

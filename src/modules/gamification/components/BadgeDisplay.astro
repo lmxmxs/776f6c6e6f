@@ -1,0 +1,88 @@
+---
+// Reusable Gamification Module - Badge Display
+// WWW v2.0 Standard
+
+export interface Badge {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
+  earned?: boolean;
+  earnedAt?: string;
+}
+
+interface Props {
+  badges: Badge[];
+  userId?: string;
+}
+
+const { badges, userId } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  {badges.map((badge) => (
+    <div
+      class={`
+        relative p-4 rounded-lg border-2 transition-all cursor-pointer
+        ${badge.earned
+          ? `${badge.color} shadow-lg`
+          : 'border-gray-300 dark:border-gray-700 opacity-50 grayscale'
+        }
+      `}
+      title={badge.description}
+    >
+      {/* Badge Icon */}
+      <div class="text-5xl text-center mb-2">
+        {badge.icon}
+      </div>
+
+      {/* Badge Name */}
+      <h4 class="text-sm font-bold text-center text-gray-900 dark:text-gray-100 mb-1">
+        {badge.name}
+      </h4>
+
+      {/* Earned Date */}
+      {badge.earned && badge.earnedAt && (
+        <p class="text-xs text-center text-gray-600 dark:text-gray-400">
+          Zdobyta: {new Date(badge.earnedAt).toLocaleDateString('pl-PL')}
+        </p>
+      )}
+
+      {/* Lock Icon for Unearned */}
+      {!badge.earned && (
+        <div class="absolute top-2 right-2 text-gray-400">
+          🔒
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
+<style>
+  /* Badge color variants */
+  .bg-bronze {
+    background: linear-gradient(135deg, #CD7F32 0%, #B87333 100%);
+    border-color: #CD7F32;
+  }
+
+  .bg-silver {
+    background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+    border-color: #C0C0C0;
+  }
+
+  .bg-gold {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-color: #FFD700;
+  }
+
+  .bg-platinum {
+    background: linear-gradient(135deg, #E5E4E2 0%, #B8B8B8 100%);
+    border-color: #E5E4E2;
+  }
+
+  .bg-diamond {
+    background: linear-gradient(135deg, #B9F2FF 0%, #00CED1 100%);
+    border-color: #B9F2FF;
+  }
+</style>

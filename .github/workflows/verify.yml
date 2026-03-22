@@ -1,0 +1,34 @@
+name: Verify PR
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build check
+        run: npx astro build
+
+      - name: Page count check
+        run: |
+          COUNT=$(find dist -name "index.html" | wc -l)
+          echo "Pages built: $COUNT"
+          test "$COUNT" -ge 100 || (echo "FAIL: Expected 100+ pages, got $COUNT" && exit 1)
+
+      - name: SEO check
+        run: |
+          grep -q "application/ld+json" dist/wln/index.html || (echo "FAIL: No JSON-LD" && exit 1)
+          grep -q 'hreflang="pl"' dist/wln/index.html || (echo "FAIL: No hreflang" && exit 1)
+          grep -q 'lang="pl"' dist/pl/wln/index.html || (echo "FAIL: No PL lang" && exit 1)
+          echo "SEO checks passed"

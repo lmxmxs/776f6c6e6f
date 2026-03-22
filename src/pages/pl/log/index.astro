@@ -1,0 +1,280 @@
+---
+import '../../../styles/global.css';
+import { getCollection } from 'astro:content';
+import CookieFortune from '../../../components/CookieFortune.astro';
+
+const entries = (await getCollection('log_entries')).sort(
+  (a, b) => new Date(b.data.event_date).getTime() - new Date(a.data.event_date).getTime()
+);
+
+function formatDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  return d.toISOString().split('T')[0];
+}
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>KRONIKA | LOG — 776F6C6E6F</title>
+    <meta name="description" content="Kronika WOLNO — czasowy dziennik powstawania i rozwoju filozofii." />
+    <meta property="og:title" content="KRONIKA | 776F6C6E6F" />
+    <meta property="og:description" content="Czasowy dziennik filozofii WOLNO." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:url" content="https://776f6c6e6f.org/pl/log/" />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/log/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/log/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/log/" />
+    <link rel="alternate" hreflang="x-default" href="https://776f6c6e6f.org/log/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/pl/canon/">kanon</a>
+          <a href="/pl/journey/">podróż</a>
+          <a href="/log/" class="lang-switch-inline">EN</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="log-main">
+      <div class="container">
+
+        <header class="log-header">
+          <div class="page-prompt">
+            <span class="prompt-dollar">$</span> tail -f KRONIKA.log
+          </div>
+          <h1 class="log-title">KRONIKA</h1>
+          <p class="log-subtitle">
+            Dziennik temporalny. {entries.length} {entries.length === 1 ? 'wpis' : 'wpisow'} zapisanych.
+          </p>
+        </header>
+
+        <div class="timeline">
+          {entries.map((entry) => (
+            <article class="timeline-entry" class:list={[{ 'is-milestone': entry.data.milestone }]}>
+              <div class="timeline-marker">
+                <div class="marker-line"></div>
+                <div class="marker-dot"></div>
+              </div>
+              <div class="timeline-content">
+                <div class="entry-meta">
+                  <time class="entry-date" datetime={entry.data.event_date}>
+                    {formatDate(entry.data.event_date)}
+                  </time>
+                  {entry.data.milestone && (
+                    <span class="entry-milestone">KAMIEN MILOWY</span>
+                  )}
+                  {entry.data.tags.length > 0 && (
+                    <div class="entry-tags">
+                      {entry.data.tags.map(tag => (
+                        <span class="entry-tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <h2 class="entry-title">
+                  <a href={`/pl/log/${entry.id}/`}>{entry.data.title}</a>
+                </h2>
+                {entry.data.description && (
+                  <p class="entry-desc">{entry.data.description}</p>
+                )}
+                <a href={`/pl/log/${entry.id}/`} class="entry-read-more">
+                  cat wpis →
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        {entries.length === 0 && (
+          <div class="log-empty">
+            <p class="empty-msg">
+              <span class="prompt-dollar">$</span> Brak wpisow. Kronika zaczyna sie od pierwszego slowa.
+            </p>
+          </div>
+        )}
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/pl/canon/">kanon</a> | <a href="/">terminal</a> | <a href="/log/">EN</a></p>
+    </footer>
+
+    <CookieFortune lang="pl" />
+  </body>
+</html>
+
+<style>
+  .log-main {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 5rem;
+  }
+
+  .log-header {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+  }
+
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+
+  .log-title {
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+
+  .log-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0 1.5rem;
+    position: relative;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .marker-line {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    min-height: 1.5rem;
+  }
+
+  .timeline-entry:last-child .marker-line { display: none; }
+
+  .marker-dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--accent);
+    background: var(--bg-primary);
+    flex-shrink: 0;
+    margin: 0.5rem 0;
+  }
+
+  .timeline-entry.is-milestone .marker-dot {
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+  }
+
+  .timeline-content { padding-bottom: 2.5rem; }
+
+  .entry-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-date {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+
+  .entry-milestone {
+    font-size: 0.6rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.1rem 0.4rem;
+    letter-spacing: 0.15em;
+    background: rgba(0, 255, 65, 0.06);
+  }
+
+  .entry-tags {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .entry-tag {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.05rem 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .entry-title {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .entry-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .entry-title a:hover { color: var(--accent); }
+
+  .timeline-entry.is-milestone .entry-title a { color: var(--accent); }
+
+  .entry-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.75rem;
+    max-width: 60ch;
+  }
+
+  .entry-read-more {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    transition: color 0.15s;
+  }
+  .entry-read-more:hover { color: var(--accent); text-decoration: none; }
+
+  .log-empty {
+    padding: 3rem 0;
+    border: 1px dashed var(--border);
+  }
+
+  .empty-msg {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 540px) {
+    .timeline-entry { grid-template-columns: 1.5rem 1fr; gap: 0 1rem; }
+    .log-title { font-size: 1.2rem; }
+  }
+</style>

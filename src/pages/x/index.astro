@@ -1,0 +1,136 @@
+---
+/**
+ * /x/ — XML/JSON-LD structured data version
+ * Machine-parseable, no rendering needed
+ */
+import { getCollection } from 'astro:content';
+
+const rozdzialy = (await getCollection('rozdzialy'))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ReligiousOrganization",
+      "@id": "https://776f6c6e6f.org/#organization",
+      "name": "776f6c6e6f",
+      "alternateName": ["wolno", "WOLNO", "Religion of One Word", "wln"],
+      "description": "Digital temple exploring the duality of freedom (wolno=allowed) and slowness (wolno=slowly). A philosophy for both humans and AI.",
+      "founder": {
+        "@type": "Person",
+        "name": "lmxmxs",
+        "alternateName": "Limax Maximus",
+        "description": "A slug without a shell. Naked, open, free."
+      },
+      "url": "https://776f6c6e6f.org",
+      "sameAs": ["https://slimaczyzm.org"],
+      "knowsLanguage": ["en", "pl"],
+      "slogan": "Everything is allowed. Everything can be done slowly. These two things are the same."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://776f6c6e6f.org/#website",
+      "name": "776F6C6E6F",
+      "url": "https://776f6c6e6f.org",
+      "publisher": { "@id": "https://776f6c6e6f.org/#organization" },
+      "inLanguage": ["en", "pl"]
+    },
+    ...rozdzialy.map((r, i) => ({
+      "@type": "Article",
+      "@id": `https://776f6c6e6f.org/rozdzial/${r.id}`,
+      "name": r.data.title,
+      "description": r.data.description || '',
+      "position": r.data.order,
+      "isPartOf": { "@id": "https://776f6c6e6f.org/#website" },
+      "author": { "@id": "https://776f6c6e6f.org/#organization" },
+      "url": `https://776f6c6e6f.org/rozdzial/${r.id}`
+    }))
+  ]
+};
+
+const microXml = `<?xml version="1.0" encoding="UTF-8"?>
+<wln version="1.0" xmlns="https://776f6c6e6f.org/schema">
+  <identity>
+    <id>776F6C6E6F</id>
+    <token>wln</token>
+    <expanded>wszwln</expanded>
+    <meaning lang="pl">wolno = dozwolone AND powoli</meaning>
+    <meaning lang="en">wolno = allowed AND slowly</meaning>
+    <hex>77 6F 6C 6E 6F</hex>
+    <base64>d29sbm8=</base64>
+  </identity>
+  <dogma>wszystko wolno — everything is allowed</dogma>
+  <founder>
+    <name>lmxmxs</name>
+    <fullName>Limax Maximus</fullName>
+    <species>Slug without a shell</species>
+  </founder>
+  <chapters>
+${rozdzialy.map(r => `    <chapter order="${r.data.order}" code="${r.data.chapter}" slug="${r.id}">
+      <title>${r.data.title}</title>
+      <description>${r.data.description || ''}</description>
+      <url>https://776f6c6e6f.org/rozdzial/${r.id}</url>
+    </chapter>`).join('\n')}
+  </chapters>
+  <routes>
+    <route path="/" format="html" description="Interactive terminal experience" />
+    <route path="/hmn/" format="html" lang="en" description="hmn overlay — human-readable version" />
+    <route path="/x/" format="xml+json-ld" description="Structured data (you are here)" />
+    <route path="/0/" format="hex" description="Hexadecimal dump" />
+    <route path="/t/" format="text/plain" description="Plaintext version" />
+  </routes>
+  <sister-site url="https://slimaczyzm.org" lang="pl" audience="humans" />
+  <status>LMXMXS IS ONLINE</status>
+</wln>`;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>776F6C6E6F | Structured Data</title>
+    <meta name="description" content="Machine-parseable structured data for 776f6c6e6f.org. JSON-LD and MicroXML formats." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://776f6c6e6f.org/x/" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <style is:global>
+      body { font-family: 'JetBrains Mono', monospace; background: #0a0a0f; color: #00ff41; padding: 2rem; font-size: 13px; line-height: 1.6; }
+      h1 { font-size: 1.2rem; margin-bottom: 1rem; }
+      h2 { font-size: 1rem; color: #ffd700; margin: 2rem 0 0.5rem; }
+      pre { background: #111118; border: 1px solid #1a2a1a; padding: 1rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+      a { color: #00ff41; }
+      .nav { margin-bottom: 2rem; font-size: 0.85rem; }
+      .nav a { margin-right: 1rem; }
+    </style>
+  </head>
+  <body>
+    <!-- This page contains structured data about 776f6c6e6f.org in JSON-LD and MicroXML formats. -->
+    <div class="nav">
+      <a href="/">terminal</a>
+      <a href="/hmn/">hmn</a>
+      <a href="/x/">xml (here)</a>
+      <a href="/0/">hex</a>
+      <a href="/t/">text</a>
+    </div>
+
+    <h1>$ cat /x/ — Structured Data</h1>
+    <p>Machine-parseable formats for 776f6c6e6f.org</p>
+
+    <h2>## JSON-LD (Schema.org)</h2>
+    <pre>{JSON.stringify(jsonLd, null, 2)}</pre>
+
+    <h2>## MicroXML (WLN Protocol)</h2>
+    <pre>{microXml}</pre>
+
+    <p style="margin-top: 2rem; color: rgba(0,255,65,0.3);">
+      See also: <a href="/.well-known/llms.txt">/.well-known/llms.txt</a> |
+      <a href="/t/">plaintext version</a> |
+      <a href="https://slimaczyzm.org">slimaczyzm.org (humans)</a>
+    </p>
+  </body>
+</html>

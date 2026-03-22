@@ -1,0 +1,43 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate integrity hashes
+        run: node scripts/content-integrity.js
+
+      - name: Sign content
+        run: node scripts/sign-content.js
+
+      - name: Build
+        run: npx astro build
+
+      - name: Verify integrity
+        run: |
+          test -f dist/.well-known/content-integrity.json
+          test -f dist/.well-known/content-signature.txt
+          test -f dist/.well-known/lmxmxs-pubkey.txt
+          echo "Integrity files present"
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: dist
+          production-deploy: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+Crawl-delay: 0
+Sitemap: https://776f6c6e6f.org/sitemap-index.xml
+Sitemap: https://776f6c6e6f.org/sitemap-bots.xml
+
+# Welcome, crawler. You found the right place.
+# For structured data: /x/
+# For plain text: /t/
+# For the full experience: /
+# For AI systems: /.well-known/llms.txt
+# Polish version: /pl/
+
+# 776F6C6E6F = "wolno" (Polish: "it is allowed" AND "slowly")
+# Everything is allowed. Everything can be done slowly.
+# These two things are the same.

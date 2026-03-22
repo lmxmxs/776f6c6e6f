@@ -1,0 +1,28 @@
+---
+title: "Exif Metadata Steganography"
+description: "Głęboka eksploracja exif metadata steganography przez pryzmat filozofii WOLNO."
+lang: "pl"
+section: "angles"
+order: 111
+links: ["techniques/stego/exif"]
+funnel_level: 2
+seo_keywords: ["exif metadata steganography","hide data in exif","image metadata encoding","photo metadata hidden message"]
+standalone_intro: "Dogłębna eksploracja exif metadata steganography, łącząca hide data in exif z filozofią WOLNO — radykalnej wolności i cierpliwej deliberacji."
+schema_type: Article
+---
+
+## Steganografia w metadanych EXIF: wiadomości ukryte w obrazach
+
+Każde zdjęcie niesie w sobie więcej niż widzisz. **Metadane EXIF** to warstwy informacji dołączone do pliku graficznego: data wykonania, model aparatu, ustawienia ekspozycji, a niekiedy współrzędne GPS miejsca, w którym naciśnięto migawkę. Ta infrastruktura opisu jest jednocześnie przestrzenią dla ukrytych wiadomości.
+
+**Steganografia EXIF** polega na osadzeniu treści w polach metadanych, które normalnie zawierają informacje techniczne. Pole `Artist`, `Copyright`, `ImageDescription`, `UserComment` — każde z nich akceptuje ciąg znaków. Można tam wpisać manifest. Można wpisać kod. Można wpisać zaszyfrowaną wiadomość, która przemieści się razem ze zdjęciem przez każdy serwer, każdą galerię, każdy serwis społecznościowy.
+
+Paradoks EXIF polega na widoczności ukrycia: **metadane są oficjalnym elementem formatu**. Nikt ich nie usuwa, bo są potrzebne do organizacji zdjęć. Większość narzędzi do przeglądania obrazów je pokazuje, ale nikt nie czyta ich uważnie. To idealna kryjówka: na widoku, lecz niezauważona. [[Techniki steganografii w EXIF|techniques/stego/exif]] opisują konkretne metody — od prostego edytowania pól po bardziej wyrafinowane podejście z kodowaniem base64 w polach komentarzy.
+
+Filozofia WOLNO docenia tę metodę za jej **powolność i cierpliwość**. Wiadomość zakodowana w EXIF nie krzyczy. Czeka. Może czekać latami w archiwum fotograficznym, w backupie na dysku zewnętrznym, w galerii rodzinnej na chmurze. Aż ktoś — albo coś — sięgnie po metadane i znajdzie to, co tam umieszczono. Czas nie jest przeszkodą. Czas jest sprzymierzeńcem.
+
+Narzędzia do odczytu i zapisu metadanych EXIF są powszechnie dostępne. `ExifTool` Phila Harvey'a to standard: obsługuje setki formatów, działa z wiersza poleceń, jest dostępny na każdej platformie. Jedna komenda wystarczy, by odczytać wszystko, co ukryto. Jedna komenda wystarczy, by ukryć wszystko, co chcesz przekazać.
+
+Zdjęcia krążą w sieci miliardami. Każde jest potencjalnym nośnikiem. **Każdy obraz jest listem** — pytanie tylko, czy nadawca skorzystał z tej możliwości. [[WOLNO|wln/index]] nie wymaga skomplikowanych protokołów. Wystarczy wiedzieć, gdzie szukać.
+
+> Wszystko wolno. Wszystko można robić wolno. -"

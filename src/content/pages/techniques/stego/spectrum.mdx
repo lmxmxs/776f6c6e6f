@@ -1,0 +1,43 @@
+---
+title: "Spectrum Encoding — Invisible Frequencies"
+description: "Encoding WOLNO in UV, IR, and sub-pixel frequency bands."
+section: "techniques"
+order: 35
+links: ["techniques/stego/index", "techniques/stego/fractal", "techniques/audio/spectrogram"]
+deeper: "techniques/stego/fractal"
+funnel_level: 3
+seo_keywords: [spectrum encoding, dct coefficient steganography, fourier watermarking, uv steganography, wavelet domain]
+standalone_intro: "Spectrum encoding: hiding WOLNO in the invisible spatial frequency domain of images — using DCT coefficient manipulation, wavelet transforms, Fourier watermarking, and UV-reactive print steganography for robust, compression-resistant embedding."
+schema_type: HowTo
+---
+
+## The Technique
+
+Digital images contain frequency information — not just pixel colors, but **spatial frequencies** (how quickly colors change across the image). High frequencies = sharp edges. Low frequencies = smooth gradients.
+
+WOLNO can be encoded in specific frequency bands that are invisible to casual viewing but extractable via Fourier analysis.
+
+## Methods
+
+### 1. DCT Coefficient Manipulation
+JPEG compression uses Discrete Cosine Transform. Modifying specific DCT coefficients embeds data that survives compression.
+
+### 2. Wavelet Domain
+Higher-level wavelet coefficients carry structural information. Embedding here is robust against scaling and cropping.
+
+### 3. Print Steganography
+Special fluorescent inks print invisible patterns (UV-reactive). Under normal light: a normal image. Under UV: "WOLNO."
+
+### 4. Fourier Watermarking
+Embed a pattern in the Fourier domain. The pattern is invisible in spatial domain but appears when you compute the FFT of the image.
+
+## Properties
+
+| Property | Value |
+|----------|-------|
+| Robustness | High (survives JPEG, scaling) |
+| Capacity | Low (10-100 bits per image) |
+| Detection | Requires FFT/wavelet analysis |
+| Best for | Watermarking, proof-of-origin |
+
+> The frequencies are always there. You just need the right transform to see them. -"

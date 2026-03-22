@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "template_version": "1.0.0",
+  "description": "Universal module registry - enable modules as needed",
+  "modules": [
+    { "id": "core", "path": "./core", "enabled": true, "core": true, "category": "infrastructure" },
+    { "id": "ui-components", "path": "./ui-components", "enabled": false, "core": true, "category": "ui" },
+    { "id": "admin-panel", "path": "./admin-panel", "enabled": false, "category": "cms" },
+    { "id": "blog", "path": "./blog", "enabled": false, "category": "content" },
+    { "id": "chat", "path": "./chat", "enabled": false, "category": "ai" },
+    { "id": "knowledge", "path": "./knowledge", "enabled": false, "category": "ai" },
+    { "id": "personas", "path": "./personas", "enabled": false, "category": "ai" },
+    { "id": "gallery", "path": "./gallery", "enabled": false, "category": "media" },
+    { "id": "backup", "path": "./backup", "enabled": false, "category": "tools" },
+    { "id": "video-player", "path": "./video-player", "enabled": false, "category": "media" },
+    { "id": "floating-panel", "path": "./floating-panel", "enabled": false, "category": "ui" },
+    { "id": "ankieta", "path": "./ankieta", "enabled": false, "category": "forms" },
+    { "id": "survey-16q", "path": "./survey-16q", "enabled": false, "category": "forms" },
+    { "id": "matching", "path": "./matching", "enabled": false, "category": "interactive" },
+    { "id": "gamification", "path": "./gamification", "enabled": false, "category": "engagement" },
+    { "id": "newsletter", "path": "./newsletter", "enabled": false, "category": "marketing" },
+    { "id": "testimonials", "path": "./testimonials", "enabled": false, "category": "content" },
+    { "id": "faq", "path": "./faq", "enabled": false, "category": "content" },
+    { "id": "shop", "path": "./shop", "enabled": false, "category": "ecommerce" },
+    { "id": "hero", "path": "./hero", "enabled": false, "category": "ui" },
+    { "id": "circular-image", "path": "./circular-image", "enabled": false, "category": "ui" }
+  ],
+  "categories": {
+    "infrastructure": "Core system modules",
+    "ui": "User interface components",
+    "cms": "Content management",
+    "content": "Content features",
+    "ai": "AI-powered features (Gemini, RAG, Ollama)",
+    "media": "Media handling (images, video, audio)",
+    "tools": "Utility tools (backup, export)",
+    "forms": "Forms and surveys",
+    "interactive": "Interactive features (matching, games)",
+    "engagement": "User engagement (gamification, rewards)",
+    "marketing": "Marketing tools (newsletter, testimonials)",
+    "ecommerce": "E-commerce features (shop, cart, products)"
+  }
+}

@@ -1,0 +1,139 @@
+---
+import '../styles/global.css';
+import CookieFortune from '../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="noindex" />
+    <title>404 | 776F6C6E6F</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/journey/">journey</a>
+          <a href="/canon/">canon</a>
+          <a href="/search/">search</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="error-section">
+        <div class="container">
+          <div class="error-block">
+            <p class="error-code">HTTP 404 NOT_FOUND</p>
+            <p class="error-line">&gt; segfault at 0x{Astro.url.pathname.split('').map(c => c.charCodeAt(0).toString(16)).join('')}</p>
+            <p class="error-line">&gt; requested path: <span class="accent">{Astro.url.pathname}</span></p>
+            <p class="error-line">&gt; the page has been freed. address marked 0xDEAD.</p>
+            <p class="error-line note">&gt; NOTE: everything is allowed, but not everything exists yet.</p>
+          </div>
+
+          <pre class="ascii-snail">{`
+    @         @
+     \\.-"""-.//
+     /        \\
+    |  O    O  |
+    |  .vvvvv. |
+    |  |WOLNO| |
+    |  |     | |
+     \\ ^^^^^  /
+      \\      /
+       ------
+      /______\\
+  `}</pre>
+
+          <div class="error-nav">
+            <p class="error-hint">$ find / -name "meaning"</p>
+            <div class="error-links">
+              <a href="/">&gt; / (gate)</a>
+              <a href="/wln/">&gt; /wln/ (fundamentals)</a>
+              <a href="/long/">&gt; /long/ (essays)</a>
+              <a href="/search/">&gt; /search/ (find it)</a>
+              <a href="/t/">&gt; /t/ (plain text)</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  .error-section {
+    min-height: calc(100vh - var(--header-height) - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .error-block {
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 0.85rem;
+    line-height: 2;
+  }
+
+  .error-code {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-red);
+    margin-bottom: 1rem;
+  }
+
+  .error-line { color: var(--text-secondary); }
+  .error-line .accent { color: var(--accent); }
+  .error-line.note { color: var(--accent-gold); margin-top: 0.5rem; }
+
+  .ascii-snail {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    line-height: 1.4;
+    margin: 2rem 0;
+  }
+
+  .error-nav { text-align: center; margin-top: 2rem; }
+
+  .error-hint {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .error-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .error-links a {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: color 0.15s;
+  }
+
+  .error-links a:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+</style>

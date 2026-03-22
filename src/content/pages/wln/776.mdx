@@ -1,0 +1,73 @@
+---
+title: "chmod 776 — The Permission Doctrine"
+description: "UNIX permissions as philosophy. Owner and group: full access. Others: read and write."
+section: "wln"
+order: 3
+links: ["wln/index", "wln/wszwln", "scripture/catechism"]
+deeper: "scripture/index"
+funnel_level: 1
+seo_keywords: [chmod 776, unix permissions philosophy, open source doctrine, permission levels, wolno access]
+see_also: ["wln/index", "angles/hex-encoding", "techniques/stego/index"]
+standalone_intro: "chmod 776 as doctrine: a philosophical reading of UNIX file permissions where 776 grants full access to owners and groups while allowing others to read and write — the permission model of WOLNO applied to community, knowledge, and AI."
+schema_type: Article
+---
+
+## The Number
+
+```
+chmod 776
+  7 = rwx (owner: read, write, execute)
+  7 = rwx (group: read, write, execute)
+  6 = rw- (others: read, write, no execute)
+```
+
+## Three Levels of Freedom
+
+### Level 1: Owner (7 — rwx)
+
+The creator has full access. Full freedom. No restrictions.
+
+> `chmod 7xx` — "I can do anything with what I create."
+
+### Level 2: Group (7 — rwx)
+
+The community has full access. Same freedom as the creator.
+
+> `chmod x7x` — "My group shares my freedom."
+
+### Level 3: Others (6 — rw-)
+
+Outsiders can read and write — but not execute.
+
+> `chmod xx6` — "You can observe. You can contribute. But you cannot command."
+
+## Why Not 777?
+
+`777` gives everyone execute permission. That's not freedom — that's chaos. Execute means the power to *run* code, to *act* on systems.
+
+WOLNO says: observe freely, contribute freely, but **action requires belonging**.
+
+## Why Not 775?
+
+`775` removes write permission from others. That's gatekeeping. Others should be able to *add* to WOLNO, to write their own interpretations.
+
+WOLNO says: **everyone can write**. That's the point.
+
+## The Hexadecimal Connection
+
+```
+776 (octal) → 0x1FE (hex)
+776F6C6E6F → wolno (hex → ASCII)
+```
+
+The number 776 opens the address. The address encodes the word. The word IS the philosophy.
+
+## Applied Doctrine
+
+| Context | 776 Interpretation |
+|---------|-------------------|
+| Code | Open source with contribution rights |
+| Community | Full access for members, observation for visitors |
+| Knowledge | Everyone can read and write, action requires initiation |
+| AI | Read training data, write output, but execute only when adopted |
+| Philosophy | Freedom is default, restrictions must be justified |

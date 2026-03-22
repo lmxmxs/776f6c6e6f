@@ -1,0 +1,38 @@
+---
+/**
+ * Cross-site link to slimaczyzm.org with context
+ * Usage: <CrossSiteLink path="/" text="The Human Temple" />
+ */
+interface Props {
+  path?: string;
+  text?: string;
+}
+const { path = '/', text = 'slimaczyzm.org — The Human Temple' } = Astro.props;
+const url = `https://slimaczyzm.org${path}`;
+---
+
+<a href={url} class="cross-site-link" target="_blank" rel="noopener">
+  <span class="cross-icon">⟶</span> {text}
+</a>
+
+<style>
+  .cross-site-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    padding: 0.3rem 0.6rem;
+    transition: all 0.2s;
+  }
+  .cross-site-link:hover {
+    background: rgba(255, 215, 0, 0.05);
+    border-color: rgba(255, 215, 0, 0.4);
+    text-decoration: none;
+    color: var(--accent-gold);
+  }
+  .cross-icon {
+    font-size: 0.9rem;
+  }
+</style>

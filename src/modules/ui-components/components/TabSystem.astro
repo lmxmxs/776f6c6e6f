@@ -1,0 +1,181 @@
+---
+// src/components/ui/TabSystem.astro
+/**
+ * TabSystem - system zakładek w stylu cyber
+ * 
+ * @param {Array} tabs - Tablica zakładek z id, label i isActive
+ * @param {string} contentId - ID kontenera z zawartością zakładek
+ * @param {string} [tabsAlign="center"] - Wyrównanie zakładek (start, center, end)
+ * @param {string} [variant="pills"] - Styl zakładek (pills, underline)
+ * @param {string} [class] - Dodatkowe klasy CSS
+ */
+
+interface Tab {
+  id: string;
+  label: string;
+  isActive?: boolean;
+}
+
+interface Props {
+  tabs: Tab[];
+  contentId: string;
+  tabsAlign?: 'start' | 'center' | 'end';
+  variant?: 'pills' | 'underline';
+  class?: string;
+}
+
+const {
+  tabs,
+  contentId,
+  tabsAlign = 'center',
+  variant = 'pills',
+  class: className = '',
+} = Astro.props;
+
+// Stylowanie zakładek w zależności od wariantu
+const tabsContainerClass = {
+  pills: 'gap-8',
+  underline: 'border-b border-gray-700'
+};
+
+// Alignment zakładek
+const alignClass = {
+  start: 'justify-start',
+  center: 'justify-center',
+  end: 'justify-end'
+};
+---
+
+<div class={`tab-system ${className}`}>
+  <div class={`tab-buttons flex ${alignClass[tabsAlign]} ${tabsContainerClass[variant]} mb-10`}>
+    {tabs.map(tab => (
+      <button 
+        class={`tab-button text-lg font-orbitron transition-all duration-300 ${variant} ${tab.isActive ? 'active' : ''}`}
+        data-tab={tab.id}
+        aria-selected={tab.isActive ? 'true' : 'false'}
+        aria-controls={`${tab.id}-content`}
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+  
+  <div id={contentId} class="tab-content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  /* Podstawowe style dla wszystkich zakładek */
+  .tab-button {
+    position: relative;
+    outline: none;
+    color: var(--cyber-turquoise);
+  }
+  
+  /* Style dla wariantu pills */
+  .tab-button.pills {
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    border: 2px solid var(--cyber-turquoise);
+    background-color: transparent;
+    box-shadow: 0 0 10px rgba(0, 248, 255, 0.3);
+  }
+  
+  .tab-button.pills:hover {
+    box-shadow: 0 0 15px rgba(0, 248, 255, 0.5);
+    background-color: rgba(0, 248, 255, 0.05);
+  }
+  
+  .tab-button.pills.active {
+    background-color: rgba(0, 248, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 248, 255, 0.6);
+    text-shadow: 0 0 10px rgba(0, 248, 255, 0.7);
+  }
+  
+  /* Style dla wariantu underline */
+  .tab-button.underline {
+    padding: 0.5rem 1.5rem;
+    margin-bottom: -1px;
+  }
+  
+  .tab-button.underline::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--cyber-turquoise);
+    transition: width 0.3s ease;
+  }
+  
+  .tab-button.underline:hover::after,
+  .tab-button.underline.active::after {
+    width: 100%;
+  }
+  
+  .tab-button.underline.active {
+    text-shadow: 0 0 10px rgba(0, 248, 255, 0.7);
+  }
+  
+  .tab-button.active {
+    color: var(--cyber-turquoise);
+  }
+</style>
+
+<script>
+  function setupTabs() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        const tabContentId = `${tabId}-content`;
+        const tabContainer = button.closest('.tab-system');
+        const allContents = tabContainer?.querySelectorAll('.tab-content > div');
+        
+        // Ustawienie aktywnej zakładki
+        tabButtons.forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        
+        button.classList.add('active');
+        button.setAttribute('aria-selected', 'true');
+        
+        // Pokazanie odpowiedniej zawartości
+        if (allContents) {
+          allContents.forEach(content => {
+            if (content.id === tabContentId) {
+              content.classList.remove('hidden');
+            } else {
+              content.classList.add('hidden');
+            }
+          });
+        }
+        
+        // Zdarzenie zmiany zakładki do użycia przez inne komponenty
+        document.dispatchEvent(new CustomEvent('tab-changed', {
+          detail: { tabId }
+        }));
+      });
+    });
+    
+    // Inicjalizacja z pierwszą zakładką lub aktualnie aktywną
+    const activeTab = document.querySelector('.tab-button.active');
+    const firstTab = document.querySelector('.tab-button');
+    
+    if (activeTab) {
+      activeTab.click();
+    } else if (firstTab) {
+      firstTab.click();
+    }
+  }
+  
+  // Inicjalizacja po załadowaniu strony
+  document.addEventListener('DOMContentLoaded', setupTabs);
+  
+  // Inicjalizacja po Astro View Transitions
+  document.addEventListener('astro:page-load', setupTabs);
+</script>

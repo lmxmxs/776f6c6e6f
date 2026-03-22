@@ -1,0 +1,162 @@
+---
+// @PATH: /src/components/admin/ImageEditor.astro
+// @PROJECT: 112358 (Fraktale Galeria)
+// Inline image editor component - shows edit button for authenticated users
+
+import { isAuthenticated } from '../../lib/admin/auth';
+
+interface Props {
+  slug: string;
+  currentImage: string;
+  title: string;
+}
+
+const { slug, currentImage, title } = Astro.props;
+const authenticated = isAuthenticated(Astro.cookies);
+
+// Helper to get original image path
+const getOriginalImagePath = (imagePath: string): string => {
+  let original = imagePath.replace(/-(\d+x\d+)/gi, '');
+  original = original.replace(/-scaled/gi, '');
+  return original;
+};
+
+const suggestedImage = getOriginalImagePath(currentImage);
+const hasProblematicImage = currentImage !== suggestedImage;
+---
+
+{authenticated && (
+  <div class="image-editor-wrapper">
+    <button
+      class="edit-image-btn"
+      data-slug={slug}
+      data-current={currentImage}
+      data-suggested={suggestedImage}
+      data-has-problem={hasProblematicImage}
+      title={hasProblematicImage ? "Obrazek wymaga naprawy - kliknij aby naprawić" : "Edytuj obrazek"}
+    >
+      {hasProblematicImage ? '⚠️ Napraw obrazek' : '✏️ Edytuj'}
+    </button>
+  </div>
+)}
+
+<style>
+  .image-editor-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .edit-image-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--accent-primary);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
+  }
+
+  .edit-image-btn:hover {
+    background-color: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .edit-image-btn[data-has-problem="true"] {
+    background-color: #ff9800;
+    animation: pulse 2s infinite;
+  }
+
+  .edit-image-btn[data-has-problem="true"]:hover {
+    background-color: #f57c00;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+</style>
+
+<script>
+  // Handle image editing
+  document.querySelectorAll<HTMLButtonElement>('.edit-image-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const slug = btn.getAttribute('data-slug');
+      const currentImage = btn.getAttribute('data-current');
+      const suggestedImage = btn.getAttribute('data-suggested');
+      const hasProblem = btn.getAttribute('data-has-problem') === 'true';
+
+      if (!slug || !currentImage || !suggestedImage) {
+        alert('❌ Błąd: brak wymaganych danych');
+        return;
+      }
+
+      // If image has a problem, offer automatic fix
+      if (hasProblem && currentImage !== suggestedImage) {
+        const confirmMessage = `⚠️ Wykryto problematyczny obrazek (miniatura z logo)!\n\n` +
+          `Obecny: ${currentImage}\n` +
+          `Sugerowany: ${suggestedImage}\n\n` +
+          `Czy naprawić automatycznie?`;
+
+        if (!confirm(confirmMessage)) {
+          return;
+        }
+
+        const originalText = btn.textContent;
+        btn.textContent = '⏳ Naprawianie...';
+        btn.disabled = true;
+
+        try {
+          const response = await fetch('/api/fix-image', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              slug,
+              currentImage,
+              suggestedImage
+            })
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            btn.textContent = '✅ Naprawiono!';
+            btn.style.backgroundColor = '#28a745';
+            setTimeout(() => {
+              location.reload();
+            }, 1500);
+          } else {
+            alert('❌ Błąd podczas naprawy: ' + result.error);
+            btn.textContent = originalText;
+            btn.disabled = false;
+          }
+        } catch (error) {
+          alert('❌ Błąd połączenia: ' + error);
+          btn.textContent = originalText;
+          btn.disabled = false;
+        }
+      } else {
+        // No automatic fix available - show info
+        alert(`📝 Edycja obrazka\n\n` +
+          `Artykuł: ${slug}\n` +
+          `Obecny obrazek: ${currentImage}\n\n` +
+          `Aby zmienić obrazek:\n` +
+          `1. Przejdź do panelu admina (/admin/images)\n` +
+          `2. Znajdź ten artykuł na liście\n` +
+          `3. Użyj przycisku "Napraw automatycznie"\n\n` +
+          `Lub edytuj plik MDX bezpośrednio w /src/content/blog/${slug}.mdx`);
+      }
+    });
+  });
+</script>

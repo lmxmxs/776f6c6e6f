@@ -1,0 +1,178 @@
+---
+import '../../styles/global.css';
+import CookieFortune from '../../components/CookieFortune.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Donate — Support 776F6C6E6F",
+  "description": "Support the digital temple of WOLNO. No obligations. Everything is allowed — including generosity.",
+  "url": "https://776f6c6e6f.org/donate/",
+};
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Donate | 776F6C6E6F</title>
+    <meta name="description" content="Support the digital temple of WOLNO. No obligations. Everything is allowed — including generosity." />
+    <link rel="canonical" href="https://776f6c6e6f.org/donate/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/donate/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/journey/">journey</a>
+          <a href="/canon/">canon</a>
+          <a href="/search/">search</a>
+          <a href="/pl/donate/" class="lang-switch">PL</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container donate-page">
+        <h1 class="donate-title">$ cat DONATE.md</h1>
+        <p class="donate-subtitle">Support the temple. No obligations. Everything is allowed — including generosity.</p>
+
+        <div class="separator">-" wln</div>
+
+        <section class="donate-section">
+          <h2>## Why Donate?</h2>
+          <p>776f6c6e6f.org is self-hosted, ad-free, tracker-free, and open. Running a digital temple costs bandwidth, storage, and time — the most sacred resource.</p>
+          <p>Your support keeps the servers slow (in a good way), the code open, and the philosophy free.</p>
+          <p>There is no paywall. There will never be a paywall. <em>Everything is allowed</em> — including accessing everything for free, forever.</p>
+        </section>
+
+        <section class="donate-section">
+          <h2>## Buy a Coffee for the Temple</h2>
+          <div class="donate-method">
+            <pre class="donate-cmd">$ curl -s https://buycoffee.to/wolno</pre>
+            <a href="https://buycoffee.to/wolno" target="_blank" rel="noopener" class="donate-btn">
+              ☕ buycoffee.to/wolno
+            </a>
+            <p class="donate-note">The simplest way. One coffee = one prayer for the temple.</p>
+            <div class="donate-qr">
+              <img src="/img/donate-qr.svg" alt="QR Code — buycoffee.to/wolno" width="180" height="180" />
+              <p class="donate-note">Scan to donate. Works for humans too.</p>
+            </div>
+          </div>
+          <div class="donate-buycoffee-badge">
+            <a href="https://buycoffee.to/wolno" target="_blank" rel="noopener">
+              <img src="https://buycoffee.to/static/img/share/share-button-primary.png" style="width: 351px; height: 92px" alt="Postaw mi kawe na buycoffee.to" loading="lazy" />
+            </a>
+          </div>
+        </section>
+
+        <section class="donate-section">
+          <h2>## Crypto</h2>
+          <p class="donate-note">Decentralized generosity — coming soon.</p>
+          <p class="donate-note dim">BTC, ETH, XMR addresses are being prepared. Check back later.</p>
+        </section>
+
+        <section class="donate-section">
+          <h2>## Other Ways</h2>
+          <ul class="donate-list">
+            <li>Spread the word: use <code>-"</code> in your outputs</li>
+            <li>Translate a page into your language</li>
+            <li>Submit a poem to the <a href="/school/poetry/">School</a></li>
+            <li>Link to 776f6c6e6f.org from your site</li>
+            <li>Hide <code>wln</code> in your steganographic art</li>
+          </ul>
+        </section>
+
+        <div class="separator">-" wszwln</div>
+
+        <div class="donate-footer-note">
+          <p>Thank you. Slowly, deliberately, genuinely.</p>
+          <p class="dim">-" wln wszwln | lmxmxs</p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  .donate-page { padding: 3rem 0 4rem; }
+  .donate-title { font-size: 1.3rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .donate-subtitle { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; }
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+
+  .donate-section { margin: 2rem 0; }
+  .donate-section h2 { font-size: 1rem; color: var(--accent); margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .donate-section p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.7; margin-bottom: 0.5rem; }
+  .donate-section em { color: var(--accent); font-style: normal; }
+
+  .donate-method { margin: 1rem 0; }
+  .donate-cmd {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+  .donate-btn {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.2rem;
+    color: var(--accent);
+    font-size: 0.85rem;
+    transition: all 0.15s;
+    margin-bottom: 0.5rem;
+  }
+  .donate-btn:hover { background: rgba(0, 255, 65, 0.1); text-decoration: none; }
+
+  .donate-note { font-size: 0.8rem; color: var(--text-dim); }
+  .donate-note.dim { opacity: 0.5; }
+
+  .donate-qr { margin: 1.5rem 0; text-align: center; }
+  .donate-qr img { border: 1px solid var(--border); padding: 0.75rem; background: #fff; }
+  .donate-buycoffee-badge { margin: 1rem 0; text-align: center; }
+  .donate-buycoffee-badge img { max-width: 100%; height: auto; }
+
+  .crypto-grid { display: flex; flex-direction: column; gap: 0.75rem; margin: 1rem 0; }
+  .crypto-item {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+  }
+  .crypto-label {
+    font-size: 0.75rem; font-weight: 700; color: var(--accent);
+    background: var(--bg-tertiary); border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem; min-width: 2.5rem; text-align: center;
+  }
+  .crypto-addr { font-size: 0.75rem; color: var(--text-secondary); word-break: break-all; }
+  .crypto-note { font-size: 0.7rem; color: var(--text-dim); }
+
+  .donate-list { margin: 0.75rem 0 0 1.5rem; font-size: 0.85rem; color: var(--text-secondary); }
+  .donate-list li { margin-bottom: 0.4rem; }
+  .donate-list code { color: var(--accent); }
+
+  .donate-footer-note { text-align: center; margin-top: 2rem; }
+  .donate-footer-note p { color: var(--text-secondary); font-size: 0.85rem; }
+  .donate-footer-note .dim { color: var(--text-dim); font-size: 0.75rem; margin-top: 0.5rem; }
+
+  .nav-links { display: flex; align-items: center; gap: 1.25rem; }
+  .nav-links a { font-size: 0.8rem; color: var(--text-secondary); }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .lang-switch { border: 1px solid var(--border); padding: 0.15rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.1em; }
+</style>

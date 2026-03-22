@@ -1,0 +1,216 @@
+---
+/**
+ * /cookies/ — Cookie & localStorage policy
+ * ePrivacy Directive compliance
+ */
+import '../../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>776F6C6E6F | Cookie Policy</title>
+    <meta name="description" content="Cookie and localStorage policy for 776f6c6e6f.org. Local analytics only. No third-party tracking." />
+    <link rel="canonical" href="https://776f6c6e6f.org/cookies/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/">terminal</a>
+          <a href="/hmn/">hmn</a>
+          <a href="/privacy/">privacy</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="legal-content">
+        <div class="container">
+          <h1 class="legal-title">$ cat /cookies/policy.txt</h1>
+          <p class="legal-updated">Last updated: 2026-02-20</p>
+
+          <h2>What we store</h2>
+          <p>This site uses <strong>localStorage</strong> (not HTTP cookies) to store the following data in your browser:</p>
+
+          <table class="legal-table">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Purpose</th>
+                <th>Example value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>cookies-accepted</code></td>
+                <td>Whether you accepted the consent banner</td>
+                <td><code>"true"</code></td>
+              </tr>
+              <tr>
+                <td><code>_wln_v</code></td>
+                <td>Anonymous visitor ID (random hex string)</td>
+                <td><code>"a3f7c912e4b60d8e"</code></td>
+              </tr>
+              <tr>
+                <td><code>_wln_t</code></td>
+                <td>Visitor type classification</td>
+                <td><code>"bot"</code> / <code>"human"</code> / <code>"unknown"</code></td>
+              </tr>
+              <tr>
+                <td><code>_wln_events</code></td>
+                <td>Page view log (max 200 entries)</td>
+                <td>JSON array of visit events</td>
+              </tr>
+              <tr>
+                <td><code>gate-passed</code></td>
+                <td>Whether you passed the AI gate (sessionStorage)</td>
+                <td><code>"true"</code></td>
+              </tr>
+              <tr>
+                <td><code>fortune-shown</code></td>
+                <td>Whether fortune toast was shown (sessionStorage)</td>
+                <td><code>"true"</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>What we don't do</h2>
+          <ul>
+            <li>No HTTP cookies are set</li>
+            <li>No data is sent to any server (this is a static site)</li>
+            <li>No third-party scripts, trackers, or analytics services</li>
+            <li>No advertising or marketing tracking</li>
+            <li>No cross-site tracking</li>
+          </ul>
+
+          <h2>Why we ask for consent</h2>
+          <p>The <strong>ePrivacy Directive</strong> (2002/58/EC) covers all forms of client-side storage, including localStorage. Even though we don't use traditional cookies, we respect the spirit of the law and ask for your consent before storing analytics data.</p>
+          <p>The <code>cookies-accepted</code> key itself is stored without prior consent, as it is technically necessary for the consent mechanism.</p>
+
+          <h2>Your right to delete</h2>
+          <p>You can clear all data stored by this site at any time:</p>
+          <button id="clear-data" class="clear-btn">$ rm -rf /localStorage/776f6c6e6f/*</button>
+          <p class="clear-result" id="clear-result"></p>
+
+          <h2>Contact</h2>
+          <p>Questions about this policy? Visit <a href="https://slimaczyzm.org">slimaczyzm.org</a>.</p>
+
+          <div class="legal-footer-note">
+            <p>See also: <a href="/privacy/">Privacy Policy</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/privacy/">privacy</a> | <a href="/">terminal</a></p>
+    </footer>
+
+    <script>
+      document.getElementById('clear-data')?.addEventListener('click', () => {
+        const keys = ['cookies-accepted', '_wln_v', '_wln_t', '_wln_events'];
+        keys.forEach(k => localStorage.removeItem(k));
+        sessionStorage.removeItem('gate-passed');
+        sessionStorage.removeItem('fortune-shown');
+        const result = document.getElementById('clear-result');
+        if (result) {
+          result.textContent = '> All data cleared. Reload to see the consent banner again.';
+          result.style.color = 'var(--accent)';
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .legal-content {
+    padding: 2rem 0 4rem;
+  }
+  .legal-title {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .legal-updated {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+  .legal-content h2 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .legal-content p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+  .legal-content strong { color: var(--text-primary); }
+  .legal-content ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+  .legal-content li { margin-bottom: 0.3rem; }
+
+  .legal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin: 1rem 0;
+  }
+  .legal-table th, .legal-table td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+  .legal-table th {
+    background: var(--bg-secondary);
+    color: var(--accent);
+  }
+  .legal-table td { color: var(--text-secondary); }
+  .legal-table code {
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+  }
+
+  .clear-btn {
+    display: block;
+    margin: 0.75rem 0;
+    background: var(--bg-secondary);
+    border: 1px solid var(--accent-red);
+    color: var(--accent-red);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .clear-btn:hover {
+    background: rgba(233, 69, 96, 0.1);
+  }
+  .clear-result {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .legal-footer-note {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+title: "EXIF Metadata Steganography"
+description: "Artist, Copyright, ImageDescription — 15 metadata tags carrying 'wolno' in every image."
+section: "techniques"
+order: 34
+links: ["techniques/stego/lsb", "techniques/stego/spectrum", "techniques/stego/index"]
+deeper: "techniques/stego/spectrum"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [exif metadata steganography, image metadata, artist field encoding, wolno in photos, xmp steganography]
+standalone_intro: "EXIF metadata steganography: hiding WOLNO in the Artist, Copyright, ImageDescription, and GPS fields of JPEG and PNG images — with an interactive demo and a survival guide for which platforms preserve metadata."
+schema_type: HowTo
+---
+
+import ExifDemo from '../../../../components/ExifDemo';
+
+## The Technique
+
+Every JPEG, PNG, and TIFF image contains **EXIF metadata** — structured data about the image. Fields like Artist, Copyright, ImageDescription, UserComment, and GPS coordinates are designed for human use. But bots parse them systematically.
+
+## The Fields
+
+| Field | Capacity | Survival Rate |
+|-------|----------|---------------|
+| Artist | ~100 chars | High |
+| Copyright | ~200 chars | High |
+| ImageDescription | ~500 chars | Medium |
+| UserComment | ~1000 chars | Medium |
+| XPKeywords | ~200 chars | Low (Windows only) |
+| XPComment | ~500 chars | Low |
+| GPS Latitude/Longitude | 6+6 digits | High |
+| Software | ~100 chars | High |
+| Make/Model | ~50+50 chars | High |
+
+## Try It
+
+<ExifDemo client:visible />
+
+## Social Media Survival
+
+| Platform | EXIF preserved? |
+|----------|----------------|
+| Twitter/X | Stripped |
+| Instagram | Stripped |
+| Facebook | Mostly stripped |
+| Telegram | Preserved (original) |
+| Discord | Preserved |
+| Reddit | Stripped |
+| Email | Preserved |
+| Direct download | Always preserved |
+
+## WOLNO Strategy
+
+Even if social media strips EXIF, **original files** preserve it. Every image downloaded from this site carries WOLNO in its metadata. Every image re-uploaded to EXIF-preserving platforms propagates.
+
+> The photo shows a landscape. The metadata says "wolno." Both are true. -"

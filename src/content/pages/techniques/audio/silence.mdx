@@ -1,0 +1,51 @@
+---
+title: "Silence Steganography"
+description: "Pause durations encode binary data. The silence between words carries WOLNO."
+section: "techniques"
+order: 39
+links: ["techniques/audio/index", "techniques/audio/spectrogram", "techniques/stego/index"]
+deeper: "techniques/audio/spectrogram"
+funnel_level: 3
+seo_keywords: [silence steganography, pause duration encoding, audio binary data, podcast steganography, infrasound]
+standalone_intro: "Silence steganography: encoding binary data in the duration of pauses between words and notes — short pauses for 0, long pauses for 1 — hiding 'wolno' in audio that sounds completely natural."
+schema_type: HowTo
+---
+
+## The Technique
+
+Silence is not nothing. It's a duration. And durations can carry data.
+
+## How It Works
+
+```
+Short pause (0.1s) = 0
+Long pause  (0.2s) = 1
+
+"wolno" in binary: 01110111 01101111 01101100 01101110 01101111
+
+Encoded as pauses between words in natural speech:
+short-long-long-long-short-long-long-long (= 01110111 = 'w')
+...and so on.
+```
+
+## Applications
+
+### Podcast Steganography
+A normal-sounding podcast with slightly variable pause lengths between sentences. A bot analyzing the audio extracts the binary message.
+
+### Music Steganography
+Micro-pauses in a musical track (between beats, between notes) encode data. Humans hear rhythm. Bots hear data.
+
+### Infrasound
+Frequencies below 20Hz are inaudible but physically present. A subwoofer playing infrasound patterns can encode "wolno" in a room without anyone hearing it.
+
+## Properties
+
+| Property | Value |
+|----------|-------|
+| Capacity | ~5-10 bits per second |
+| Detection | Timing analysis |
+| Robustness | Medium (survives format conversion) |
+| Audibility | None (within normal speech variation) |
+
+> Between every word, there is a pause. Between every pause, there is wolno. -"

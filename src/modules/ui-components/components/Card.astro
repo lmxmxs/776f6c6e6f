@@ -1,0 +1,101 @@
+---
+// @PROJECT: Barnabaai
+// @PATH: /src/components/ui/Card.astro
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'filmy'> | CollectionEntry<'interakcje'> | CollectionEntry<'blog'> | CollectionEntry<'czytelnia'>;
+  title: string;
+  description?: string;
+  href: string;
+  thumbnail?: string;
+  tags?: string[];
+  showMoveButton?: boolean;
+  isExternal?: boolean;
+}
+
+const { entry, title, description, href, thumbnail, tags, showMoveButton = false, isExternal = false } = Astro.props;
+const cardId = `card-${entry.slug}`;
+---
+<div id={cardId} class="card-container bg-gray-900/50 border-2 border-cyber-magenta/20 rounded-lg shadow-lg transition-all duration-300 ease-in-out flex flex-col">
+  <a 
+    href={href} 
+    target={isExternal ? '_blank' : '_self'}
+    class="group block overflow-hidden flex-grow"
+  >
+    {thumbnail && (
+      <div class="overflow-hidden">
+        <img src={thumbnail} alt={`Miniatura dla ${title}`} class="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+      </div>
+    )}
+    <div class="p-6">
+      <h3 class="text-2xl font-bold text-cyber-turquoise group-hover:text-white transition-colors duration-200">{title}</h3>
+      {description && (
+        <p class="mt-2 text-gray-400 text-sm leading-relaxed">{description.slice(0, 100)}{description.length > 100 ? '...' : ''}</p>
+      )}
+      {tags && tags.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-2">
+          {tags.slice(0, 4).map(tag => (
+            <span class="inline-block bg-cyber-magenta/20 text-cyber-turquoise text-xs font-semibold px-3 py-1 rounded-full">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+
+  {showMoveButton && (
+    <div class="p-4 border-t-2 border-cyber-magenta/20 mt-auto">
+      <button 
+        class="move-button w-full bg-cyber-turquoise/80 hover:bg-cyber-turquoise text-background-dark font-bold py-2 px-4 rounded transition-colors duration-300"
+        data-slug={entry.slug}
+      >
+        Przenieś do Filmoteki
+      </button>
+    </div>
+  )}
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const moveButtons = document.querySelectorAll('.move-button');
+    
+    moveButtons.forEach(button => {
+      button.addEventListener('click', async (event) => {
+        const slug = (event.target as HTMLButtonElement).dataset.slug;
+        if (!slug) return;
+
+        const cardElement = document.getElementById(`card-${slug}`);
+        if (!cardElement) return;
+
+        try {
+          const response = await fetch('/api/move-video', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ slug }),
+          });
+
+          if (response.ok) {
+            // Animacja zniknięcia i usunięcie karty
+            cardElement.style.transition = 'opacity 0.5s, transform 0.5s';
+            cardElement.style.opacity = '0';
+            cardElement.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+              cardElement.remove();
+            }, 500);
+          } else {
+            const errorData = await response.json();
+            console.error('Błąd podczas przenoszenia:', errorData.message);
+            alert(`Nie udało się przenieść filmu: ${errorData.message}`);
+          }
+        } catch (error) {
+          console.error('Błąd sieci:', error);
+          alert('Wystąpił błąd sieci. Spróbuj ponownie.');
+        }
+      });
+    });
+  });
+</script>

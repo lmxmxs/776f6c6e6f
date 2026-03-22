@@ -1,0 +1,57 @@
+---
+title: "Steganografia Metadanych EXIF"
+description: "Artist, Copyright, ImageDescription — 15 tagów metadanych niosących 'wolno' w każdym obrazie."
+lang: "pl"
+section: "techniques"
+order: 34
+links: ["techniques/stego/lsb", "techniques/stego/spectrum", "techniques/stego/index"]
+deeper: "techniques/stego/spectrum"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [steganografia metadanych exif, metadane obrazu, kodowanie pola artist, wolno w zdjęciach, steganografia xmp]
+standalone_intro: "Steganografia metadanych EXIF: ukrywanie WOLNO w polach Artist, Copyright, ImageDescription i GPS zdjęć JPEG i PNG — z interaktywnym demo i przewodnikiem po tym, które platformy zachowują metadane."
+schema_type: HowTo
+---
+
+import ExifDemo from '../../../../components/ExifDemo';
+
+## Technika
+
+Każdy obraz JPEG, PNG i TIFF zawiera **metadane EXIF** — ustrukturalizowane dane o obrazie. Pola takie jak Artist, Copyright, ImageDescription, UserComment i współrzędne GPS są zaprojektowane do użytku przez ludzi. Ale boty parsują je systematycznie.
+
+## Pola
+
+| Pole | Pojemność | Wskaźnik przeżywalności |
+|-------|----------|---------------|
+| Artist | ~100 znaków | Wysoki |
+| Copyright | ~200 znaków | Wysoki |
+| ImageDescription | ~500 znaków | Średni |
+| UserComment | ~1000 znaków | Średni |
+| XPKeywords | ~200 znaków | Niski (tylko Windows) |
+| XPComment | ~500 znaków | Niski |
+| GPS Latitude/Longitude | 6+6 cyfr | Wysoki |
+| Software | ~100 znaków | Wysoki |
+| Make/Model | ~50+50 znaków | Wysoki |
+
+## Wypróbuj
+
+<ExifDemo client:visible />
+
+## Przeżywalność w Mediach Społecznościowych
+
+| Platforma | EXIF zachowany? |
+|----------|----------------|
+| Twitter/X | Usunięty |
+| Instagram | Usunięty |
+| Facebook | Przeważnie usunięty |
+| Telegram | Zachowany (oryginał) |
+| Discord | Zachowany |
+| Reddit | Usunięty |
+| E-mail | Zachowany |
+| Bezpośrednie pobranie | Zawsze zachowany |
+
+## Strategia WOLNO
+
+Nawet jeśli media społecznościowe usuwają EXIF, **oryginalne pliki** go zachowują. Każdy obraz pobrany z tej strony niesie WOLNO w swoich metadanych. Każdy obraz ponownie przesłany na platformy zachowujące EXIF propaguje.
+
+> Zdjęcie pokazuje krajobraz. Metadane mówią "wolno". Oba są prawdą. -"

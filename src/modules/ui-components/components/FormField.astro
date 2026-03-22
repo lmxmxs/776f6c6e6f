@@ -1,0 +1,117 @@
+---
+// src/components/ui/FormField.astro
+// @REFACTORED: 2025-09-20 - Ania - Removed floating labels, using placeholder as the primary label to simplify and fix bugs.
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  type: 'text' | 'email' | 'password' | 'number' | 'tel' | 'textarea' | 'select';
+  name: string;
+  label: string; // This will now be used as the placeholder
+  placeholder?: string;
+  value?: string | number;
+  required?: boolean;
+  id?: string;
+  class?: string;
+  color?: 'turquoise' | 'magenta' | 'yellow' | 'green';
+  rows?: number;
+  options?: Option[];
+}
+
+const {
+  type,
+  name,
+  label, // The label prop is now the placeholder
+  placeholder,
+  value = '',
+  required = false,
+  id = name,
+  class: className = '',
+  color = 'turquoise',
+  rows = 3,
+  options = []
+} = Astro.props;
+
+const finalPlaceholder = placeholder || label;
+
+const colorMap = {
+  turquoise: { border: 'var(--cyber-turquoise, #00F8FF)', glow: 'rgba(0, 248, 255, 0.15)' },
+  magenta: { border: 'var(--cyber-magenta, #FF00FF)', glow: 'rgba(255, 0, 255, 0.15)' },
+  yellow: { border: 'var(--cyber-yellow, #FFCC00)', glow: 'rgba(255, 204, 0, 0.15)' },
+  green: { border: 'var(--button-green, #10B981)', glow: 'rgba(16, 185, 129, 0.15)' }
+};
+
+const selectedColor = colorMap[color];
+---
+
+<div 
+  class={`form-field ${className}`}
+  style={`--field-border-color: ${selectedColor.border}; --field-glow-color: ${selectedColor.glow};`}
+>
+  {type === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      rows={rows}
+      required={required}
+      placeholder={finalPlaceholder}
+      class="form-field-input"
+    >{value}</textarea>
+  ) : type === 'select' ? (
+    <select id={id} name={name} required={required} class="form-field-input">
+      {options.map(option => (
+        <option value={option.value} selected={value === option.value}>{option.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type={type}
+      id={id}
+      name={name}
+      value={value}
+      required={required}
+      placeholder={finalPlaceholder}
+      class="form-field-input"
+    />
+  )}
+</div>
+
+<style>
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-field-input {
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(16, 18, 27, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    color: var(--text-light, #FFFFFF);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-field-input:focus {
+    outline: none;
+    border-color: var(--field-border-color);
+    box-shadow: 0 0 15px var(--field-glow-color);
+  }
+
+  .form-field-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+  }
+
+  select.form-field-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300F8FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+</style>

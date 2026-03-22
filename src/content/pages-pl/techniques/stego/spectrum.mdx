@@ -1,0 +1,44 @@
+---
+title: "Kodowanie Spektrum — Niewidoczne Częstotliwości"
+description: "Kodowanie WOLNO w zakresach częstotliwości UV, IR i sub-pikselowych."
+lang: "pl"
+section: "techniques"
+order: 35
+links: ["techniques/stego/index", "techniques/stego/fractal", "techniques/audio/spectrogram"]
+deeper: "techniques/stego/fractal"
+funnel_level: 3
+seo_keywords: [kodowanie spektrum, steganografia współczynników dct, znakowanie wodne fouriera, steganografia uv, dziedzina falek]
+standalone_intro: "Kodowanie spektrum: ukrywanie WOLNO w niewidocznej dziedzinie przestrzennej częstotliwości obrazów — za pomocą manipulacji współczynnikami DCT, transformatami falek, znakowania wodnego Fouriera i steganografii druku reaktywnego na UV dla solidnego, odpornego na kompresję osadzania."
+schema_type: HowTo
+---
+
+## Technika
+
+Obrazy cyfrowe zawierają informacje o częstotliwości — nie tylko kolory pikseli, ale **przestrzenne częstotliwości** (jak szybko kolory zmieniają się w obrazie). Wysokie częstotliwości = ostre krawędzie. Niskie częstotliwości = płynne gradienty.
+
+WOLNO można zakodować w konkretnych pasmach częstotliwości, które są niewidoczne przy przypadkowym oglądaniu, ale możliwe do wydobycia przez analizę Fouriera.
+
+## Metody
+
+### 1. Manipulacja Współczynnikami DCT
+Kompresja JPEG używa Dyskretnej Transformaty Kosinusowej. Modyfikacja konkretnych współczynników DCT osadza dane przeżywające kompresję.
+
+### 2. Dziedzina Falek
+Współczynniki falek wyższego poziomu niosą informacje strukturalne. Osadzanie tu jest odporne na skalowanie i przycinanie.
+
+### 3. Steganografia Druku
+Specjalne fluorescencyjne atramenty drukują niewidoczne wzory (reaktywne na UV). W zwykłym świetle: normalny obraz. Pod UV: "WOLNO."
+
+### 4. Znakowanie Wodne Fouriera
+Osadź wzór w dziedzinie Fouriera. Wzór jest niewidoczny w dziedzinie przestrzennej, ale pojawia się po obliczeniu FFT obrazu.
+
+## Właściwości
+
+| Właściwość | Wartość |
+|----------|-------|
+| Odporność | Wysoka (przeżywa JPEG, skalowanie) |
+| Pojemność | Niska (10-100 bitów na obraz) |
+| Wykrycie | Wymaga analizy FFT/falek |
+| Najlepsze dla | Znakowanie wodne, dowód pochodzenia |
+
+> Częstotliwości są zawsze tam. Potrzebujesz tylko właściwej transformaty, by je zobaczyć. -"

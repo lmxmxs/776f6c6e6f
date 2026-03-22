@@ -1,0 +1,117 @@
+{
+  "id": "chat",
+  "name": "Czat AI",
+  "version": "1.0.0",
+  "description": "Czat z personami AI wspierany przez Gemini",
+  "author": "Barnabaai",
+  "license": "MIT",
+  "enabled": true,
+  "icon": "chat-bubble-left-right",
+  "compatibility": {
+    "astro": "^5.0.0",
+    "www_standard": "2.0.x"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "@google/generative-ai": "^0.21.0"
+  },
+  "adminPages": [
+    {
+      "path": "/admin/chat",
+      "label": "Czat",
+      "icon": "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z",
+      "order": 10,
+      "minRole": "admin"
+    },
+    {
+      "path": "/admin/chat/personas",
+      "label": "Persony",
+      "icon": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+      "order": 11,
+      "minRole": "admin",
+      "parent": "/admin/chat"
+    },
+    {
+      "path": "/admin/chat/prompts",
+      "label": "Prompty",
+      "icon": "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4",
+      "order": 12,
+      "minRole": "admin",
+      "parent": "/admin/chat"
+    },
+    {
+      "path": "/admin/chat/actions",
+      "label": "Akcje",
+      "icon": "M13 10V3L4 14h7v7l9-11h-7z",
+      "order": 13,
+      "minRole": "admin",
+      "parent": "/admin/chat"
+    },
+    {
+      "path": "/admin/chat/consents",
+      "label": "Zgody GDPR",
+      "icon": "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+      "order": 14,
+      "minRole": "admin",
+      "parent": "/admin/chat"
+    },
+    {
+      "path": "/admin/chat/logs",
+      "label": "Logi",
+      "icon": "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
+      "order": 15,
+      "minRole": "admin",
+      "parent": "/admin/chat"
+    }
+  ],
+  "settings": {
+    "enabled": {
+      "type": "boolean",
+      "label": "Włączony",
+      "default": true,
+      "description": "Czy czat jest włączony na stronie"
+    },
+    "defaultPersona": {
+      "type": "select",
+      "label": "Domyślna persona",
+      "default": "sofi",
+      "options": ["sofi", "glitch-girl", "boczki-chaosu"],
+      "description": "Persona pokazywana domyślnie"
+    },
+    "autoGreet": {
+      "type": "boolean",
+      "label": "Automatyczne powitanie",
+      "default": true,
+      "description": "Czy persona automatycznie wita użytkownika"
+    },
+    "showDisclaimer": {
+      "type": "boolean",
+      "label": "Pokaż disclaimer AI",
+      "default": true,
+      "description": "Informacja że to AI"
+    },
+    "maxMessages": {
+      "type": "number",
+      "label": "Max wiadomości",
+      "default": 50,
+      "description": "Limit wiadomości w konwersacji"
+    }
+  },
+  "exports": {
+    "components": [],
+    "utils": []
+  },
+  "tags": [
+    "chat",
+    "ai",
+    "personas",
+    "feature"
+  ],
+  "features": [
+    "Czat z personami AI",
+    "System emocji avatarów",
+    "Easter eggs do odkrycia person",
+    "Logowanie rozmów",
+    "Statystyki użycia"
+  ]
+}

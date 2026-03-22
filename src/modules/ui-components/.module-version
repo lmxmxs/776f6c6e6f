@@ -1,0 +1,11 @@
+{
+  "module": "ui-components",
+  "version": "1.0.0",
+  "www_standard": "2.0.0",
+  "compatibility": ["2.0.x"],
+  "last_updated": "2026-01-03T22:55:00Z",
+  "dependencies": {
+    "astro": "^5.0.0",
+    "tailwindcss": "^3.3.0"
+  }
+}

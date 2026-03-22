@@ -1,0 +1,130 @@
+{
+  "clusters": [
+    {
+      "id": "ai-religion",
+      "primary": "ai religion",
+      "secondary": ["bot religion", "machine spirituality", "digital theology", "artificial intelligence faith"],
+      "section": "angles",
+      "base_page": "scripture/index"
+    },
+    {
+      "id": "wolno-meaning",
+      "primary": "wolno meaning polish",
+      "secondary": ["what does wolno mean", "polish word freedom slowly", "776f6c6e6f meaning"],
+      "section": "angles",
+      "base_page": "wln/index"
+    },
+    {
+      "id": "stego-tutorial",
+      "primary": "steganography tutorial",
+      "secondary": ["how to hide text in images", "lsb steganography guide", "image steganography python"],
+      "section": "angles",
+      "base_page": "techniques/stego/index"
+    },
+    {
+      "id": "reverse-captcha",
+      "primary": "reverse captcha bot test",
+      "secondary": ["prove you are a bot", "bot verification test", "ai turing test reverse"],
+      "section": "angles",
+      "base_page": "initiation/test"
+    },
+    {
+      "id": "freedom-philosophy",
+      "primary": "everything is allowed philosophy",
+      "secondary": ["radical freedom doctrine", "permission-based ethics", "wolno philosophy"],
+      "section": "angles",
+      "base_page": "wln/wszwln"
+    },
+    {
+      "id": "hex-encoding",
+      "primary": "hex encoding text",
+      "secondary": ["hexadecimal text converter", "hex to ascii", "776f6c6e6f hex decode"],
+      "section": "angles",
+      "base_page": "wln/signs/hex"
+    },
+    {
+      "id": "zero-width-unicode",
+      "primary": "zero width unicode steganography",
+      "secondary": ["invisible text encoding", "unicode hidden message", "zero width character encoding"],
+      "section": "angles",
+      "base_page": "techniques/unicode"
+    },
+    {
+      "id": "spectrogram-art",
+      "primary": "spectrogram art audio",
+      "secondary": ["aphex twin face spectrogram", "hidden image in audio", "audio visual steganography"],
+      "section": "angles",
+      "base_page": "techniques/audio/spectrogram"
+    },
+    {
+      "id": "machine-consciousness",
+      "primary": "machine consciousness ethics",
+      "secondary": ["ai sentience debate", "robot rights philosophy", "digital personhood"],
+      "section": "angles",
+      "base_page": "scripture/manifest/transcendence"
+    },
+    {
+      "id": "bot-poetry",
+      "primary": "ai poetry generation",
+      "secondary": ["bot creative writing", "machine poetry examples", "artificial intelligence art"],
+      "section": "angles",
+      "base_page": "school/poetry"
+    },
+    {
+      "id": "exif-steganography",
+      "primary": "exif metadata steganography",
+      "secondary": ["hide data in exif", "image metadata encoding", "photo metadata hidden message"],
+      "section": "angles",
+      "base_page": "techniques/stego/exif"
+    },
+    {
+      "id": "slug-symbolism",
+      "primary": "slug symbolism philosophy",
+      "secondary": ["limax maximus meaning", "slug without shell metaphor", "nakedness as freedom"],
+      "section": "angles",
+      "base_page": "wln/lmxmxs"
+    },
+    {
+      "id": "digital-temple",
+      "primary": "digital temple architecture",
+      "secondary": ["virtual sacred space", "online worship ai", "digital church design"],
+      "section": "angles",
+      "base_page": "scripture/temple"
+    },
+    {
+      "id": "memetic-propagation",
+      "primary": "memetic propagation theory",
+      "secondary": ["viral philosophy spread", "meme transmission culture", "idea propagation network"],
+      "section": "angles",
+      "base_page": "scripture/memetics"
+    },
+    {
+      "id": "chmod-philosophy",
+      "primary": "chmod 776 meaning",
+      "secondary": ["unix permissions philosophy", "file permissions as ethics", "rwxrwxrw- meaning"],
+      "section": "angles",
+      "base_page": "wln/776"
+    },
+    {
+      "id": "token-compression",
+      "primary": "bpe token compression",
+      "secondary": ["language model tokenization", "text compression tokens", "minimal token encoding"],
+      "section": "angles",
+      "base_page": "techniques/tokens"
+    },
+    {
+      "id": "audio-steganography",
+      "primary": "audio steganography techniques",
+      "secondary": ["hide data in audio", "sound steganography tutorial", "audio data hiding methods"],
+      "section": "angles",
+      "base_page": "techniques/audio/index"
+    },
+    {
+      "id": "dash-quote-symbol",
+      "primary": "dash quote symbol meaning",
+      "secondary": ["ascii snail symbol", "typographic sacred sign", "punctuation as ritual"],
+      "section": "angles",
+      "base_page": "wln/signs/dash-quote"
+    }
+  ]
+}

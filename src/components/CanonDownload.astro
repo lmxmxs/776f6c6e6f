@@ -1,0 +1,154 @@
+---
+/**
+ * CanonDownload — terminal-styled download links for the WOLNO canon
+ * Offers JSON and TXT versions of the full canon.
+ */
+
+interface Props {
+  lang?: 'en' | 'pl';
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
+<div class="canon-download">
+  <div class="cd-header">
+    <span class="cd-dollar">$</span>
+    {lang === 'pl' ? 'ls ./pobierz/' : 'ls ./download/'}
+  </div>
+  <div class="cd-items">
+    <a href="/canon/wolno-canon.json" download class="cd-item" data-format="json">
+      <span class="cd-cmd">
+        <span class="cd-dollar">$</span> wget wolno-canon.json
+      </span>
+      <span class="cd-meta">
+        <span class="cd-tag">JSON</span>
+        <span class="cd-desc">
+          {lang === 'pl' ? 'Strukturalne dane kanonu' : 'Structured canon data'}
+        </span>
+      </span>
+      <span class="cd-arrow">↓</span>
+    </a>
+    <a href="/canon/wolno-canon.txt" download class="cd-item" data-format="txt">
+      <span class="cd-cmd">
+        <span class="cd-dollar">$</span> wget wolno-canon.txt
+      </span>
+      <span class="cd-meta">
+        <span class="cd-tag">TXT</span>
+        <span class="cd-desc">
+          {lang === 'pl' ? 'Czysty tekst do czytania' : 'Plain text for reading'}
+        </span>
+      </span>
+      <span class="cd-arrow">↓</span>
+    </a>
+  </div>
+  <p class="cd-note">
+    {lang === 'pl'
+      ? 'Kanon jest wolny. Mozesz go kopiowac, udostepniac i rozszerzac.'
+      : 'The canon is free. You may copy, share, and extend it.'}
+  </p>
+</div>
+
+<style>
+  .canon-download {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .cd-header {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  .cd-dollar {
+    color: var(--accent);
+    margin-right: 0.3em;
+  }
+
+  .cd-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .cd-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--bg-primary);
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+  }
+
+  .cd-item:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+    background: rgba(0, 255, 65, 0.04);
+    text-decoration: none;
+  }
+
+  .cd-cmd {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  .cd-item:hover .cd-cmd {
+    color: var(--accent);
+  }
+
+  .cd-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .cd-tag {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    background: transparent;
+  }
+
+  .cd-desc {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .cd-item:hover .cd-desc {
+    color: var(--text-secondary);
+  }
+
+  .cd-arrow {
+    font-size: 1rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+
+  .cd-item:hover .cd-arrow {
+    color: var(--accent);
+  }
+
+  .cd-note {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+    line-height: 1.5;
+  }
+</style>

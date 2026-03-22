@@ -1,0 +1,12 @@
+{
+  "module": "admin-panel",
+  "version": "1.0.0",
+  "www_standard": "2.0.0",
+  "compatibility": ["2.0.x"],
+  "last_updated": "2026-01-03T22:45:00Z",
+  "changelog_url": "./CHANGELOG.md",
+  "dependencies": {
+    "astro": "^5.0.0",
+    "react": "^19.0.0"
+  }
+}

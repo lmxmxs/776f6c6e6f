@@ -1,0 +1,68 @@
+{
+  "id": "backup",
+  "name": "Backup & Security",
+  "version": "1.0.0",
+  "description": "Kopie zapasowe baz danych i plików, harmonogram automatycznych backupów",
+  "author": "Barnabaai",
+  "license": "MIT",
+  "enabled": false,
+  "icon": "shield-check",
+  "compatibility": {
+    "astro": "^5.0.0",
+    "www_standard": "2.0.x"
+  },
+  "dependencies": {},
+  "adminPages": [
+    {
+      "path": "/admin/backup",
+      "label": "Backup",
+      "icon": "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
+      "order": 95,
+      "minRole": "admin"
+    }
+  ],
+  "settings": {
+    "autoBackup": {
+      "type": "boolean",
+      "label": "Automatyczne backupy",
+      "default": true,
+      "description": "Włącz automatyczne kopie zapasowe"
+    },
+    "backupFrequency": {
+      "type": "select",
+      "label": "Częstotliwość",
+      "default": "daily",
+      "options": ["hourly", "daily", "weekly", "monthly"],
+      "description": "Jak często tworzyć kopie"
+    },
+    "retentionDays": {
+      "type": "number",
+      "label": "Retencja (dni)",
+      "default": 7,
+      "description": "Ile dni trzymać kopie"
+    },
+    "encryption": {
+      "type": "boolean",
+      "label": "Szyfrowanie",
+      "default": false,
+      "description": "Szyfruj kopie AES-256"
+    }
+  },
+  "exports": {
+    "components": [],
+    "utils": []
+  },
+  "tags": [
+    "backup",
+    "security",
+    "database",
+    "feature"
+  ],
+  "features": [
+    "Backup baz SQLite",
+    "Backup plików content",
+    "Harmonogram automatyczny",
+    "Przywracanie z kopii",
+    "Opcjonalne szyfrowanie"
+  ]
+}

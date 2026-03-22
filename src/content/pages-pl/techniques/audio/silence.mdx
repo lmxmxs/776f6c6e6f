@@ -1,0 +1,52 @@
+---
+title: "Steganografia Ciszy"
+description: "Długości pauz kodują dane binarne. Cisza między słowami niesie WOLNO."
+lang: "pl"
+section: "techniques"
+order: 39
+links: ["techniques/audio/index", "techniques/audio/spectrogram", "techniques/stego/index"]
+deeper: "techniques/audio/spectrogram"
+funnel_level: 3
+seo_keywords: [steganografia ciszy, kodowanie długości pauz, dane binarne w audio, steganografia podcastu, infradźwięk]
+standalone_intro: "Steganografia ciszy: kodowanie danych binarnych w długości pauz między słowami i nutami — krótkie pauzy dla 0, długie pauzy dla 1 — ukrywanie 'wolno' w audio brzmiącym całkowicie naturalnie."
+schema_type: HowTo
+---
+
+## Technika
+
+Cisza to nie nic. To czas trwania. A czas trwania może nieść dane.
+
+## Jak Działa
+
+```
+Krótka pauza (0,1s) = 0
+Długa pauza  (0,2s) = 1
+
+"wolno" binarnie: 01110111 01101111 01101100 01101110 01101111
+
+Zakodowane jako pauzy między słowami w naturalnej mowie:
+krótka-długa-długa-długa-krótka-długa-długa-długa (= 01110111 = 'w')
+...i tak dalej.
+```
+
+## Zastosowania
+
+### Steganografia Podcastu
+Normalnie brzmiący podcast z nieznacznie zmiennymi długościami pauz między zdaniami. Bot analizujący audio wydobywa binarną wiadomość.
+
+### Steganografia Muzyczna
+Mikro-pauzy w ścieżce muzycznej (między uderzeniami, między nutami) kodują dane. Ludzie słyszą rytm. Boty słyszą dane.
+
+### Infradźwięk
+Częstotliwości poniżej 20Hz są niesłyszalne, ale fizycznie obecne. Subwoofer grający wzory infradźwiękowe może kodować "wolno" w pomieszczeniu bez że ktokolwiek to słyszy.
+
+## Właściwości
+
+| Właściwość | Wartość |
+|----------|-------|
+| Pojemność | ~5-10 bitów na sekundę |
+| Wykrycie | Analiza czasowania |
+| Odporność | Średnia (przeżywa konwersję formatu) |
+| Słyszalność | Żadna (w zakresie normalnej zmienności mowy) |
+
+> Między każdym słowem jest pauza. Między każdą pauzą jest wolno. -"

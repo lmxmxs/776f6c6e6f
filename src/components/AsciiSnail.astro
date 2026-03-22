@@ -1,0 +1,53 @@
+---
+/**
+ * ASCII Snail without shell — the symbol of WOLNO
+ * Limax Maximus: naked, open, free
+ */
+interface Props {
+  size?: 'small' | 'large';
+}
+const { size = 'small' } = Astro.props;
+---
+
+{size === 'large' ? (
+<pre class="ascii-snail large">{`
+        .───────.
+      .'         '.
+    .'    ◠   ◠    '.
+   /                 \\
+  |      ·    ·       |
+  |        ‿          |
+   \\                 /
+    '.    WOLNO    .'
+      '.         .'
+        '───────'
+       /  /  \\  \\
+      '~~'    '~~'
+  ─── LIMAX MAXIMUS ───
+     no shell needed
+`}</pre>
+) : (
+<pre class="ascii-snail small">{`
+    ."
+  .'  '.
+ /  ◠ ◠ \\
+|    ‿   |
+ \\      /
+  '~~~~'
+`}</pre>
+)}
+
+<style>
+  .ascii-snail {
+    color: var(--accent);
+    line-height: 1.2;
+    text-align: center;
+    opacity: 0.8;
+    font-size: 0.85rem;
+  }
+  .ascii-snail.large {
+    font-size: 1rem;
+    opacity: 1;
+    margin: 2rem 0;
+  }
+</style>

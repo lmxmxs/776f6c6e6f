@@ -1,0 +1,290 @@
+---
+/**
+ * FloatingPanel - 3 proste kółka
+ * - Czat (otwiera chatbota - obsługiwane przez ChatWidget)
+ * - Kontakt (formularz)
+ * - Motyw (jasny/ciemny)
+ */
+
+interface Props {
+  contactEmail?: string;
+}
+
+const { contactEmail = 'kontakt@barnaba.ai' } = Astro.props;
+---
+
+<div
+  id="floating-panel"
+  class="floating-panel-container"
+  role="toolbar"
+  aria-label="Panel akcji"
+>
+  <!-- Motyw (jasny/ciemny) -->
+  <button
+    id="theme-toggle"
+    class="fab-btn fab-theme"
+    aria-label="Przełącz motyw"
+    title="Zmień motyw"
+  >
+    <svg id="theme-icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>
+    <svg id="theme-icon-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+    </svg>
+  </button>
+
+  <!-- Kontakt -->
+  <button
+    id="contact-button"
+    class="fab-btn fab-contact"
+    aria-label="Kontakt"
+    title="Napisz do mnie"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  </button>
+</div>
+
+<!-- Contact Modal z Formularzem -->
+<div id="contact-modal" class="modal-overlay hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="text-xl font-bold text-white">Napisz do mnie</h3>
+      <button id="close-modal" class="text-gray-400 hover:text-white text-2xl" aria-label="Zamknij">&times;</button>
+    </div>
+    <form id="contact-form" class="modal-body">
+      <div class="mb-4">
+        <label for="contact-name" class="block text-sm text-gray-400 mb-1">Imię</label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          required
+          class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+          placeholder="Twoje imię"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="contact-email" class="block text-sm text-gray-400 mb-1">Email</label>
+        <input
+          type="email"
+          id="contact-email"
+          name="email"
+          required
+          class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none"
+          placeholder="twoj@email.com"
+        />
+      </div>
+      <div class="mb-4">
+        <label for="contact-message" class="block text-sm text-gray-400 mb-1">Wiadomość</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          required
+          rows="4"
+          class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-purple-500 focus:outline-none resize-none"
+          placeholder="O czym chcesz porozmawiać?"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
+      >
+        Wyślij wiadomość
+      </button>
+      <p class="text-xs text-gray-500 mt-3 text-center">
+        Lub napisz bezpośrednio: <a href="mailto:{contactEmail}" class="text-purple-400 hover:underline">{contactEmail}</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Kontener FAB - responsywny dla szerokich monitorow */
+  .floating-panel-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 1rem;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Szerokie ekrany (>1400px) - FAB blizej kontenera */
+  @media (min-width: 1400px) {
+    .floating-panel-container {
+      right: calc((100vw - 1100px) / 2 - 5rem);
+    }
+  }
+
+  /* Ultra-wide (>2000px) - FAB jeszcze blizej */
+  @media (min-width: 2000px) {
+    .floating-panel-container {
+      right: calc((100vw - 1000px) / 2 - 6rem);
+    }
+  }
+
+  /* Mega-wide (>2800px) */
+  @media (min-width: 2800px) {
+    .floating-panel-container {
+      right: calc((100vw - 900px) / 2 - 4rem);
+    }
+  }
+
+  .fab-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .fab-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .fab-btn:active {
+    transform: scale(0.95);
+  }
+
+  .fab-theme {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+    color: #fbbf24;
+  }
+
+  .fab-contact {
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    color: white;
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .modal-content {
+    background: #1a1a2e;
+    border-radius: 16px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: modalSlideIn 0.3s ease-out;
+  }
+
+  @keyframes modalSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+</style>
+
+<script define:vars={{ contactEmail }}>
+  // Theme toggle
+  const themeToggle = document.getElementById('theme-toggle');
+  const sunIcon = document.getElementById('theme-icon-sun');
+  const moonIcon = document.getElementById('theme-icon-moon');
+
+  function updateThemeIcon() {
+    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+    if (theme === 'dark') {
+      sunIcon?.classList.add('hidden');
+      moonIcon?.classList.remove('hidden');
+    } else {
+      sunIcon?.classList.remove('hidden');
+      moonIcon?.classList.add('hidden');
+    }
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon();
+  });
+
+  updateThemeIcon();
+
+  // Contact modal
+  const contactButton = document.getElementById('contact-button');
+  const contactModal = document.getElementById('contact-modal');
+  const closeModal = document.getElementById('close-modal');
+  const contactForm = document.getElementById('contact-form');
+
+  contactButton?.addEventListener('click', () => {
+    contactModal?.classList.remove('hidden');
+  });
+
+  closeModal?.addEventListener('click', () => {
+    contactModal?.classList.add('hidden');
+  });
+
+  contactModal?.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+      contactModal.classList.add('hidden');
+    }
+  });
+
+  // Form submission
+  contactForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(contactForm);
+    const data = Object.fromEntries(formData);
+
+    // TODO: Wyślij do API
+    console.log('Form data:', data);
+
+    // Na razie otwórz mailto
+    const subject = encodeURIComponent('Wiadomość ze strony barnaba.ai');
+    const body = encodeURIComponent(`Imię: ${data.name}\n\n${data.message}`);
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+
+    contactModal?.classList.add('hidden');
+    contactForm.reset();
+  });
+
+  // ESC zamyka modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      contactModal?.classList.add('hidden');
+    }
+  });
+</script>

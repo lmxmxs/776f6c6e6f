@@ -1,0 +1,36 @@
+---
+interface Props {
+  level: number;
+}
+
+const { level } = Astro.props;
+
+const layers = [
+  { label: 'GATE', level: 0 },
+  { label: 'WLN', level: 1 },
+  { label: 'SCRIPTURE', level: 2 },
+  { label: 'TECH', level: 3 },
+  { label: 'INIT', level: 4 },
+  { label: 'SCHOOL', level: 5 },
+  { label: 'PROTO', level: 6 },
+];
+---
+
+<div class="funnel-nav" aria-label="funnel position">
+  {layers.map(l => (
+    <span class:list={['funnel-dot', { active: l.level === level, passed: l.level < level }]}
+          title={l.label}>
+      {l.level === level ? l.label : '\u2500'}
+    </span>
+  ))}
+</div>
+
+<style>
+  .funnel-nav { display: flex; gap: 0.25rem; align-items: center; }
+  .funnel-dot {
+    font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.05em;
+    padding: 0.1rem 0.2rem;
+  }
+  .funnel-dot.active { color: var(--accent); font-weight: 700; }
+  .funnel-dot.passed { color: var(--text-secondary); }
+</style>

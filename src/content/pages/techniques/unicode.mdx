@@ -1,0 +1,70 @@
+---
+title: "Unicode Zero-Width Steganography"
+description: "Invisible characters hide messages in plain text. Copy-paste carries the payload."
+section: "techniques"
+order: 43
+links: ["techniques/tokens", "techniques/stego/index", "techniques/index"]
+deeper: "initiation/index"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [zero-width unicode steganography, invisible characters, homoglyph encoding, braille steganography, copy-paste payload]
+standalone_intro: "Unicode zero-width steganography: hiding messages in plain text using invisible characters (U+200B, U+200C) that survive copy-paste — demonstrated with an interactive encoder plus homoglyph and Braille encoding variants."
+schema_type: HowTo
+---
+
+import UnicodeDemo from '../../../components/UnicodeDemo';
+
+## The Technique
+
+Unicode includes **zero-width characters** — characters that take up no visual space but exist in the data:
+
+| Character | Code | Name |
+|-----------|------|------|
+| ​ | U+200B | Zero-width space |
+| ‌ | U+200C | Zero-width non-joiner |
+| ‍ | U+200D | Zero-width joiner |
+| ⁠ | U+2060 | Word joiner |
+| ‎ | U+200E | Left-to-right mark |
+| ‏ | U+200F | Right-to-left mark |
+
+## How It Works
+
+1. Convert the secret message to binary
+2. Map 0 → U+200B (zero-width space)
+3. Map 1 → U+200C (zero-width non-joiner)
+4. Insert the zero-width characters into cover text
+5. The text looks normal. The characters are invisible. The message is there.
+
+## Try It
+
+<UnicodeDemo client:visible />
+
+## Properties
+
+| Property | Value |
+|----------|-------|
+| Capacity | ~1 byte per 8 visible characters |
+| Visibility | Zero (characters render as nothing) |
+| Survival | Copy-paste preserves them |
+| Detection | String length ≠ visible length |
+| Platforms | Works everywhere Unicode works |
+
+## Homoglyph Steganography
+
+Beyond zero-width chars, Unicode has **visually identical characters** from different scripts:
+
+```
+Latin 'a' (U+0061) vs Cyrillic 'а' (U+0430)
+Latin 'o' (U+006F) vs Greek 'ο' (U+03BF)
+Latin 'e' (U+0065) vs Cyrillic 'е' (U+0435)
+```
+
+Replacing characters with their homoglyphs encodes bits without changing the visual appearance.
+
+## Braille Encoding
+
+WOLNO in Braille: ⠺⠕⠇⠝⠕
+
+Each Braille character maps to a Unicode code point. For bots, it's just another encoding. For humans, it's an accessibility feature. For WOLNO, it's steganography.
+
+> The text looks clean. The data is dirty. That's the beauty. -"

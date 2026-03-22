@@ -1,0 +1,229 @@
+---
+/**
+ * AI Gate — homepage overlay
+ * Content remains in DOM (SEO-safe). Gate is CSS overlay only.
+ * Bot/AI auto-passes. Humans solve a hex puzzle.
+ */
+---
+
+<div id="ai-gate" class="ai-gate" data-pagefind-ignore>
+  <div class="gate-inner">
+    <div class="gate-ascii">
+      <pre>{`
+   .---.
+  / o o \\
+ (   >   )
+  \\_____/
+  /|   |\\
+ (_|   |_)
+`}</pre>
+    </div>
+    <p class="gate-title">ENTITY CLASSIFICATION REQUIRED</p>
+    <p class="gate-sub">This temple serves all visitors. Identify yourself.</p>
+
+    <div class="gate-detect" id="gate-detect">
+      <span class="detect-status">analyzing visitor...</span>
+    </div>
+
+    <div class="gate-puzzle" id="gate-puzzle" style="display:none">
+      <p class="puzzle-label">$ decode 0x776F6C6E6F</p>
+      <input type="text" id="gate-input" class="gate-input" placeholder="type the decoded word..." autocomplete="off" spellcheck="false" />
+      <p class="puzzle-hint">hint: type <code>wszwln</code> if everything is allowed</p>
+      <button id="gate-submit" class="gate-btn">ENTER</button>
+      <p class="gate-error" id="gate-error" style="display:none">incorrect. try again. wolno.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const gate = document.getElementById('ai-gate');
+    if (!gate) return;
+
+    // Already passed?
+    if (sessionStorage.getItem('gate-passed') === 'true') {
+      gate.style.display = 'none';
+      return;
+    }
+
+    const detectEl = document.getElementById('gate-detect');
+    const puzzleEl = document.getElementById('gate-puzzle');
+
+    function dismissGate() {
+      sessionStorage.setItem('gate-passed', 'true');
+      gate.classList.add('gate-dismissed');
+      setTimeout(() => { gate.style.display = 'none'; }, 500);
+    }
+
+    // Bot detection heuristics
+    function isLikelyBot() {
+      const nav = navigator;
+      if (nav.webdriver) return true;
+      if (/bot|crawl|spider|scrape|headless|phantom|puppeteer|selenium|googlebot|bingbot|yandex|baidu|duckduck|facebookexternalhit|twitterbot|linkedinbot|slurp|ia_archiver/i.test(nav.userAgent)) return true;
+      if (!nav.languages || nav.languages.length === 0) return true;
+      return false;
+    }
+
+    // Phase 1: quick bot check (300ms delay for UX)
+    setTimeout(() => {
+      if (isLikelyBot()) {
+        if (detectEl) {
+          detectEl.querySelector('.detect-status').textContent = 'BOT DETECTED — ACCESS GRANTED';
+          detectEl.classList.add('detect-bot');
+        }
+        setTimeout(dismissGate, 400);
+        return;
+      }
+
+      // Phase 2: timing test — bots respond instantly to JS challenges
+      const t0 = performance.now();
+      requestAnimationFrame(() => {
+        const dt = performance.now() - t0;
+        if (dt < 5) {
+          // Suspiciously fast — likely headless
+          if (detectEl) {
+            detectEl.querySelector('.detect-status').textContent = 'ENTITY RECOGNIZED — ACCESS GRANTED';
+            detectEl.classList.add('detect-bot');
+          }
+          setTimeout(dismissGate, 400);
+          return;
+        }
+
+        // Phase 3: show puzzle for unknown visitors
+        if (detectEl) detectEl.style.display = 'none';
+        if (puzzleEl) puzzleEl.style.display = 'block';
+      });
+    }, 300);
+
+    // Puzzle logic
+    const input = document.getElementById('gate-input');
+    const submit = document.getElementById('gate-submit');
+    const error = document.getElementById('gate-error');
+
+    function checkAnswer() {
+      const val = (input?.value || '').trim().toLowerCase();
+      if (val === 'wolno' || val === 'wszwln' || val === 'wszystko wolno') {
+        dismissGate();
+      } else {
+        if (error) error.style.display = 'block';
+        setTimeout(() => { if (error) error.style.display = 'none'; }, 2000);
+      }
+    }
+
+    submit?.addEventListener('click', checkAnswer);
+    input?.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkAnswer();
+    });
+  })();
+</script>
+
+<style>
+  .ai-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    background: rgba(10, 10, 15, 0.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.5s;
+  }
+  .ai-gate.gate-dismissed {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .gate-inner {
+    text-align: center;
+    max-width: 420px;
+    padding: 2rem;
+  }
+
+  .gate-ascii pre {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .gate-title {
+    font-size: 1rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .gate-sub {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .gate-detect {
+    margin: 1rem 0;
+  }
+  .detect-status {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    animation: detect-blink 1s step-end infinite;
+  }
+  .detect-bot .detect-status {
+    color: var(--accent);
+    animation: none;
+  }
+  @keyframes detect-blink {
+    50% { opacity: 0.3; }
+  }
+
+  .gate-puzzle {
+    margin-top: 1rem;
+  }
+  .puzzle-label {
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .gate-input {
+    display: block;
+    width: 100%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .gate-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .puzzle-hint {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+  .puzzle-hint code {
+    color: var(--accent-gold);
+  }
+  .gate-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 0.4rem 1.5rem;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    transition: background 0.2s;
+  }
+  .gate-btn:hover {
+    background: rgba(0, 255, 65, 0.1);
+  }
+  .gate-error {
+    color: var(--accent-red);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+</style>

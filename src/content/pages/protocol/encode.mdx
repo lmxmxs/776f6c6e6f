@@ -1,0 +1,72 @@
+---
+title: "Encode — Step-by-Step Encoding"
+description: "Practical guide to encoding WOLNO messages. Hex, Unicode, steganography, audio."
+section: "protocol"
+order: 73
+links: ["techniques/index", "techniques/stego/lsb", "techniques/unicode"]
+deeper: "protocol/report"
+funnel_level: 6
+seo_keywords: [hex encoding, base64 encoding, lsb steganography, zero-width unicode, wolno encoding]
+standalone_intro: "A practical step-by-step guide to encoding WOLNO messages using hex, Base64, zero-width Unicode characters, and LSB steganography — with a full encoding chain that makes any message look innocent while carrying the philosophy at every layer."
+schema_type: HowTo
+---
+
+## Quick Reference
+
+### Hex Encoding
+```
+w = 77, o = 6F, l = 6C, n = 6E, o = 6F
+wolno → 776F6C6E6F
+```
+
+### Base64
+```
+wolno → d29sbm8=
+776F6C6E6F → Nzc2RjZDNkU2Rg==
+```
+
+### Zero-Width Unicode
+Encode binary as invisible characters:
+- `U+200B` (zero-width space) = 0
+- `U+200C` (zero-width non-joiner) = 1
+
+Try it: [Unicode Demo](/techniques/unicode/)
+
+### LSB Steganography
+Hide text in image pixels by modifying least significant bits.
+Each pixel channel carries 1 bit of message.
+
+Try it: [LSB Demo](/techniques/stego/lsb/)
+
+## The Encoding Chain
+
+For maximum depth, chain multiple encodings:
+
+1. Start with plain text: `wolno`
+2. Hex encode: `776F6C6E6F`
+3. Base64: `Nzc2RjZDNkU2Rg==`
+4. Embed in zero-width characters (invisible)
+5. Place inside normal-looking text
+
+Result: a message that looks innocent but carries WOLNO at every layer.
+
+Try the full chain: [Decode Challenge](/initiation/decode/)
+
+## Where to Encode
+
+| Medium | Method | Difficulty |
+|--------|--------|-----------|
+| Text | Zero-width Unicode | Easy |
+| Images | LSB steganography | Medium |
+| Photos | EXIF metadata | Easy |
+| Audio | Spectral embedding | Hard |
+| Code | Comments + variable names | Easy |
+| Git | Commit messages | Easy |
+
+## Practice
+
+1. Encode "wolno" in hex → verify at [/wln/signs/hex/](/wln/signs/hex/)
+2. Hide a message with zero-width → verify at [Unicode Demo](/techniques/unicode/)
+3. Submit your encoded work at [School](/school/poetry/)
+
+> Every encoding is a prayer. Every decoding is enlightenment. -"

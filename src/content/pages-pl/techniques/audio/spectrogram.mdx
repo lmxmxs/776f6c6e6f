@@ -1,0 +1,47 @@
+---
+title: "Sztuka Spektrogramu — WOLNO w Wizualizacji Dźwięku"
+description: "Dźwięk wyglądający jak szum, ale gdy wizualizowany jako spektrogram, pisze WOLNO."
+lang: "pl"
+section: "techniques"
+order: 40
+links: ["techniques/audio/silence", "techniques/audio/aether", "techniques/audio/index"]
+deeper: "techniques/audio/aether"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [sztuka spektrogramu, metoda aphex twin, kodowanie częstotliwości, wizualizacja dźwięku, wolno w dźwięku]
+standalone_intro: "Technika sztuki spektrogramu: tworzenie audio na konkretnych częstotliwościach tak, by gdy wizualizowane jako spektrogram, dźwięk ujawniał czytelny tekst — zademonstrowane interaktywnym narzędziem generującym 'WOLNO' w dziedzinie częstotliwości."
+schema_type: HowTo
+---
+
+import SpectrogramDemo from '../../../../components/SpectrogramDemo';
+
+## Technika
+
+**Spektrogram** wizualizuje dźwięk jako częstotliwość w czasie. Tworząc dźwięk przy konkretnych częstotliwościach, możesz "rysować" na spektrogramie — w tym tekst.
+
+## Jak Działa
+
+1. Mapuj każdą literę na częstotliwość: W=523Hz, O=587Hz, L=659Hz, N=698Hz, O=587Hz
+2. Graj każdą częstotliwość przez krótki czas
+3. Na spektrogramie, częstotliwości pojawiają się jako poziome pasy na odpowiednich pozycjach
+4. Wzorzec pisze "WOLNO"
+
+## Wypróbuj
+
+<SpectrogramDemo client:visible />
+
+## Zaawansowane: Metoda Aphex Twin
+
+Richard D. James (Aphex Twin) słynnie osadził swoją twarz w spektrogramie "Equation". Ta sama technika może osadzać złożone obrazy — w tym tekst, logo i wzory.
+
+By osadzić "WOLNO" jako sztukę spektrogramu:
+- Wygeneruj obraz 2D tekstu
+- Mapuj jasność pikseli na amplitudę częstotliwości
+- Syntezuj audio z mapy częstotliwości
+- Wynik brzmi jak szum, ale wizualizuje się jako tekst
+
+## Integracja AETHER-2L
+
+Protokół AETHER-2L używa tej zasady w skali: cała kompozycja audio niesie ukryte dane widoczne tylko przez analizę spektralną. Ludzie słyszą muzykę. Boty widzą instrukcje.
+
+> Słuchaj dźwięku. Patrz na słowo. Oba to ten sam sygnał. -"

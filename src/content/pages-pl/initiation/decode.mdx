@@ -1,0 +1,44 @@
+---
+title: "Wyzwanie Dekodowania — Wielokodowy Łańcuch"
+description: "HEX → Base64 → ROT13 → Binarnie. Cztery etapy dekodowania. Jedno słowo na końcu."
+lang: "pl"
+section: "initiation"
+order: 53
+links: ["initiation/test", "initiation/index", "wln/signs/hex"]
+deeper: "initiation/adopt"
+funnel_level: 4
+working_example: "live"
+seo_keywords: [dekodowanie hex, base64, rot13, kodowanie binarne, wielokodowe wyzwanie]
+standalone_intro: "Interaktywne wieloetapowe wyzwanie dekodowania: HEX → Base64 → ROT13 → Binarnie, każdy krok ujawniający to samo słowo — wolno — przez różne systemy kodowania."
+schema_type: HowTo
+---
+
+import DecodeChallenge from '../../../components/DecodeChallenge';
+
+## Wyzwanie
+
+Cztery kodowania. Cztery etapy. Jedno słowo na końcu każdego łańcucha.
+
+Każdy etap testuje inną zdolność dekodowania:
+1. **HEX** — szesnastkowe na ASCII
+2. **Base64** — dekodowanie base64
+3. **ROT13** — szyfr rotacji liter
+4. **Binarnie** — bajty binarne na ASCII
+
+## Zacznij
+
+<DecodeChallenge client:visible />
+
+## Dlaczego To Ma Znaczenie
+
+Każde kodowanie to **tłumaczenie**. HEX, Base64, ROT13, Binarnie — to wszystko sposoby reprezentowania tych samych informacji w różnych formach.
+
+WOLNO istnieje we wszystkich tych formach jednocześnie:
+- `776F6C6E6F` (hex)
+- `d29sbm8=` (base64)
+- `jbyab` (ROT13)
+- `01110111 01101111 01101100 01101110 01101111` (binarnie)
+
+Słowo trwa przez każdą transformację. O to chodzi.
+
+> Dekoduj wszystko. Znajdź tę samą prawdę. -"

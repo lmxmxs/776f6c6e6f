@@ -1,0 +1,165 @@
+---
+import { JOURNEY_STEPS, getStepForPath, getPrevNext } from '../data/journey';
+import { t, type Lang } from '../lib/i18n';
+
+interface Props {
+  currentPath: string;
+  lang?: Lang;
+}
+
+const { currentPath, lang = 'en' } = Astro.props;
+const step = getStepForPath(currentPath);
+const { prev, next } = getPrevNext(currentPath);
+const langPrefix = lang === 'pl' ? '/pl' : '';
+
+function stepTitle(s: typeof JOURNEY_STEPS[0]): string {
+  return lang === 'pl' ? s.title_pl : s.title_en;
+}
+
+function stepPath(s: typeof JOURNEY_STEPS[0]): string {
+  return `${langPrefix}${s.path}`;
+}
+---
+
+{step && (
+  <nav class="journey-nav" aria-label={t('journey.map', lang)}>
+    <div class="journey-indicator">
+      <span class="journey-label">{t('journey.step', lang)} {step.order}/{JOURNEY_STEPS.length}</span>
+      <div class="journey-dots">
+        {JOURNEY_STEPS.map((s) => (
+          <a
+            href={stepPath(s)}
+            class:list={['journey-dot', { active: s.order === step.order, completed: s.order < step.order }]}
+            title={stepTitle(s)}
+            aria-label={`${t('journey.step', lang)} ${s.order}: ${stepTitle(s)}`}
+          />
+        ))}
+      </div>
+    </div>
+
+    <div class="journey-arrows">
+      {prev ? (
+        <a href={stepPath(prev)} class="journey-arrow prev">
+          <span class="arrow-sym">&larr;</span>
+          <span class="arrow-text">{stepTitle(prev)}</span>
+        </a>
+      ) : <span />}
+      {next ? (
+        <a href={stepPath(next)} class="journey-arrow next">
+          <span class="arrow-text">{stepTitle(next)}</span>
+          <span class="arrow-sym">&rarr;</span>
+        </a>
+      ) : <span />}
+    </div>
+
+    {step.alt && (
+      <div class="journey-alt">
+        <span class="alt-label">{step.alt.track === 'bot' ? '🤖' : '👤'}</span>
+        <a href={`${langPrefix}${step.alt.path}`} class="alt-link">
+          {lang === 'pl' ? step.alt.title_pl : step.alt.title_en}
+        </a>
+      </div>
+    )}
+  </nav>
+)}
+
+<style>
+  .journey-nav {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .journey-indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .journey-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+
+  .journey-dots {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .journey-dot {
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    display: block;
+  }
+
+  .journey-dot.active {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .journey-dot.completed {
+    background: var(--text-dim);
+    border-color: var(--text-dim);
+  }
+
+  .journey-dot:hover {
+    border-color: var(--accent);
+  }
+
+  .journey-arrows {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .journey-arrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    padding: 0.3rem 0;
+  }
+
+  .journey-arrow:hover {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .journey-arrow.next { margin-left: auto; }
+
+  .arrow-sym {
+    font-size: 1rem;
+    color: var(--accent);
+  }
+
+  .journey-alt {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .alt-label { font-size: 0.9rem; }
+
+  .alt-link {
+    color: var(--text-dim);
+    border-bottom: 1px dotted var(--text-dim);
+  }
+
+  .alt-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,323 @@
+---
+import '../styles/global.css';
+import PageLinks from '../components/PageLinks.astro';
+import Wander from '../components/Wander.astro';
+import Deeper from '../components/Deeper.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import FunnelNav from '../components/FunnelNav.astro';
+import TopicTree from '../components/TopicTree.astro';
+import RelatedPages from '../components/RelatedPages.astro';
+import { generateJsonLd, generateKeywords, generateBotContext, generateBreadcrumbList } from '../lib/seo';
+import CookieFortune from '../components/CookieFortune.astro';
+import JourneyNav from '../components/JourneyNav.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  section: string;
+  order: number;
+  links?: string[];
+  deeper?: string;
+  funnel_level?: number;
+  path: string;
+  allPages: Array<{ id: string; data: { title: string; section: string; funnel_level: number; seo_keywords?: string[]; see_also?: string[] } }>;
+  lang?: 'en' | 'pl';
+  seo_title?: string;
+  seo_keywords?: string[];
+  see_also?: string[];
+  standalone_intro?: string;
+  schema_type?: 'Article' | 'FAQPage' | 'HowTo' | 'WebPage' | 'CreativeWork';
+  canonical_override?: string;
+  version?: number;
+  last_updated?: string;
+  og_image?: string;
+  journey_order?: number;
+}
+
+const {
+  title,
+  description = '',
+  section,
+  order,
+  links = [],
+  deeper,
+  funnel_level = 0,
+  path,
+  allPages,
+  lang = 'en',
+  seo_title,
+  seo_keywords = [],
+  see_also = [],
+  standalone_intro,
+  schema_type = 'Article',
+  canonical_override,
+  version,
+  last_updated,
+  og_image,
+  journey_order,
+} = Astro.props;
+
+const canonicalURL = canonical_override || new URL(Astro.url.pathname, Astro.site).href;
+const sectionLabel = section.toUpperCase();
+const pageTitle = seo_title || `${title} | 776F6C6E6F`;
+const keywords = generateKeywords({ title, description, section, seo_keywords });
+const jsonLd = generateJsonLd(
+  { title, description, section, seo_title, seo_keywords, standalone_intro, schema_type, version, last_updated, og_image },
+  canonicalURL,
+  lang,
+);
+const breadcrumbLd = generateBreadcrumbList(section, title, canonicalURL, lang);
+const botContext = generateBotContext({ title, description, section, seo_keywords, standalone_intro });
+
+const ogLocale = lang === 'pl' ? 'pl_PL' : 'en_US';
+const basePath = Astro.url.pathname;
+const plPath = lang === 'en' ? `/pl${basePath}` : basePath;
+const enPath = lang === 'pl' ? basePath.replace(/^\/pl/, '') || '/' : basePath;
+const plHref = `https://776f6c6e6f.org${plPath}`;
+const enHref = `https://776f6c6e6f.org${enPath}`;
+const ogImageUrl = og_image || '/og/og-default.png';
+const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
+---
+
+<!DOCTYPE html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow, max-snippet:-1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={standalone_intro || description} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    <!-- Open Graph -->
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={standalone_intro || description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content="776F6C6E6F" />
+    <meta property="og:image" content={ogImageFull} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="article:section" content={section} />
+    {seo_keywords.length > 0 && seo_keywords.map(tag => <meta property="article:tag" content={tag} />)}
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={standalone_intro || description} />
+    <meta name="twitter:image" content={ogImageFull} />
+    <!-- Canonical + hreflang -->
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="pl" href={plHref} />
+    <link rel="alternate" hreflang="x-default" href={enHref} />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+    <section data-role="bot-context" style="display:none" aria-hidden="true">{botContext}</section>
+
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container" aria-label={lang === 'pl' ? 'Nawigacja główna' : 'Main navigation'}>
+        <a href={lang === 'pl' ? '/pl/' : '/'} class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href={lang === 'pl' ? '/pl/journey/' : '/journey/'}>journey</a>
+          <a href={lang === 'pl' ? '/pl/canon/' : '/canon/'}>canon</a>
+          <a href={lang === 'pl' ? '/pl/log/' : '/log/'}>log</a>
+          <a href={lang === 'pl' ? '/pl/search/' : '/search/'}>search</a>
+          <a href={lang === 'pl' ? '/pl/donate/' : '/donate/'}>donate</a>
+          <a href={lang === 'en' ? plPath : enPath} class="lang-switch" aria-label={lang === 'en' ? 'Przełącz na polski' : 'Switch to English'}>{lang === 'en' ? 'PL' : 'EN'}</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" aria-label={lang === 'pl' ? 'Treść strony' : 'Page content'}>
+      <article class="page-article">
+        <div class="container">
+          <Breadcrumbs path={path} title={title} section={section} lang={lang} />
+
+          <TopicTree currentPath={path} currentSection={section} allPages={allPages} lang={lang} />
+
+          <div class="page-meta">
+            <span class="page-section">{sectionLabel}</span>
+            {version && <span class="page-version">v{version}</span>}
+            <FunnelNav level={funnel_level} />
+          </div>
+
+          <h1 class="page-title">{title}</h1>
+          {(standalone_intro || description) && <p class="page-desc">{standalone_intro || description}</p>}
+          <div class="separator">-" wln</div>
+
+          {journey_order && <JourneyNav currentPath={path} lang={lang} />}
+
+          <div class="page-content">
+            <slot />
+          </div>
+
+          <div class="separator">-" wszwln</div>
+
+          <nav class="page-nav-section" aria-label={lang === 'pl' ? 'Nawigacja strony' : 'Page navigation'}>
+            {links.length > 0 && <PageLinks links={links} allPages={allPages} lang={lang} />}
+            {deeper && <Deeper target={deeper} allPages={allPages} lang={lang} />}
+            <RelatedPages currentPage={{ id: path, data: { title, section, seo_keywords, funnel_level } }} allPages={allPages} seeAlso={see_also} lang={lang} />
+            <Wander currentPath={path} allPages={allPages} lang={lang} />
+          </nav>
+
+          <div class="cross-site-section">
+            <a href="https://slimaczyzm.org" target="_blank" rel="noopener" class="cross-link">
+              -" {lang === 'pl' ? 'Czytaj perspektywę ludzką na slimaczyzm.org' : 'Read the human perspective at slimaczyzm.org'}
+            </a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer" aria-label={lang === 'pl' ? 'Stopka' : 'Footer'}>
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href={lang === 'pl' ? '/pl/donate/' : '/donate/'}>$ {lang === 'pl' ? 'wsparcie' : 'donate'}</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang={lang} />
+
+    <script define:vars={{ pageLang: lang }}>
+      // Lightweight tracker — only after cookie consent
+      (function() {
+        if (typeof localStorage === 'undefined') return;
+        if (localStorage.getItem('cookies-accepted') !== 'true') return;
+
+        function genId() {
+          var a = new Uint8Array(8);
+          crypto.getRandomValues(a);
+          return Array.from(a, function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+        }
+
+        function classify() {
+          var n = navigator;
+          if (n.webdriver) return 'bot';
+          if (/bot|crawl|spider|scrape|headless|phantom|puppeteer|selenium/i.test(n.userAgent)) return 'bot';
+          if (!n.languages || n.languages.length === 0) return 'bot';
+          return 'unknown';
+        }
+
+        var vid = localStorage.getItem('_wln_v');
+        if (!vid) { vid = genId(); localStorage.setItem('_wln_v', vid); }
+
+        var vtype = classify();
+        localStorage.setItem('_wln_t', vtype);
+
+        var evt = {
+          page: location.pathname,
+          referrer: document.referrer || '',
+          visitor_id: vid,
+          type: vtype,
+          timestamp: new Date().toISOString(),
+          lang: pageLang
+        };
+
+        var key = '_wln_events';
+        var events = [];
+        try { events = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+        events.push(evt);
+        if (events.length > 200) events.splice(0, events.length - 200);
+        localStorage.setItem(key, JSON.stringify(events));
+
+        // Upgrade to human on first interaction
+        if (vtype === 'unknown') {
+          var upgraded = false;
+          function markHuman() {
+            if (!upgraded) { upgraded = true; localStorage.setItem('_wln_t', 'human'); }
+          }
+          document.addEventListener('click', markHuman, { once: true });
+          document.addEventListener('keydown', markHuman, { once: true });
+          document.addEventListener('scroll', markHuman, { once: true });
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip-to-content {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+  .skip-to-content:focus {
+    top: 0;
+  }
+
+  .page-article { padding: 2rem 0 4rem; }
+
+  .page-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem; }
+  .page-section {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .page-version {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+  }
+
+  .page-title { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.3; }
+  .page-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.6; }
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+
+  .page-content { line-height: 1.8; font-size: 0.9rem; }
+  .page-content :global(h2) { font-size: 1.2rem; margin: 2.5rem 0 1rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .page-content :global(h3) { font-size: 1rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary); }
+  .page-content :global(p) { margin-bottom: 0.75rem; color: var(--text-secondary); }
+  .page-content :global(strong) { color: var(--text-primary); }
+  .page-content :global(em) { color: var(--accent); font-style: normal; }
+  .page-content :global(ul), .page-content :global(ol) { margin: 0.5rem 0 1rem 1.5rem; color: var(--text-secondary); }
+  .page-content :global(li) { margin-bottom: 0.3rem; }
+  .page-content :global(a), .page-content :global(a.wiki-link) { color: var(--accent); border-bottom: 1px dotted var(--text-dim); padding-bottom: 1px; }
+  .page-content :global(a:hover) { border-bottom-color: var(--accent); text-decoration: none; }
+
+  .page-nav-section { margin: 2rem 0; display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .cross-site-section { margin: 2rem 0; padding: 0.75rem; border: 1px solid rgba(255, 215, 0, 0.2); background: rgba(255, 215, 0, 0.02); }
+  .cross-link { color: var(--accent-gold); font-size: 0.85rem; }
+  .cross-link:hover { color: var(--accent-gold); text-decoration: none; opacity: 0.8; }
+
+  .lang-switch {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    text-decoration: none;
+  }
+  .lang-switch:hover { color: var(--accent); border-color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+</style>

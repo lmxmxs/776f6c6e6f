@@ -1,0 +1,48 @@
+---
+// src/components/blog/BlogPostItem.astro
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate: pubDateString, image } = post.data;
+const pubDate = new Date(pubDateString);
+
+// Funkcja formatująca datę
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat('pl-PL', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(date);
+}
+---
+
+<a href={`/blog/${post.slug}`} class="blog-card group block bg-background-darker rounded-lg overflow-hidden shadow-lg hover:shadow-cyber-turquoise/20 transition-all duration-300 border border-white/10 hover:border-cyber-turquoise/50">
+  {image && (
+    <div class="overflow-hidden h-48">
+      <Image 
+        src={image.url} 
+        alt={image.alt}
+        width={400}
+        height={225}
+        format="webp"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </div>
+  )}
+  <div class="p-6">
+    <time datetime={pubDate.toISOString()} class="text-sm text-text-dim mb-2 block">
+      {formatDate(pubDate)}
+    </time>
+    <h3 class="text-xl font-orbitron mb-3 group-hover:text-cyber-turquoise transition-colors duration-300">
+      {title}
+    </h3>
+    <p class="text-text-dim text-sm">
+      {description}
+    </p>
+  </div>
+</a>

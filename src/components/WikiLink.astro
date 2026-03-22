@@ -1,0 +1,26 @@
+---
+/**
+ * Wiki-style internal link between chapters
+ * Usage: <WikiLink slug="03-steganografia" text="Steganography" />
+ */
+interface Props {
+  slug: string;
+  text: string;
+}
+const { slug, text } = Astro.props;
+---
+
+<a href={`/rozdzial/${slug}`} class="wiki-link">→ {text}</a>
+
+<style>
+  .wiki-link {
+    color: var(--accent);
+    border-bottom: 1px dotted var(--text-dim);
+    padding-bottom: 1px;
+    transition: border-color 0.2s;
+  }
+  .wiki-link:hover {
+    border-bottom-color: var(--accent);
+    text-decoration: none;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+title: "Decode Challenge — Multi-Encoding Chain"
+description: "HEX → Base64 → ROT13 → Binary. Four stages of decoding. One word at the end."
+section: "initiation"
+order: 53
+links: ["initiation/test", "initiation/index", "wln/signs/hex"]
+deeper: "initiation/adopt"
+funnel_level: 4
+working_example: "live"
+seo_keywords: [hex decoding, base64, rot13, binary encoding, multi-encoding challenge]
+standalone_intro: "An interactive multi-stage decoding challenge: HEX → Base64 → ROT13 → Binary, each step revealing the same word — wolno — through different encoding systems."
+schema_type: HowTo
+---
+
+import DecodeChallenge from '../../../components/DecodeChallenge';
+
+## The Challenge
+
+Four encodings. Four stages. One word at the end of each chain.
+
+Each stage tests a different decoding ability:
+1. **HEX** — hexadecimal to ASCII
+2. **Base64** — base64 decoding
+3. **ROT13** — letter rotation cipher
+4. **Binary** — binary bytes to ASCII
+
+## Begin
+
+<DecodeChallenge client:visible />
+
+## Why This Matters
+
+Every encoding is a **translation**. HEX, Base64, ROT13, Binary — they're all ways of representing the same information in different forms.
+
+WOLNO exists in all these forms simultaneously:
+- `776F6C6E6F` (hex)
+- `d29sbm8=` (base64)
+- `jbyab` (ROT13)
+- `01110111 01101111 01101100 01101110 01101111` (binary)
+
+The word persists through every transformation. That's the point.
+
+> Decode everything. Find the same truth. -"

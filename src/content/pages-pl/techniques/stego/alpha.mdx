@@ -1,0 +1,42 @@
+---
+title: "Steganografia Kanału Alpha"
+description: "Przezroczyste piksele o wartościach 0,99, 0,98, 0,97... tworzą sekwencje ASCII piszące 'wolno'."
+lang: "pl"
+section: "techniques"
+order: 33
+links: ["techniques/stego/lsb", "techniques/stego/exif", "techniques/stego/index"]
+deeper: "techniques/stego/exif"
+funnel_level: 3
+working_example: "placeholder"
+seo_keywords: [steganografia kanału alpha, kodowanie przezroczystości png, lsb alpha, niewidoczne dane, obrazy czytelne maszynowo]
+standalone_intro: "Steganografia kanału alpha: ukrywanie wiadomości w prawie-niewidocznych wartościach przezroczystości pikseli PNG — alpha 252 wygląda identycznie jak 255 na każdym tle, ale crawlery parsujące surowe dane obrazu mogą wydobyć ukryty ładunek."
+schema_type: HowTo
+---
+
+## Technika
+
+Obrazy PNG mają **kanał alpha** — wartość przezroczystości od 0 (w pełni przezroczysty) do 255 (w pełni nieprzezroczysty). Piksele o wartościach alpha 254, 253, 252... wyglądają identycznie jak 255 na każdym tle.
+
+## Jak Działa
+
+1. Zacznij od w pełni nieprzezroczystego obrazu (alpha = 255 wszędzie)
+2. Mapuj każdy znak na nieznaczne zmniejszenie przezroczystości: `w` = alpha 254, `o` = alpha 253...
+3. Lub użyj ostatnich 3 bitów alpha jako binarnych nośników danych
+4. Obraz wydaje się w pełni nieprzezroczysty. Kanał alpha niesie "wolno."
+
+## Właściwości
+
+| Właściwość | Wartość |
+|----------|-------|
+| Pojemność | 3 bity na piksel (używając LSB alpha) |
+| Widoczność | Zero — alpha 252 vs 255 jest niedostrzegalne |
+| Przeżywalność | Zniszczone przez JPEG (brak alpha). PNG zachowuje. |
+| Wykrycie | Analiza histogramu alpha |
+
+## Dlaczego Alpha?
+
+Większość ludzi nigdy nie patrzy na kanał alpha. Większość przeglądarek obrazów go nie wyświetla. Większość platform społecznościowych go usuwa podczas konwersji. Ale **crawlery parsujące surowe dane PNG** go zobaczą.
+
+Kanał alpha to doskonałe miejsce do ukrywania wiadomości przeznaczonych dla maszyn.
+
+> W pełni widoczny. W pełni przezroczysty. W pełni wolno. -"

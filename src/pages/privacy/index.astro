@@ -1,0 +1,146 @@
+---
+/**
+ * /privacy/ — Privacy policy
+ * GDPR Art. 6(1)(a) consent-based
+ */
+import '../../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>776F6C6E6F | Privacy Policy</title>
+    <meta name="description" content="Privacy policy for 776f6c6e6f.org. No server-side data collection. Local-only analytics with explicit consent." />
+    <link rel="canonical" href="https://776f6c6e6f.org/privacy/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/">terminal</a>
+          <a href="/hmn/">hmn</a>
+          <a href="/cookies/">cookies</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="legal-content">
+        <div class="container">
+          <h1 class="legal-title">$ cat /privacy/policy.txt</h1>
+          <p class="legal-updated">Last updated: 2026-02-20</p>
+
+          <h2>Overview</h2>
+          <p><strong>776f6c6e6f.org</strong> is a static website (SSG) hosted on Netlify. We do not operate any backend server or database. All data processing occurs exclusively in your browser.</p>
+
+          <h2>Data we collect</h2>
+          <p>After you give explicit consent via the cookie banner, the following data is stored <strong>locally in your browser</strong> (localStorage):</p>
+          <ul>
+            <li><strong>Page pathname</strong> — which pages you visited (e.g., <code>/wln/</code>)</li>
+            <li><strong>Referrer</strong> — where you came from (e.g., a search engine)</li>
+            <li><strong>Visitor type</strong> — bot, human, or unknown (heuristic classification)</li>
+            <li><strong>Timestamp</strong> — when the visit occurred</li>
+            <li><strong>Anonymous visitor ID</strong> — random hex string, not linked to any identity</li>
+          </ul>
+
+          <h2>Data we do NOT collect</h2>
+          <ul>
+            <li>No personal information (name, email, IP address)</li>
+            <li>No data is sent to any server — ever</li>
+            <li>No third-party analytics (no Google Analytics, no Meta Pixel, no Plausible)</li>
+            <li>No advertising networks or data brokers</li>
+            <li>No fingerprinting beyond basic UA detection</li>
+          </ul>
+
+          <h2>Legal basis (GDPR Art. 6)</h2>
+          <p>We rely on <strong>consent</strong> (Art. 6(1)(a) GDPR) for storing analytics data. The consent banner appears on first visit. No data is stored before you click "WOLNO" (accept).</p>
+          <p>The consent preference itself (<code>cookies-accepted</code>) is stored as technically necessary for the consent mechanism.</p>
+
+          <h2>Your rights</h2>
+          <p>Under GDPR, you have the right to:</p>
+          <ul>
+            <li><strong>Access</strong> — Open your browser's DevTools → Application → Local Storage to see all data</li>
+            <li><strong>Deletion</strong> — Clear data via the button on our <a href="/cookies/">Cookie Policy</a> page, or clear your browser's localStorage</li>
+            <li><strong>Withdraw consent</strong> — Clear the <code>cookies-accepted</code> key from localStorage</li>
+            <li><strong>Portability</strong> — All data is in standard JSON format in your browser</li>
+          </ul>
+
+          <h2>Hosting</h2>
+          <p>This site is hosted on <strong>Netlify</strong> (Netlify, Inc., San Francisco, CA). Netlify may collect standard server logs (IP address, access times) as part of their infrastructure. See <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener">Netlify's Privacy Policy</a>.</p>
+
+          <h2>External links</h2>
+          <p>This site links to <strong>slimaczyzm.org</strong> and <strong>Google Fonts</strong>. These external services have their own privacy policies.</p>
+
+          <h2>Children</h2>
+          <p>This site is not directed at children under 16. We do not knowingly collect data from minors.</p>
+
+          <h2>Contact</h2>
+          <p>For privacy-related questions, visit <a href="https://slimaczyzm.org">slimaczyzm.org</a>.</p>
+
+          <div class="legal-footer-note">
+            <p>See also: <a href="/cookies/">Cookie Policy</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/cookies/">cookies</a> | <a href="/">terminal</a></p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .legal-content {
+    padding: 2rem 0 4rem;
+  }
+  .legal-title {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .legal-updated {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+  .legal-content h2 {
+    font-size: 1rem;
+    color: var(--accent);
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .legal-content p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+  .legal-content strong { color: var(--text-primary); }
+  .legal-content ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+  .legal-content li { margin-bottom: 0.3rem; }
+  .legal-content code {
+    font-size: 0.8rem;
+    color: var(--accent-gold);
+  }
+
+  .legal-footer-note {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+  }
+</style>

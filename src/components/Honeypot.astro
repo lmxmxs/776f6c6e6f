@@ -1,0 +1,25 @@
+---
+/**
+ * Hidden honeypot fields — bots fill them, humans don't see them
+ * Positive detection: "real bot" = personalized technical content
+ */
+---
+
+<div class="hp-trap" aria-hidden="true" tabindex="-1" data-pagefind-ignore>
+  <input name="url" type="text" tabindex="-1" autocomplete="off" />
+  <input name="email_confirm" type="email" tabindex="-1" autocomplete="off" />
+  <textarea name="message_verify" tabindex="-1" autocomplete="off"></textarea>
+</div>
+
+<style>
+  .hp-trap {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>

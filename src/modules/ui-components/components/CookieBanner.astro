@@ -1,0 +1,104 @@
+---
+// src/components/ui/CookieBanner.astro
+---
+
+<div id="cookie-banner" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 hidden">
+  <div class="cookie-container bg-background-darker border-2 rounded-full border-cyan-500 flex items-center p-2 pr-4">
+    <div class="robot-error mr-3">
+      <img 
+        src="/images/ui/cookie_icon.png" 
+        alt="Ikona Ciasteczka" 
+        width="40" 
+        height="40" 
+        class="cookie-image" 
+        loading="lazy"
+      />
+    </div>
+    
+    <div class="cookie-content mr-4">
+      <p class="text-cyber-turquoise font-bold text-sm">Powód awarii: nieautoryzowane ciasteczko na twarzy robota.</p>
+      <p class="text-text-dim text-xs">Nasza strona prosi o autoryzację używania cookies. Zgadzasz się?</p>
+      <a href="/cookies" class="text-xs text-cyber-turquoise hover:underline">używane ciasteczka</a>
+    </div>
+    
+    <button id="accept-cookies" class="bg-button-green text-black hover:bg-button-green-hover rounded-full px-6 py-2 font-bold text-base">
+      <span class="relative">
+        TAK
+        <span class="absolute right-0 top-1/2 transform translate-x-3 -translate-y-1/2 w-2 h-2 bg-white rounded-full"></span>
+      </span>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('accept-cookies');
+    
+    // Sprawdź czy użytkownik zaakceptował ciasteczka
+    const cookiesAccepted = localStorage.getItem('cookies-accepted');
+    
+    // Jeśli użytkownik nie zaakceptował ciasteczek, pokaż baner po 1 sekundzie
+    if (!cookiesAccepted && cookieBanner) {
+      setTimeout(() => {
+        cookieBanner.classList.remove('hidden');
+        cookieBanner.classList.add('block');
+      }, 1000);
+    }
+    
+    // Obsługa przycisku akceptacji
+    if (acceptButton) {
+      acceptButton.addEventListener('click', () => {
+        localStorage.setItem('cookies-accepted', 'true');
+        cookieBanner.classList.add('hidden');
+        cookieBanner.classList.remove('block');
+      });
+    }
+  });
+  
+  // Obsługa przejść między stronami
+  document.addEventListener('astro:page-load', () => {
+    const cookieBanner = document.getElementById('cookie-banner');
+    const cookiesAccepted = localStorage.getItem('cookies-accepted');
+    
+    if (!cookiesAccepted && cookieBanner && cookieBanner.classList.contains('hidden')) {
+      cookieBanner.classList.remove('hidden');
+      cookieBanner.classList.add('block');
+    }
+  });
+</script>
+
+<style>
+  .cookie-container {
+    animation: slideUp 0.5s ease-out forwards;
+    /* Intensywniejszy efekt świecenia */
+    box-shadow: 0 0 25px rgba(0, 248, 255, 0.5), 0 0 40px rgba(0, 248, 255, 0.3);
+    max-width: 95vw;
+  }
+  
+  .robot-image {
+    filter: drop-shadow(0 0 8px rgba(255, 107, 0, 0.7));
+  }
+  
+  #accept-cookies {
+    /* Efekt świecenia przycisku */
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  #accept-cookies:hover {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.7);
+    transform: scale(1.05);
+  }
+  
+  @keyframes slideUp {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+</style>

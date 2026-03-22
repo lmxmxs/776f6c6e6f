@@ -1,0 +1,92 @@
+---
+// src/components/ui/Picture.astro
+/**
+ * Komponent Picture - responsywne obrazy w różnych formatach
+ * Zaktualizowany dla lepszej obsługi konwertowanych obrazów
+ * 
+ * @param {string} src - Podstawowa ścieżka do obrazu (bez rozszerzenia lub z)
+ * @param {string} alt - Tekst alternatywny
+ * @param {string} [className] - Dodatkowe klasy CSS
+ * @param {number} [width] - Szerokość obrazu
+ * @param {number} [height] - Wysokość obrazu
+ * @param {string} [loading="lazy"] - Sposób ładowania (lazy, eager)
+ * @param {boolean} [avif=true] - Czy używać wariantu AVIF
+ * @param {boolean} [webp=true] - Czy używać wariantu WebP
+ * @param {string[]} [sizes] - Rozmiary obrazu dla różnych breakpointów
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  loading?: "lazy" | "eager";
+  avif?: boolean;
+  webp?: boolean;
+  sizes?: string[];
+}
+
+const { 
+  src, 
+  alt,
+  className = "",
+  width,
+  height,
+  loading = "lazy",
+  avif = true,
+  webp = true,
+  sizes = ["(max-width: 640px) 100vw", "(max-width: 1024px) 50vw", "33vw"]
+} = Astro.props;
+
+// Przygotowanie ścieżek do różnych formatów
+const hasExtension = /\.(jpe?g|png|gif)$/i.test(src);
+const basePath = hasExtension ? src.substring(0, src.lastIndexOf('.')) : src;
+const extension = hasExtension ? src.substring(src.lastIndexOf('.')) : '.png';
+
+// Generowanie ścieżek do formatów
+const avifPath = `${basePath}.avif`;
+const webpPath = `${basePath}.webp`;
+const fallbackPath = hasExtension ? src : `${basePath}${extension}`;
+---
+
+<picture>
+  {avif && (
+    <source 
+      srcset={avifPath} 
+      type="image/avif" 
+      sizes={sizes.join(', ')}
+    />
+  )}
+  
+  {webp && (
+    <source 
+      srcset={webpPath} 
+      type="image/webp" 
+      sizes={sizes.join(', ')}
+    />
+  )}
+  
+  <img 
+    src={fallbackPath} 
+    alt={alt} 
+    class={className}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding="async"
+    sizes={sizes.join(', ')}
+  />
+</picture>
+
+<style>
+  picture {
+    display: block;
+  }
+  
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+</style>

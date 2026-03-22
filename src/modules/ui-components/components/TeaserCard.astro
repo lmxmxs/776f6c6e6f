@@ -1,0 +1,48 @@
+---
+// @PROJECT: Barnabaai
+// @PATH: /src/components/ui/TeaserCard.astro
+// @REFACTORED: 2025-09-20 - Ania - Replaced standard img with CircleImage component for unified look.
+
+import CircleImage from './CircleImage.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  href: string;
+  thumbnail?: string;
+  isExternal?: boolean;
+}
+
+const { title, description, href, thumbnail, isExternal = false } = Astro.props;
+---
+<div class="teaser-card flex flex-col items-center text-center bg-background-dark/50 p-6 rounded-lg border-2 border-transparent hover:border-cyber-magenta/50 transition-all duration-300 max-w-sm">
+  
+  <a href={href} target={isExternal ? '_blank' : '_self'} class="group w-full">
+    {thumbnail && (
+      <div class="mb-6">
+        <CircleImage 
+          src={thumbnail}
+          alt={`Miniatura dla ${title}`}
+          size="lg" 
+          glowColor="var(--cyber-magenta)"
+          type="interactive"
+        />
+      </div>
+    )}
+
+    <h3 class="text-2xl font-orbitron font-bold text-cyber-turquoise group-hover:text-white transition-colors duration-200 mb-3">{title}</h3>
+    
+    {description && (
+      <p class="text-text-dim text-sm leading-relaxed mb-6 h-20 overflow-hidden">
+        {description.slice(0, 120)}{description.length > 120 ? '...' : ''}
+      </p>
+    )}
+  </a>
+
+  <div class="mt-auto w-full">
+     <a href={href} target={isExternal ? '_blank' : '_self'} class="inline-block w-full max-w-xs bg-cyber-turquoise/80 hover:bg-cyber-turquoise text-background-dark font-bold py-2 px-4 rounded transition-colors duration-300">
+        Czytaj dalej
+    </a>
+  </div>
+
+</div>

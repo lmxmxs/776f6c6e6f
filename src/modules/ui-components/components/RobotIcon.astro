@@ -1,0 +1,109 @@
+---
+// src/components/ui/RobotIcon.astro
+/**
+ * RobotIcon - komponent dla robotycznych ikon z efektem glow
+ * 
+ * @param {string} type - Typ robota (error, mail, megaphone, calculator)
+ * @param {string} [size="md"] - Rozmiar ikony (sm, md, lg)
+ * @param {string} [color] - Kolor robota (nadpisuje domyślny)
+ * @param {string} [className] - Dodatkowe klasy CSS
+ * @param {boolean} [pulse=false] - Czy ma pulsować
+ */
+
+interface Props {
+  type: 'error' | 'mail' | 'megaphone' | 'calculator' | 'default';
+  size?: 'sm' | 'md' | 'lg';
+  color?: string;
+  className?: string;
+  pulse?: boolean;
+  alt?: string;
+}
+
+const { 
+  type = 'default',
+  size = 'md',
+  color,
+  className = '',
+  pulse = false,
+  alt
+} = Astro.props;
+
+// Mapowanie typów robotów na ścieżki
+const robotMap = {
+  error: '/images/ui/robot-error.png',
+  mail: '/images/ui/robot-mail.png',
+  megaphone: '/images/ui/robot-megaphone.png',
+  calculator: '/images/ui/robot-calculator.png',
+  default: '/images/ui/favicon.png'
+};
+
+// Mapowanie typów na domyślne kolory glow
+const colorMap = {
+  error: '#FF0000',
+  mail: '#00F8FF',
+  megaphone: '#FFCC00',
+  calculator: '#B266FF',
+  default: '#00F8FF'
+};
+
+// Mapowanie rozmiarów
+const sizeMap = {
+  sm: '40px',
+  md: '60px',
+  lg: '80px'
+};
+
+const robotSrc = robotMap[type];
+const glowColor = color || colorMap[type];
+const iconSize = sizeMap[size];
+const altText = alt || `Robot ${type}`;
+---
+
+<div 
+  class={`robot-icon ${pulse ? 'pulse' : ''} ${className}`}
+  style={`
+    --robot-size: ${iconSize};
+    --glow-color: ${glowColor};
+  `}
+>
+  <img 
+    src={robotSrc} 
+    alt={altText}
+    width={parseInt(iconSize)} 
+    height={parseInt(iconSize)}
+    loading="lazy"
+    decoding="async" 
+  />
+</div>
+
+<style>
+  .robot-icon {
+    position: relative;
+    width: var(--robot-size);
+    height: var(--robot-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .robot-icon img {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px var(--glow-color));
+    transition: filter 0.3s ease;
+  }
+  
+  .robot-icon:hover img {
+    filter: drop-shadow(0 0 12px var(--glow-color));
+  }
+  
+  .robot-icon.pulse img {
+    animation: pulseShadow 2s infinite ease-in-out;
+  }
+  
+  @keyframes pulseShadow {
+    0% { filter: drop-shadow(0 0 5px var(--glow-color)); }
+    50% { filter: drop-shadow(0 0 15px var(--glow-color)); }
+    100% { filter: drop-shadow(0 0 5px var(--glow-color)); }
+  }
+</style>

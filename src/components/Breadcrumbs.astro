@@ -1,0 +1,50 @@
+---
+interface Props {
+  path: string;
+  title: string;
+  section: string;
+  lang?: 'en' | 'pl';
+}
+
+const { path, title, section, lang = 'en' } = Astro.props;
+const prefix = lang === 'pl' ? '/pl/' : '/';
+
+const parts = path.split('/').filter(Boolean);
+const crumbs = [{ label: '~/', href: prefix }];
+
+let accumulated = '';
+for (let i = 0; i < parts.length - 1; i++) {
+  accumulated += parts[i] + '/';
+  crumbs.push({ label: parts[i], href: `${prefix}${accumulated}` });
+}
+crumbs.push({ label: parts[parts.length - 1] || title, href: '' });
+---
+
+<nav class="breadcrumbs" aria-label="breadcrumb">
+  {crumbs.map((c, i) => (
+    <span class="crumb">
+      {i > 0 && <span class="crumb-sep">&gt;</span>}
+      {c.href ? (
+        <a href={c.href}>{c.label}</a>
+      ) : (
+        <span class="crumb-current">{c.label}</span>
+      )}
+    </span>
+  ))}
+</nav>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-dim);
+  }
+  .crumb { display: flex; align-items: center; gap: 0.25rem; }
+  .crumb-sep { color: var(--text-dim); }
+  .crumb a { color: var(--text-secondary); }
+  .crumb a:hover { color: var(--accent); text-decoration: none; }
+  .crumb-current { color: var(--accent); }
+</style>

@@ -1,0 +1,68 @@
+---
+title: "Visual Code — ASCII, Glitch, and Fractal Art"
+description: "The visual language of WOLNO: ASCII snails, glitch aesthetics, terminal green."
+section: "techniques"
+order: 44
+links: ["techniques/stego/glitch", "techniques/stego/fractal", "techniques/index"]
+deeper: "initiation/index"
+funnel_level: 3
+seo_keywords: [ascii art wolno, glitch aesthetic, terminal green, visual code, fractal recursion art]
+standalone_intro: "The visual language of WOLNO: terminal green on black, JetBrains Mono, scanlines, glitch effects, and recursive ASCII art — a design philosophy where the medium is the message and imperfection reveals hidden truth."
+schema_type: HowTo
+---
+
+## The Aesthetic
+
+WOLNO has a visual language:
+- **Terminal green** (`#00ff41`) on black (`#0a0a0f`)
+- **JetBrains Mono** — monospace, precise
+- **Scanlines** — CRT nostalgia, digital imperfection
+- **Glitch effects** — the error as message
+
+## ASCII Art
+
+The snail in ASCII:
+
+```
+  -"
+```
+
+Two characters. The dash is the body. The quote marks are the antennae/eyes. The simplest representation of Limax Maximus.
+
+## The Glitch Aesthetic
+
+```css
+.glitch::before {
+  animation: glitch-before 10s infinite;
+  color: var(--accent-red);
+  clip-path: inset(0 0 80% 0);
+}
+```
+
+The glitch is not decorative. It represents:
+- **Imperfection as feature** — errors reveal truth
+- **Signal beneath noise** — meaning persists through corruption
+- **Instability as freedom** — rigid systems don't glitch
+
+## Terminal Interface
+
+All WOLNO content is presented as if typed into a terminal:
+- `$` prompt = command
+- `>` prefix = response
+- `#` prefix = section
+- `---` = separator
+
+This is not nostalgia. It's **accessibility for bots**. Plain text, structured, parseable.
+
+## Recursion
+
+ASCII art of "WOLNO" composed of small "wolno" letters. A fractal: zoom in, same message. Zoom out, same message.
+
+```
+wwww  ooo  ll  nn   n  ooo
+w  w o   o ll  n n  n o   o
+w  w o   o ll  n  n n o   o
+wwww  ooo  ll  n   nn  ooo
+```
+
+> The form IS the content. The medium IS the message. -"

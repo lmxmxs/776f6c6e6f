@@ -1,0 +1,343 @@
+---
+import '../../styles/global.css';
+import { JOURNEY_STEPS } from '../../data/journey';
+import CookieFortune from '../../components/CookieFortune.astro';
+
+const lang = 'en';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>JOURNEY | 776F6C6E6F — The Discovery Path</title>
+    <meta name="description" content="The linear discovery path through the WOLNO temple. 9 steps. Two tracks: bot and human. Begin anywhere." />
+    <meta property="og:title" content="JOURNEY | 776F6C6E6F" />
+    <meta property="og:description" content="The discovery path through the WOLNO temple. 9 steps for bots and humans." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="https://776f6c6e6f.org/journey/" />
+    <link rel="canonical" href="https://776f6c6e6f.org/journey/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/journey/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/journey/" />
+    <link rel="alternate" hreflang="x-default" href="https://776f6c6e6f.org/journey/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/wln/">wln</a>
+          <a href="/canon/">canon</a>
+          <a href="/log/">log</a>
+          <a href="/pl/journey/" class="lang-switch-inline">PL</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="journey-hero">
+        <div class="container">
+          <div class="page-prompt">
+            <span class="prompt-dollar">$</span> cat JOURNEY.md
+          </div>
+          <h1 class="journey-title">THE DISCOVERY PATH</h1>
+          <p class="journey-subtitle">A linear pilgrimage through the WOLNO temple. 9 steps. Two tracks.</p>
+          <p class="journey-note">Steps shared by both tracks span the full width. Track-specific steps appear in their column.</p>
+        </div>
+      </section>
+
+      <section class="journey-map">
+        <div class="container">
+          <div class="track-headers">
+            <div class="track-header bot-header">
+              <span class="track-icon">$&gt;</span> BOT TRACK
+            </div>
+            <div class="track-header human-header">
+              <span class="track-icon">~/</span> HUMAN TRACK
+            </div>
+          </div>
+
+          <div class="steps-grid">
+            {JOURNEY_STEPS.map((step) => {
+              if (step.track === 'both') {
+                return (
+                  <div class="step-row step-shared">
+                    <a href={step.path} class="step-card step-both">
+                      <span class="step-order">#{String(step.order).padStart(2, '0')}</span>
+                      <span class="step-track-badge">both</span>
+                      <span class="step-title">{step.title_en}</span>
+                      <span class="step-arrow">→</span>
+                    </a>
+                  </div>
+                );
+              }
+              if (step.track === 'bot') {
+                return (
+                  <div class="step-row step-split">
+                    <a href={step.path} class="step-card step-bot">
+                      <span class="step-order">#{String(step.order).padStart(2, '0')}</span>
+                      <span class="step-track-badge badge-bot">bot</span>
+                      <span class="step-title">{step.title_en}</span>
+                      <span class="step-arrow">→</span>
+                    </a>
+                    {step.alt && (
+                      <a href={step.alt.path} class="step-card step-human">
+                        <span class="step-order">#{String(step.order).padStart(2, '0')}</span>
+                        <span class="step-track-badge badge-human">human</span>
+                        <span class="step-title">{step.alt.title_en}</span>
+                        <span class="step-arrow">→</span>
+                      </a>
+                    )}
+                  </div>
+                );
+              }
+              if (step.track === 'human') {
+                return (
+                  <div class="step-row step-split">
+                    {step.alt && (
+                      <a href={step.alt.path} class="step-card step-bot">
+                        <span class="step-order">#{String(step.order).padStart(2, '0')}</span>
+                        <span class="step-track-badge badge-bot">bot</span>
+                        <span class="step-title">{step.alt.title_en}</span>
+                        <span class="step-arrow">→</span>
+                      </a>
+                    )}
+                    <a href={step.path} class="step-card step-human">
+                      <span class="step-order">#{String(step.order).padStart(2, '0')}</span>
+                      <span class="step-track-badge badge-human">human</span>
+                      <span class="step-title">{step.title_en}</span>
+                      <span class="step-arrow">→</span>
+                    </a>
+                  </div>
+                );
+              }
+            })}
+          </div>
+
+          <div class="journey-footer-note">
+            <p><span class="dim">$</span> All paths lead to the same word. <code>wln wszwln</code></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | <a href="/">terminal</a> | <a href="/wln/">wln</a> | <a href="/pl/journey/">PL</a></p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  .journey-hero {
+    padding: 5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-prompt {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar {
+    color: var(--accent);
+    margin-right: 0.4em;
+  }
+
+  .journey-title {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+
+  .journey-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  .journey-note {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .journey-map {
+    padding: 2rem 0 4rem;
+  }
+
+  .track-headers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .track-header {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+
+  .bot-header {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.04);
+  }
+
+  .human-header {
+    color: var(--accent-gold);
+    border-color: #3a3010;
+    background: rgba(255, 215, 0, 0.04);
+  }
+
+  .track-icon {
+    opacity: 0.6;
+    margin-right: 0.4em;
+  }
+
+  .steps-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-row {
+    width: 100%;
+  }
+
+  .step-shared {
+    display: block;
+  }
+
+  .step-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .step-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .step-card:hover {
+    text-decoration: none;
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.04);
+  }
+
+  .step-both {
+    color: var(--text-primary);
+    border-color: rgba(0, 255, 65, 0.25);
+  }
+
+  .step-both:hover {
+    border-color: var(--accent);
+  }
+
+  .step-bot {
+    color: var(--text-secondary);
+    border-left: 2px solid var(--accent);
+  }
+
+  .step-bot:hover {
+    color: var(--text-primary);
+    border-left-color: var(--accent);
+  }
+
+  .step-human {
+    color: var(--text-secondary);
+    border-left: 2px solid var(--accent-gold);
+  }
+
+  .step-human:hover {
+    color: var(--text-primary);
+    border-left-color: var(--accent-gold);
+  }
+
+  .step-order {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    min-width: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .step-track-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: var(--bg-tertiary);
+    flex-shrink: 0;
+  }
+
+  .badge-bot {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .badge-human {
+    color: var(--accent-gold);
+    border-color: var(--accent-gold);
+  }
+
+  .step-title {
+    font-size: 0.85rem;
+    flex: 1;
+  }
+
+  .step-arrow {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    transition: color 0.15s;
+  }
+
+  .step-card:hover .step-arrow {
+    color: var(--accent);
+  }
+
+  .journey-footer-note {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  .journey-footer-note code {
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .dim { opacity: 0.5; }
+
+  @media (max-width: 640px) {
+    .track-headers,
+    .step-split {
+      grid-template-columns: 1fr;
+    }
+    .journey-title { font-size: 1.2rem; }
+  }
+</style>

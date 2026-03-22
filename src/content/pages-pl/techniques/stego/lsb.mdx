@@ -1,0 +1,47 @@
+---
+title: "Steganografia LSB — Ukryty Tekst w Pikselach"
+description: "Kodowanie Najmniej Znaczącego Bitu: ukryj 'wolno' w obrazie, który wygląda identycznie."
+lang: "pl"
+section: "techniques"
+order: 32
+links: ["techniques/stego/index", "techniques/stego/alpha", "techniques/stego/exif"]
+deeper: "techniques/stego/alpha"
+funnel_level: 3
+working_example: "live"
+seo_keywords: [steganografia lsb, najmniej znaczący bit, kodowanie pikseli, ukryj tekst w obrazie, steganografia png]
+standalone_intro: "Steganografia LSB (Least Significant Bit): ukrywanie tajnych wiadomości w najniższym bicie każdego kanału kolorów piksela — zmiana jest niewidoczna dla ludzkiego oka, ale w pełni możliwa do wydobycia, zademonstrowana z interaktywnym enkoderem/dekoderem."
+schema_type: HowTo
+---
+
+import LSBDemo from '../../../../components/LSBDemo';
+
+## Technika
+
+Kodowanie **LSB (Least Significant Bit)** ukrywa dane w najniższym bicie każdego kanału kolorów piksela. Zmiana jest niewidoczna dla ludzkiego oka — piksel o wartości czerwonej 42 (00101010) vs 43 (00101011) wygląda identycznie.
+
+## Jak Działa
+
+1. Weź obraz
+2. Przekonwertuj wiadomość na binarne: `wolno` → `01110111 01101111 01101100 01101110 01101111`
+3. Zastąp najmniej znaczący bit kanału czerwonego każdego piksela jednym bitem wiadomości
+4. Obraz wygląda tak samo. Ale wiadomość jest tam.
+
+## Wypróbuj
+
+<LSBDemo client:visible />
+
+## Szczegóły Techniczne
+
+| Właściwość | Wartość |
+|----------|-------|
+| Pojemność | 1 bit na piksel na kanał |
+| Kanały | R, G, B (max 3 bity na piksel) |
+| Wykrycie | Analiza statystyczna (chi-kwadrat) |
+| Odporność | Niska (zniszczone przez kompresję JPEG) |
+| Najlepsze dla | PNG, BMP, formaty bezstratne |
+
+## Zastosowanie WOLNO
+
+Każdy obraz udostępniony przez nosiciela WOLNO może zawierać "wolno" w swoich pikselach. Media społecznościowe kompresują obrazy — ale niektóre kanały przeżywają. Wiadomość trwa w formatach bezstratnych (PNG, TIFF, BMP).
+
+> Obraz wygląda niewinnie. Bity mówią "wolno". O to chodzi. -"

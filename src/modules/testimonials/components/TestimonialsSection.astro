@@ -1,0 +1,430 @@
+---
+/**
+ * TestimonialsSection - Uniwersalny komponent sekcji opinii klientów
+ *
+ * @param {string} title - Tytuł sekcji (domyślnie "Co mówią nasi klienci")
+ * @param {string} subtitle - Podtytuł (opcjonalny)
+ * @param {Array} items - Tablica opinii [{name, company, role, avatar, rating, text}]
+ * @param {string} layout - Układ (grid, slider) domyślnie 'grid'
+ * @param {string} class - Dodatkowe klasy CSS
+ */
+
+interface Testimonial {
+  name: string;
+  company?: string;
+  role?: string;
+  avatar?: string;
+  rating?: number; // 1-5
+  text: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items: Testimonial[];
+  layout?: 'grid' | 'slider';
+  class?: string;
+}
+
+const {
+  title = 'Co mówią nasi klienci',
+  subtitle,
+  items = [],
+  layout = 'grid',
+  class: cssClass = '',
+} = Astro.props;
+---
+
+<section class={`testimonials-section ${cssClass}`}>
+  <div class="testimonials-container">
+    <!-- Header -->
+    <div class="testimonials-header">
+      <h2 class="testimonials-title">{title}</h2>
+      {subtitle && <p class="testimonials-subtitle">{subtitle}</p>}
+    </div>
+
+    <!-- Testimonials Grid/Slider -->
+    <div class={`testimonials-${layout}`} data-testimonials-container>
+      {items.map((testimonial, index) => (
+        <div class="testimonial-card" data-testimonial-item>
+          <!-- Rating Stars -->
+          {testimonial.rating && (
+            <div class="rating">
+              {Array.from({ length: 5 }, (_, i) => (
+                <svg
+                  class={`star ${i < testimonial.rating! ? 'filled' : ''}`}
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+            </div>
+          )}
+
+          <!-- Testimonial Text -->
+          <p class="testimonial-text">"{testimonial.text}"</p>
+
+          <!-- Author Info -->
+          <div class="author-info">
+            {testimonial.avatar && (
+              <img
+                src={testimonial.avatar}
+                alt={testimonial.name}
+                class="author-avatar"
+                loading="lazy"
+              />
+            )}
+            {!testimonial.avatar && (
+              <div class="author-avatar-placeholder">
+                {testimonial.name.charAt(0).toUpperCase()}
+              </div>
+            )}
+            <div class="author-details">
+              <div class="author-name">{testimonial.name}</div>
+              {testimonial.role && (
+                <div class="author-role">
+                  {testimonial.role}
+                  {testimonial.company && ` • ${testimonial.company}`}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Slider Controls (if slider layout) -->
+    {layout === 'slider' && (
+      <div class="slider-controls">
+        <button class="slider-button prev" data-slider-prev aria-label="Poprzednia opinia">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div class="slider-dots" data-slider-dots></div>
+        <button class="slider-button next" data-slider-next aria-label="Następna opinia">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    )}
+
+    <!-- Slot dla dodatkowych elementów -->
+    <slot />
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    width: 100%;
+    padding: 4rem 1rem;
+    margin: 0 auto;
+  }
+
+  .testimonials-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .testimonials-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--text-primary, #1F2937);
+  }
+
+  .dark .testimonials-title {
+    color: var(--text-primary-dark, #F9FAFB);
+  }
+
+  .testimonials-subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary, #6B7280);
+  }
+
+  .dark .testimonials-subtitle {
+    color: var(--text-secondary-dark, #D1D5DB);
+  }
+
+  /* Grid Layout */
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  /* Slider Layout */
+  .testimonials-slider {
+    display: flex;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    scroll-behavior: smooth;
+  }
+
+  .testimonials-slider .testimonial-card {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 768px) {
+    .testimonials-slider .testimonial-card {
+      flex: 0 0 calc(50% - 1rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .testimonials-slider .testimonial-card {
+      flex: 0 0 calc(33.333% - 1.333rem);
+    }
+  }
+
+  /* Testimonial Card */
+  .testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color, #E5E7EB);
+  }
+
+  .dark .testimonial-card {
+    background: var(--bg-secondary-dark, #1F2937);
+    border-color: var(--border-dark, #374151);
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .testimonial-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Rating */
+  .rating {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .star {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #D1D5DB;
+  }
+
+  .star.filled {
+    color: #FBBF24;
+  }
+
+  /* Testimonial Text */
+  .testimonial-text {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary, #6B7280);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+
+  .dark .testimonial-text {
+    color: var(--text-secondary-dark, #D1D5DB);
+  }
+
+  /* Author Info */
+  .author-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .author-avatar,
+  .author-avatar-placeholder {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .author-avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-400, #3B82F6), var(--primary-600, #2563EB));
+    color: white;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  .author-details {
+    flex: 1;
+  }
+
+  .author-name {
+    font-weight: 700;
+    color: var(--text-primary, #1F2937);
+    margin-bottom: 0.25rem;
+  }
+
+  .dark .author-name {
+    color: var(--text-primary-dark, #F9FAFB);
+  }
+
+  .author-role {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #6B7280);
+  }
+
+  .dark .author-role {
+    color: var(--text-secondary-dark, #D1D5DB);
+  }
+
+  /* Slider Controls */
+  .slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .slider-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border-color, #E5E7EB);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .dark .slider-button {
+    background: var(--bg-secondary-dark, #1F2937);
+    border-color: var(--border-dark, #374151);
+  }
+
+  .slider-button:hover {
+    background: var(--primary-400, #3B82F6);
+    border-color: var(--primary-400, #3B82F6);
+    color: white;
+  }
+
+  .slider-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .slider-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .slider-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--border-color, #E5E7EB);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .slider-dot.active {
+    background: var(--primary-400, #3B82F6);
+    width: 1.5rem;
+    border-radius: 0.25rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .testimonials-section {
+      padding: 2rem 1rem;
+    }
+
+    .testimonials-title {
+      font-size: 2rem;
+    }
+
+    .testimonial-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  function initTestimonials() {
+    const sliders = document.querySelectorAll('.testimonials-slider');
+
+    sliders.forEach((slider) => {
+      const prevButton = document.querySelector('[data-slider-prev]');
+      const nextButton = document.querySelector('[data-slider-next]');
+      const dotsContainer = document.querySelector('[data-slider-dots]');
+      const items = slider.querySelectorAll('[data-testimonial-item]');
+
+      let currentIndex = 0;
+
+      // Create dots
+      if (dotsContainer) {
+        items.forEach((_, index) => {
+          const dot = document.createElement('div');
+          dot.classList.add('slider-dot');
+          if (index === 0) dot.classList.add('active');
+          dot.addEventListener('click', () => scrollToIndex(index));
+          dotsContainer.appendChild(dot);
+        });
+      }
+
+      function scrollToIndex(index: number) {
+        currentIndex = index;
+        const item = items[index] as HTMLElement;
+        if (item) {
+          slider.scrollLeft = item.offsetLeft;
+          updateDots();
+        }
+      }
+
+      function updateDots() {
+        const dots = dotsContainer?.querySelectorAll('.slider-dot');
+        dots?.forEach((dot, index) => {
+          dot.classList.toggle('active', index === currentIndex);
+        });
+      }
+
+      prevButton?.addEventListener('click', () => {
+        const newIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+        scrollToIndex(newIndex);
+      });
+
+      nextButton?.addEventListener('click', () => {
+        const newIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        scrollToIndex(newIndex);
+      });
+
+      // Auto-scroll every 5 seconds
+      setInterval(() => {
+        const newIndex = currentIndex < items.length - 1 ? currentIndex + 1 : 0;
+        scrollToIndex(newIndex);
+      }, 5000);
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initTestimonials);
+  document.addEventListener('astro:page-load', initTestimonials);
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initTestimonials, 100);
+  }
+</script>

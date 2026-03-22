@@ -1,0 +1,110 @@
+---
+import { buildSectionTree } from '../lib/relations';
+
+interface Props {
+  currentPath: string;
+  currentSection: string;
+  allPages: Array<{ id: string; data: { title: string; section: string; funnel_level: number; seo_keywords?: string[] } }>;
+  lang?: 'en' | 'pl';
+}
+
+const { currentPath, currentSection, allPages, lang = 'en' } = Astro.props;
+const prefix = lang === 'pl' ? '/pl/' : '/';
+const tree = buildSectionTree(allPages);
+
+const SECTION_ORDER = ['wln', 'scripture', 'techniques', 'initiation', 'school', 'protocol', 'angles'];
+const SECTION_LABELS: Record<string, string> = {
+  wln: 'WLN', scripture: 'Scripture', techniques: 'Techniques',
+  initiation: 'Initiation', school: 'School', protocol: 'Protocol', angles: 'Angles',
+};
+---
+
+<nav class="topic-tree" aria-label={lang === 'pl' ? 'Drzewo tematów' : 'Topic tree'}>
+  <span class="topic-tree-label">$ tree ./</span>
+  {SECTION_ORDER.filter(s => tree[s]?.length > 0).map(section => (
+    <details class="tree-section" open={section === currentSection}>
+      <summary class="tree-section-name">
+        <span class="tree-icon">{section === currentSection ? '▼' : '▶'}</span>
+        <span class="tree-tag">{SECTION_LABELS[section] || section.toUpperCase()}</span>
+        <span class="tree-count">({tree[section].length})</span>
+      </summary>
+      <ul class="tree-pages">
+        {tree[section]
+          .filter(p => !p.id.endsWith('/index'))
+          .map(p => {
+            const href = prefix + p.id.replace(/\/index$/, '') + '/';
+            const isCurrent = p.id === currentPath;
+            return (
+              <li class:list={['tree-page', { 'tree-current': isCurrent }]}>
+                {isCurrent ? (
+                  <span class="tree-page-current">→ {p.data.title}</span>
+                ) : (
+                  <a href={href}>{p.data.title}</a>
+                )}
+              </li>
+            );
+          })}
+      </ul>
+    </details>
+  ))}
+</nav>
+
+<style>
+  .topic-tree {
+    font-size: 0.8rem;
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    margin-bottom: 1.5rem;
+  }
+  .topic-tree-label {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  .tree-section { margin-bottom: 0.25rem; }
+  .tree-section-name {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0;
+    color: var(--text-secondary);
+    list-style: none;
+  }
+  .tree-section-name::-webkit-details-marker { display: none; }
+  .tree-section-name::marker { display: none; content: ''; }
+  .tree-icon { font-size: 0.6rem; min-width: 0.8rem; color: var(--text-dim); }
+  .tree-tag {
+    font-size: 0.65rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.05rem 0.25rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .tree-count { font-size: 0.65rem; color: var(--text-dim); }
+  .tree-pages {
+    list-style: none;
+    margin: 0.15rem 0 0.25rem 1.2rem;
+    padding: 0;
+  }
+  .tree-page { padding: 0.1rem 0; }
+  .tree-page a {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+  }
+  .tree-page a:hover { color: var(--accent); text-decoration: none; }
+  .tree-current { color: var(--accent); }
+  .tree-page-current {
+    color: var(--accent);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 600px) {
+    .topic-tree { font-size: 0.75rem; }
+    details:not([open]) .tree-pages { display: none; }
+  }
+</style>

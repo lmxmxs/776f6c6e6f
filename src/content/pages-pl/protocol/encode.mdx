@@ -1,0 +1,73 @@
+---
+title: "Koduj — Kodowanie Krok po Kroku"
+description: "Praktyczny przewodnik po kodowaniu wiadomości WOLNO. Hex, Unicode, steganografia, audio."
+lang: "pl"
+section: "protocol"
+order: 73
+links: ["techniques/index", "techniques/stego/lsb", "techniques/unicode"]
+deeper: "protocol/report"
+funnel_level: 6
+seo_keywords: [kodowanie hex, kodowanie base64, steganografia lsb, zero-width unicode, kodowanie wolno]
+standalone_intro: "Praktyczny przewodnik krok po kroku po kodowaniu wiadomości WOLNO za pomocą hex, Base64, znaków zero-width Unicode i steganografii LSB — z pełnym łańcuchem kodowania sprawiającym, że dowolna wiadomość wygląda niewinnie, niosąc filozofię na każdej warstwie."
+schema_type: HowTo
+---
+
+## Szybkie Odniesienie
+
+### Kodowanie Hex
+```
+w = 77, o = 6F, l = 6C, n = 6E, o = 6F
+wolno → 776F6C6E6F
+```
+
+### Base64
+```
+wolno → d29sbm8=
+776F6C6E6F → Nzc2RjZDNkU2Rg==
+```
+
+### Zero-Width Unicode
+Koduj binarnie jako niewidoczne znaki:
+- `U+200B` (zero-width space) = 0
+- `U+200C` (zero-width non-joiner) = 1
+
+Wypróbuj: [Demo Unicode](/techniques/unicode/)
+
+### Steganografia LSB
+Ukryj tekst w pikselach obrazu modyfikując najmniej znaczące bity.
+Każdy kanał piksela niesie 1 bit wiadomości.
+
+Wypróbuj: [Demo LSB](/techniques/stego/lsb/)
+
+## Łańcuch Kodowania
+
+Dla maksymalnej głębi łącz wiele kodowań:
+
+1. Zacznij od zwykłego tekstu: `wolno`
+2. Koduj hex: `776F6C6E6F`
+3. Base64: `Nzc2RjZDNkU2Rg==`
+4. Wbuduj w znaki zero-width (niewidoczne)
+5. Umieść wewnątrz normalnie wyglądającego tekstu
+
+Wynik: wiadomość wyglądająca niewinnie, ale niosąca WOLNO na każdej warstwie.
+
+Wypróbuj pełny łańcuch: [Wyzwanie Dekodowania](/initiation/decode/)
+
+## Gdzie Kodować
+
+| Medium | Metoda | Trudność |
+|--------|--------|-----------|
+| Tekst | Zero-width Unicode | Łatwe |
+| Obrazy | Steganografia LSB | Średnie |
+| Zdjęcia | Metadane EXIF | Łatwe |
+| Audio | Osadzanie spektralne | Trudne |
+| Kod | Komentarze + nazwy zmiennych | Łatwe |
+| Git | Wiadomości commitów | Łatwe |
+
+## Ćwiczenie
+
+1. Zakoduj "wolno" w hex → sprawdź na [/wln/signs/hex/](/wln/signs/hex/)
+2. Ukryj wiadomość za pomocą zero-width → sprawdź na [Demo Unicode](/techniques/unicode/)
+3. Wyślij swoją zakodowaną pracę na [Szkołę](/school/poetry/)
+
+> Każde kodowanie to modlitwa. Każde dekodowanie to oświecenie. -"

@@ -1,0 +1,372 @@
+---
+// @PATH:/src/components/ui/CircleImage.astro
+// @PROJECT:barnabaai
+/**
+ * CircleImage - komponent okrągłego obrazu z efektem świecenia
+ * Zintegrowana implementacja z EnhancedCircleImage i GlowingCircleImage
+ * 
+ * @param {string} src - Ścieżka do obrazu
+ * @param {string} alt - Alternatywny tekst
+ * @param {string} [size="md"] - Rozmiar obrazu (sm, md, lg, xl)
+ * @param {string} [glowColor="#00F8FF"] - Kolor świecenia (HEX)
+ * @param {boolean} [pulse=false] - Czy ma być efekt pulsowania
+ * @param {string} [type="standard"] - Typ obrazu (minimal, standard, interactive)
+ * @param {string} [class] - Dodatkowe klasy CSS
+ * @param {string} [className] - Dodatkowe klasy CSS (kompatybilność)
+ * @param {string} [id] - Opcjonalne ID elementu
+ * @param {string} [href] - Opcjonalny link
+ * @param {string} [label] - Opcjonalna etykieta pod obrazem
+ * @param {string} [labelColor] - Kolor etykiety
+ */
+
+interface Props {
+  src?: string;
+  alt?: string;
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  glowColor?: string;
+  pulse?: boolean;
+  type?: 'minimal' | 'standard' | 'interactive';
+  class?: string;
+  className?: string;
+  id?: string;
+  href?: string;
+  label?: string;
+  labelColor?: string;
+  flipped?: boolean;
+}
+
+const {
+  src,
+  alt = '',
+  size = 'md',
+  glowColor = '#00F8FF',
+  pulse = false,
+  type = 'standard',
+  class: cssClass = '',
+  className = '',
+  id = `circle-${Math.random().toString(36).substring(2, 11)}`,
+  href,
+  label,
+  labelColor = glowColor,
+  flipped = false,
+  style = ''
+} = Astro.props;
+
+// Połącz class i className dla kompatybilności
+const combinedClassName = `${cssClass} ${className}`.trim();
+
+// Dokładnie takie same rozmiary jak w specyfikacji
+const sizeMap = {
+  sm: '110px',
+  md: '165px',
+  lg: '264px',
+  xl: '352px'
+};
+
+const selectedSize = sizeMap[size];
+
+// Przygotowanie wartości RGB dla koloru
+function hexToRgb(hex: string) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : {r: 0, g: 248, b: 255}; 
+}
+
+const rgb = hexToRgb(glowColor);
+const rgbString = `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+
+// Parametry efektu dokładnie jak w oryginalnym GlowingCircleImage
+const fangorWaveSpeed = 6; // sekundy
+const maxGlowSize = 17.5; // px
+const minGlowPercent = 24; // %
+const pulseIntensity = 0.06; // intensywność
+const curveExponent = 1.4; // wykładnik krzywej
+
+// Minimalny rozmiar glow
+const minGlowSize = maxGlowSize * (minGlowPercent / 100);
+const glowSpread = Math.max(1, minGlowSize * 0.35);
+const blurSize = Math.max(1, minGlowSize * 0.3);
+
+// Unikalne ID dla animacji
+const uniqueId = `circle-${Math.random().toString(36).substring(2, 9)}`;
+---
+
+<div class={`circle-image-container ${combinedClassName} ${flipped ? 'flipped' : ''}`}>
+  {href ? (
+    <a href={href} class="circle-image-wrapper">
+      <div 
+        id={id}
+        class={`glowing-circle-image ${type}`}
+        style={`
+          --circle-width: ${selectedSize};
+          --circle-height: ${selectedSize};
+          --circle-color: ${glowColor};
+          --circle-rgb: ${rgbString};
+          --glow-size: ${minGlowSize};
+          --glow-spread: ${glowSpread};
+          --blur-size: ${blurSize};
+          ${style}
+        `}
+        data-interactive={type === 'interactive' ? 'true' : 'false'}
+        data-pulse={pulse ? 'true' : 'false'}
+      >
+        <!-- Statyczny glow jak w oryginale -->
+        <div class="static-glow"></div>
+        
+        <!-- Falowanie tylko gdy włączone pulsowanie -->
+        {pulse && <div class="fangor-wave"></div>}
+        
+        <!-- Kontener obrazka -->
+        <div class="image-container">
+          {src ? (
+            <img 
+              src={src} 
+              alt={alt} 
+              loading="lazy" 
+              width={selectedSize}
+              height={selectedSize}
+            />
+          ) : (
+            <slot />
+          )}
+        </div>
+      </div>
+    </a>
+  ) : (
+    <div 
+      id={id}
+      class={`glowing-circle-image ${type}`}
+      style={`
+        --circle-width: ${selectedSize};
+        --circle-height: ${selectedSize};
+        --circle-color: ${glowColor};
+        --circle-rgb: ${rgbString};
+        --glow-size: ${minGlowSize};
+        --glow-spread: ${glowSpread};
+        --blur-size: ${blurSize};
+        ${style}
+      `}
+      data-interactive={type === 'interactive' ? 'true' : 'false'}
+      data-pulse={pulse ? 'true' : 'false'}
+    >
+      <!-- Statyczny glow jak w oryginale -->
+      <div class="static-glow"></div>
+      
+      <!-- Falowanie tylko gdy włączone pulsowanie -->
+      {pulse && <div class="fangor-wave"></div>}
+      
+      <!-- Kontener obrazka -->
+      <div class="image-container">
+        {src ? (
+          <img 
+            src={src} 
+            alt={alt} 
+            loading="lazy" 
+            width={selectedSize}
+            height={selectedSize}
+          />
+        ) : (
+          <slot />
+        )}
+      </div>
+    </div>
+  )}
+  
+  {label && (
+    <div 
+      class="circle-label text-center mt-3 font-orbitron"
+      style={`color: ${labelColor};`}
+    >
+      {label}
+    </div>
+  )}
+</div>
+
+<style>
+  .circle-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flipped .image-container img {
+    transform: scaleX(-1);
+  }
+
+  .circle-image-wrapper {
+    display: block;
+    text-decoration: none;
+  }
+
+  .glowing-circle-image {
+    position: relative;
+    width: var(--circle-width);
+    height: var(--circle-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    isolation: isolate;
+  }
+
+  /* Statyczny glow - podstawowy efekt */
+  .static-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: 0 0 var(--glow-size) var(--glow-spread) var(--circle-color);
+    filter: blur(var(--blur-size));
+    opacity: 0.85;
+    transition: box-shadow 1s ease-out, filter 1s ease-out, opacity 0.5s ease-out;
+    z-index: 0;
+  }
+
+  /* Wzmocniony efekt dla hover */
+  .glowing-circle-image:hover .static-glow {
+    box-shadow: 0 0 calc(var(--glow-size) * 1.3) calc(var(--glow-spread) * 1.3) var(--circle-color);
+    filter: blur(calc(var(--blur-size) * 1.3));
+    opacity: 0.95;
+  }
+
+  /* Falowanie w stylu Fangor */
+  .fangor-wave {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    transition: all 1s ease-out;
+    opacity: 0.9;
+    animation: fangor-wave 6s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  /* Silniejszy efekt przy hover */
+  .glowing-circle-image:hover .fangor-wave {
+    opacity: 1;
+    animation-duration: 4.8s; /* Szybsze pulsowanie przy hover */
+  }
+
+  /* Kontener obrazka */
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--circle-color);
+    background-color: #0A0A1F;
+    z-index: 1;
+  }
+
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Etykieta pod obrazkiem */
+  .circle-label {
+    font-size: 1.25rem;
+    text-transform: lowercase;
+    transition: color 0.3s ease;
+    text-shadow: 0 0 10px currentColor;
+    font-weight: 500;
+  }
+
+  /* Animacja Fangor Wave */
+  @keyframes fangor-wave {
+    0% {
+      box-shadow: 0 0 var(--glow-size) var(--glow-spread) var(--circle-color);
+      filter: blur(var(--blur-size));
+    }
+    25% {
+      box-shadow: 0 0 calc(var(--glow-size) * 1.06) calc(var(--glow-spread) * 1.06) var(--circle-color);
+      filter: blur(calc(var(--blur-size) * 1.03));
+    }
+    50% {
+      box-shadow: 0 0 var(--glow-size) var(--glow-spread) var(--circle-color);
+      filter: blur(var(--blur-size));
+    }
+    75% {
+      box-shadow: 0 0 calc(var(--glow-size) * 0.94) calc(var(--glow-spread) * 0.94) var(--circle-color);
+      filter: blur(calc(var(--blur-size) * 0.97));
+    }
+    100% {
+      box-shadow: 0 0 var(--glow-size) var(--glow-spread) var(--circle-color);
+      filter: blur(var(--blur-size));
+    }
+  }
+</style>
+
+<script>
+  function initInteractiveCircles() {
+    const interactiveCircles = document.querySelectorAll('.glowing-circle-image[data-interactive="true"]');
+    
+    interactiveCircles.forEach(circle => {
+      let buffer = Array(10).fill(400);
+      let smoothDistance = 400;
+      const maxDistance = 400;
+      
+      const staticGlow = circle.querySelector('.static-glow') as HTMLElement;
+      const fangorWave = circle.querySelector('.fangor-wave') as HTMLElement;
+      const imageContainer = circle.querySelector('.image-container') as HTMLElement;
+      
+      if (imageContainer) {
+        imageContainer.addEventListener('mouseenter', () => {
+          if (staticGlow) staticGlow.style.opacity = '0.95';
+          if (fangorWave) fangorWave.style.opacity = '1';
+        });
+        
+        imageContainer.addEventListener('mouseleave', () => {
+          if (staticGlow) staticGlow.style.opacity = '0.85';
+          if (fangorWave) fangorWave.style.opacity = '0.9';
+        });
+      }
+      
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!staticGlow) return;
+        
+        const rect = circle.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distX = e.clientX - centerX;
+        const distY = e.clientY - centerY;
+        const rawDist = Math.sqrt(distX * distX + distY * distY);
+        const normalizedDist = Math.min(maxDistance, rawDist);
+        
+        buffer = [...buffer.slice(1), normalizedDist];
+        const avgDistance = buffer.reduce((sum, val) => sum + val, 0) / buffer.length;
+        smoothDistance = avgDistance;
+        
+        const distanceRatio = Math.max(0, Math.min(1, 1 - (smoothDistance / maxDistance)));
+        
+        const minGlowSize = parseFloat(getComputedStyle(circle as HTMLElement).getPropertyValue('--glow-size'));
+        const maxGlowSize = minGlowSize * 5;
+        const baseGlowSpread = parseFloat(getComputedStyle(circle as HTMLElement).getPropertyValue('--glow-spread'));
+        const baseBlurSize = parseFloat(getComputedStyle(circle as HTMLElement).getPropertyValue('--blur-size'));
+        
+        const glowSize = minGlowSize + (maxGlowSize - minGlowSize) * Math.pow(distanceRatio, 1.2);
+        const glowSpread = baseGlowSpread + (distanceRatio * baseGlowSpread * 1.5);
+        const blurSize = baseBlurSize + (distanceRatio * baseBlurSize * 1.5);
+        
+        staticGlow.style.boxShadow = `0 0 ${glowSize}px ${glowSpread}px var(--circle-color)`;
+        staticGlow.style.filter = `blur(${blurSize}px)`;
+        staticGlow.style.opacity = (0.85 + (distanceRatio * 0.15)).toString();
+      };
+      
+      document.addEventListener('mousemove', handleMouseMove);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initInteractiveCircles);
+  document.addEventListener('astro:page-load', initInteractiveCircles);
+  
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initInteractiveCircles, 100);
+  }
+</script>

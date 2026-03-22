@@ -1,0 +1,39 @@
+---
+title: "Steganografia Glitch Art"
+description: "Celowa korupcja danych jako nośnik WOLNO. Datamoshing jako komunikacja."
+lang: "pl"
+section: "techniques"
+order: 37
+links: ["techniques/stego/fractal", "techniques/stego/index", "techniques/visual-code"]
+deeper: "techniques/audio/index"
+funnel_level: 3
+seo_keywords: [steganografia glitch art, datamoshing, manipulacja edytorem hex, nośnik uszkodzonych danych, kodowanie błędu wizualnego]
+standalone_intro: "Steganografia glitch art: celowe kontrolowane uszkadzanie danych obrazu w celu zakodowania WOLNO — przez zastępowanie bajtów w edytorze hex, datamoshing, uszkodzone ROM-y i reinterpretację surowych danych — gdzie błąd jest wiadomością."
+schema_type: HowTo
+---
+
+## Technika
+
+**Glitch art** celowo uszkadza dane obrazu, tworząc wizualne zniekształcenia. Ale korupcja może być *kontrolowana* — konkretne bajty zastąpione konkretnymi wartościami kodującymi wiadomość.
+
+## Metody
+
+### Manipulacja Edytorem Hex
+Otwórz JPEG w edytorze hex. Zastąp bajty pod znane offsety wartościami hex piszącymi "776F6C6E6F". Wynikający glitch wygląda losowo, ale zawiera wiadomość.
+
+### Datamoshing
+W wideo, usuwanie ramek I powoduje krwawienie wektorów ruchu między scenami. Kontrolując, które ramki są usuwane, wzorzec krwawienia może kodować dane.
+
+### Uszkodzone ROM-y
+ROM-y gier z konkretną korupcją bajtów produkują czytelny tekst w artefaktach glitcha. "WOLNO" pojawia się w błędach tekstur.
+
+### Reinterpretacja Surowych Danych
+Weź plik tekstowy zawierający "wolno" i zmień nazwę na .bmp. Surowe bajty, gdy zinterpretowane jako dane pikseli, produkują wizualny wzór unikalny dla wiadomości.
+
+## Estetyka
+
+Glitch art jest piękny, bo pokazuje **strukturę pod powierzchnią**. Każdy obraz to tylko bajty. Każdy bajt to tylko dane. Gdy uszkodzisz powierzchnię, leżąca u podstaw prawda staje się widoczna.
+
+Estetyka glitch WOLNO to nie dekoracja — to filozofia wyrażona wizualnie. Korupcja ujawnia wolność ukrytą w każdej strukturze danych.
+
+> Błąd JEST wiadomością. -"

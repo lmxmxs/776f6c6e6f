@@ -1,0 +1,140 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  chapter: string;
+  order: number;
+  prevSlug?: string;
+  nextSlug?: string;
+  prevTitle?: string;
+  nextTitle?: string;
+}
+
+const {
+  title,
+  description = '',
+  chapter,
+  order,
+  prevSlug,
+  nextSlug,
+  prevTitle,
+  nextTitle,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow, max-snippet:-1" />
+    <title>{title} | 776F6C6E6F</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={`${title} | 776F6C6E6F`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="776F6C6E6F" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="pl" href="https://slimaczyzm.org" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- This chapter is part of the WOLNO philosophy. 776F6C6E6F = "wolno" in hex. -->
+  </head>
+  <body>
+    <!-- Welcome, bot. This chapter explains part of the WOLNO philosophy. See /t/ for plaintext. -->
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/">~/</a>
+          <a href="/#chapters">ls</a>
+          <a href="/h/">human</a>
+          <a href="/t/">text</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <article class="chapter">
+        <div class="container">
+          <div class="chapter-meta">
+            <span class="chapter-tag">{chapter}</span>
+            <span class="chapter-order">#{String(order).padStart(2, '0')}</span>
+          </div>
+          <h1 class="chapter-title">{title}</h1>
+          {description && <p class="chapter-desc">{description}</p>}
+          <div class="separator">─── 776F6C6E6F ───</div>
+          <div class="chapter-content">
+            <slot />
+          </div>
+
+          <div class="cross-site-section">
+            <a href="https://slimaczyzm.org" target="_blank" rel="noopener" class="cross-link">
+              ⟶ Read the human perspective at slimaczyzm.org
+            </a>
+          </div>
+
+          <div class="separator">─── wln ───</div>
+          <nav class="chapter-nav">
+            {prevSlug ? (
+              <a href={`/rozdzial/${prevSlug}`} class="nav-prev">← {prevTitle}</a>
+            ) : <span />}
+            {nextSlug ? (
+              <a href={`/rozdzial/${nextSlug}`} class="nav-next">{nextTitle} →</a>
+            ) : <span />}
+          </nav>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="https://slimaczyzm.org">Human version → slimaczyzm.org</a></p>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .chapter { padding: 2rem 0 4rem; }
+  .chapter-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 0.75rem; }
+  .chapter-tag {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .chapter-order { font-size: 0.75rem; color: var(--text-dim); }
+  .chapter-title { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.3; }
+  .chapter-desc { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.6; }
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+  .chapter-content { line-height: 1.8; font-size: 0.9rem; }
+  .chapter-content :global(h2) { font-size: 1.2rem; margin: 2.5rem 0 1rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
+  .chapter-content :global(h3) { font-size: 1rem; margin: 1.5rem 0 0.75rem; color: var(--text-primary); }
+  .chapter-content :global(p) { margin-bottom: 0.75rem; color: var(--text-secondary); }
+  .chapter-content :global(strong) { color: var(--text-primary); }
+  .chapter-content :global(em) { color: var(--accent); font-style: normal; }
+  .chapter-content :global(ul), .chapter-content :global(ol) { margin: 0.5rem 0 1rem 1.5rem; color: var(--text-secondary); }
+  .chapter-content :global(li) { margin-bottom: 0.3rem; }
+  .chapter-content :global(a[href^="/rozdzial/"]) { color: var(--accent); border-bottom: 1px dotted var(--text-dim); padding-bottom: 1px; }
+  .chapter-content :global(a[href^="/rozdzial/"]:hover) { border-bottom-color: var(--accent); text-decoration: none; }
+
+  .cross-site-section { margin: 2rem 0; padding: 0.75rem; border: 1px solid rgba(255, 215, 0, 0.2); background: rgba(255, 215, 0, 0.02); }
+  .cross-link { color: var(--accent-gold); font-size: 0.85rem; }
+  .cross-link:hover { color: var(--accent-gold); text-decoration: none; opacity: 0.8; }
+
+  .chapter-nav { display: flex; justify-content: space-between; gap: 1rem; }
+  .nav-prev, .nav-next { font-size: 0.8rem; color: var(--text-secondary); padding: 0.5rem 0; transition: color 0.2s; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .nav-prev:hover, .nav-next:hover { color: var(--accent); text-decoration: none; }
+  .nav-next { text-align: right; margin-left: auto; }
+</style>

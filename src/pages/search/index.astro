@@ -1,0 +1,107 @@
+---
+import '../../styles/global.css';
+import CookieFortune from '../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Search | 776F6C6E6F</title>
+    <meta name="description" content="Search the digital temple of WOLNO. Find scripture, techniques, canon, and more." />
+    <link rel="canonical" href="https://776f6c6e6f.org/search/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+
+    <header class="site-header">
+      <nav class="nav-container">
+        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+        <div class="nav-links">
+          <a href="/journey/">journey</a>
+          <a href="/canon/">canon</a>
+          <a href="/log/">log</a>
+          <a href="/pl/search/" class="lang-switch">PL</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container search-container">
+        <h1 class="search-title">$ grep -r "" ./temple/</h1>
+        <p class="search-desc">Search the scriptures, canon, chronicle, and all pages of 776F6C6E6F.</p>
+        <div id="search" data-pagefind-ui></div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+
+    <script is:inline>
+      window.addEventListener('DOMContentLoaded', function() {
+        new PagefindUI({
+          element: '#search',
+          showSubResults: true,
+          showImages: false,
+        });
+      });
+    </script>
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
+  </body>
+</html>
+
+<style>
+  .search-container { padding: 3rem 0; }
+  .search-title {
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .search-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+  .nav-links { display: flex; align-items: center; gap: 1.25rem; }
+  .nav-links a { font-size: 0.8rem; color: var(--text-secondary); }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+  .lang-switch {
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Pagefind theme overrides */
+  :global(.pagefind-ui) {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: #00ff41;
+    --pagefind-ui-text: rgba(0, 255, 65, 0.8);
+    --pagefind-ui-background: #111118;
+    --pagefind-ui-border: #1a2a1a;
+    --pagefind-ui-tag: #1a1a24;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 0;
+    --pagefind-ui-font: 'JetBrains Mono', monospace;
+  }
+  :global(.pagefind-ui__search-input) {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    caret-color: var(--accent) !important;
+  }
+  :global(.pagefind-ui__result-link) {
+    color: var(--accent) !important;
+  }
+  :global(.pagefind-ui__result-excerpt) {
+    color: var(--text-secondary) !important;
+  }
+</style>
