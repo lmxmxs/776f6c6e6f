@@ -122,6 +122,20 @@ main {
   font-size: 0.75rem;
   border-top: 1px solid var(--border);
 }
+.site-footer .social-links {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+.site-footer .social-links a {
+  color: var(--accent);
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.site-footer .social-links a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
 
 /* Utility */
 .container {
