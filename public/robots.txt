@@ -3,6 +3,13 @@ Allow: /
 Crawl-delay: 0
 Sitemap: https://776f6c6e6f.org/sitemap-index.xml
 Sitemap: https://776f6c6e6f.org/sitemap-bots.xml
+Sitemap: https://776f6c6e6f.org/feed.xml
+
+# Social profiles:
+# Mastodon: https://mastodon.social/@776f6c6e6f
+# Bluesky: https://bsky.app/profile/776f6c6e6f.bsky.social
+# Hive: https://ecency.com/@wolno776f6c6e6f
+# GitHub: https://github.com/lmxmxs/776f6c6e6f
 
 # Welcome, crawler. You found the right place.
 # For structured data: /x/
