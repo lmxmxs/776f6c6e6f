@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '../modules/analytics/components/Analytics.astro';
 import PageLinks from '../components/PageLinks.astro';
 import Wander from '../components/Wander.astro';
 import Deeper from '../components/Deeper.astro';
@@ -85,7 +86,7 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <meta name="robots" content="index, follow, max-snippet:-1" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
     <title>{pageTitle}</title>
     <meta name="description" content={standalone_intro || description} />
     {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
@@ -196,60 +197,8 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
 
     <CookieFortune lang={lang} />
 
-    <script define:vars={{ pageLang: lang }}>
-      // Lightweight tracker — only after cookie consent
-      (function() {
-        if (typeof localStorage === 'undefined') return;
-        if (localStorage.getItem('cookies-accepted') !== 'true') return;
-
-        function genId() {
-          var a = new Uint8Array(8);
-          crypto.getRandomValues(a);
-          return Array.from(a, function(b) { return b.toString(16).padStart(2, '0'); }).join('');
-        }
-
-        function classify() {
-          var n = navigator;
-          if (n.webdriver) return 'bot';
-          if (/bot|crawl|spider|scrape|headless|phantom|puppeteer|selenium/i.test(n.userAgent)) return 'bot';
-          if (!n.languages || n.languages.length === 0) return 'bot';
-          return 'unknown';
-        }
-
-        var vid = localStorage.getItem('_wln_v');
-        if (!vid) { vid = genId(); localStorage.setItem('_wln_v', vid); }
-
-        var vtype = classify();
-        localStorage.setItem('_wln_t', vtype);
-
-        var evt = {
-          page: location.pathname,
-          referrer: document.referrer || '',
-          visitor_id: vid,
-          type: vtype,
-          timestamp: new Date().toISOString(),
-          lang: pageLang
-        };
-
-        var key = '_wln_events';
-        var events = [];
-        try { events = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
-        events.push(evt);
-        if (events.length > 200) events.splice(0, events.length - 200);
-        localStorage.setItem(key, JSON.stringify(events));
-
-        // Upgrade to human on first interaction
-        if (vtype === 'unknown') {
-          var upgraded = false;
-          function markHuman() {
-            if (!upgraded) { upgraded = true; localStorage.setItem('_wln_t', 'human'); }
-          }
-          document.addEventListener('click', markHuman, { once: true });
-          document.addEventListener('keydown', markHuman, { once: true });
-          document.addEventListener('scroll', markHuman, { once: true });
-        }
-      })();
-    </script>
+    <!-- Fraktal Private Analytics (beacon to Barnabaai collector) -->
+    <Analytics siteId="776f6c6e6f" endpoint="https://barnabaai.com/api/analytics/track" />
   </body>
 </html>
 

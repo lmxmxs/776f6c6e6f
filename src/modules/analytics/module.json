@@ -1,0 +1,22 @@
+{
+  "id": "analytics",
+  "name": "Fraktal Analytics",
+  "version": "1.0.0",
+  "description": "Privacy-respecting, self-hosted web analytics. Daily-salted hashing, no cookies, DNT respect, JSONL logs.",
+  "author": "Fraktal",
+  "license": "MIT",
+  "compatibility": {
+    "astro": "^5.0.0 || ^6.0.0",
+    "www_standard": "2.0.x"
+  },
+  "exports": {
+    "components": ["components/Analytics.astro"],
+    "utils": ["lib/tracker.ts", "lib/analytics-api.ts", "lib/reader.ts"]
+  },
+  "config": {
+    "required": [],
+    "optional": ["ANALYTICS_SITE_ID", "ANALYTICS_DISABLE", "ANALYTICS_EXTERNAL_ENDPOINT"]
+  },
+  "tags": ["analytics", "privacy", "infrastructure"],
+  "usageInstructions": "Copy to src/modules/analytics/. Add <Analytics siteId='your-site' /> before </body> in layout. For SSR: create src/pages/api/analytics/track.ts using handleTrackRequest from lib/analytics-api.ts."
+}

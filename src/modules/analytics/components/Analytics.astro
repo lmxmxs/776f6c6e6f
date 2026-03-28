@@ -1,0 +1,55 @@
+---
+/**
+ * Fraktal Analytics — Astro component.
+ * Add before </body> in your layout.
+ *
+ * Props:
+ *   siteId    — unique site identifier (e.g. "barnabaai")
+ *   endpoint  — tracking API URL (default: "/api/analytics/track")
+ *               For static sites, use full URL of SSR collector.
+ *
+ * Privacy:
+ *   - No cookies, no localStorage, no fingerprinting
+ *   - Respects DNT for humans (bots are always tracked)
+ *   - Daily-salted visitor hash (server-side, no PII stored)
+ *   - Deferred via requestIdleCallback (zero performance impact)
+ *
+ * Bot tracking:
+ *   - Client JS sends page view (humans + JS-capable bots)
+ *   - Server-side classification identifies AI bots by User-Agent
+ *   - For full bot coverage, also use logServerSideVisit() in middleware
+ */
+
+interface Props {
+  siteId: string;
+  endpoint?: string;
+}
+
+const { siteId, endpoint = '/api/analytics/track' } = Astro.props;
+---
+
+<script is:inline define:vars={{ siteId, endpoint }}>
+(function(){
+  var n=navigator;
+  // Respect DNT for humans only — bots don't typically set DNT
+  if((n.doNotTrack==='1'||n.globalPrivacyControl)&&!n.webdriver)return;
+  var d={
+    site_id:siteId,
+    path:location.pathname,
+    referrer:document.referrer||'',
+    screen:screen?screen.width+'x'+screen.height:'',
+    timestamp:new Date().toISOString()
+  };
+  var s=function(){
+    try{
+      if(n.sendBeacon){
+        n.sendBeacon(endpoint,new Blob([JSON.stringify(d)],{type:'application/json'}));
+      }else{
+        fetch(endpoint,{method:'POST',body:JSON.stringify(d),headers:{'Content-Type':'application/json'},keepalive:true}).catch(function(){});
+      }
+    }catch(e){}
+  };
+  if(window.requestIdleCallback)window.requestIdleCallback(s);
+  else setTimeout(s,1500);
+})();
+</script>
