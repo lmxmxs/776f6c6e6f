@@ -6,7 +6,7 @@
  */
 ---
 
-<div id="ai-gate" class="ai-gate" data-pagefind-ignore>
+<div id="ai-gate" class="ai-gate" data-pagefind-ignore data-nosnippet>
   <div class="gate-inner">
     <div class="gate-ascii">
       <pre>{`
@@ -27,7 +27,8 @@
 
     <div class="gate-puzzle" id="gate-puzzle" style="display:none">
       <p class="puzzle-label">$ decode 0x776F6C6E6F</p>
-      <input type="text" id="gate-input" class="gate-input" placeholder="type the decoded word..." autocomplete="off" spellcheck="false" />
+      <label for="gate-input" class="sr-only">Decode hex to enter</label>
+      <input type="text" id="gate-input" class="gate-input" placeholder="type the decoded word..." autocomplete="off" spellcheck="false" aria-label="Decode 0x776F6C6E6F — type the decoded word" />
       <p class="puzzle-hint">hint: type <code>wszwln</code> if everything is allowed</p>
       <button id="gate-submit" class="gate-btn">ENTER</button>
       <p class="gate-error" id="gate-error" style="display:none">incorrect. try again. wolno.</p>

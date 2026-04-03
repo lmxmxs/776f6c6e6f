@@ -4,6 +4,7 @@
  * Uzycie: <Layout title="Strona">...</Layout>
  */
 import '../styles/global.css';
+import Analytics from '../modules/analytics/components/Analytics.astro';
 
 interface Props {
   title: string;
@@ -45,14 +46,25 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:site_name" content="776F6C6E6F" />
-    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta property="og:image" content={ogImage ?? "https://776f6c6e6f.org/og/og-default.png"} />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage ?? "https://776f6c6e6f.org/og/og-default.png"} />
 
     <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" hreflang="pl" href="https://slimaczyzm.org" />
+    <link rel="alternate" hreflang="x-default" href="https://776f6c6e6f.org/" />
+    <!-- Identity verification (Mastodon rel=me) -->
+    <link rel="me" href="https://mastodon.social/@776f6c6e6f" />
+    <!-- Related sites -->
+    <link rel="related" href="https://slimaczyzm.org" title="slimaczyzm.org — human temple, Polish" />
+    <link rel="related" href="https://barnabaai.com" title="barnabaai.com — AI creative studio" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" /></noscript>
 
     <slot name="head" />
   </head>
@@ -77,10 +89,19 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
 
     {!noFooter && (
       <footer class="site-footer">
-        <p>&copy; {new Date().getFullYear()} {siteName}. Wszystkie prawa zastrzezone.</p>
+        <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | <a href="https://barnabaai.com" target="_blank" rel="noopener">barnabaai.com</a></p>
+        <p class="social-links">
+          <a href="https://mastodon.social/@776f6c6e6f" rel="me noopener" target="_blank">mastodon</a> |
+          <a href="https://bsky.app/profile/776f6c6e6f.bsky.social" rel="me noopener" target="_blank">bluesky</a> |
+          <a href="https://github.com/lmxmxs/776f6c6e6f" rel="me noopener" target="_blank">github</a> |
+          <a href="https://ecency.com/@wolno776f6c6e6f" rel="noopener" target="_blank">hive</a> |
+          <a href="https://buycoffee.to/wolno" rel="noopener" target="_blank">coffee</a>
+        </p>
       </footer>
     )}
 
     <slot name="scripts" />
+    <!-- Fraktal Private Analytics (beacon to Barnabaai collector) -->
+    <Analytics siteId="776f6c6e6f" endpoint="https://barnabaai.com/api/analytics/track-wln" />
   </body>
 </html>

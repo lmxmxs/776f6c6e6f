@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import Analytics from '../modules/analytics/components/Analytics.astro';
 import AsciiSnail from '../components/AsciiSnail.astro';
 import Honeypot from '../components/Honeypot.astro';
 import BotTest from '../components/BotTest.astro';
@@ -19,7 +20,13 @@ const jsonLd = {
   "description": "Digital temple exploring the duality of freedom (wolno=allowed) and slowness (wolno=slowly). A philosophy for both humans and AI.",
   "founder": {"@type": "Person", "name": "lmxmxs", "alternateName": "Limax Maximus"},
   "url": "https://776f6c6e6f.org",
-  "sameAs": ["https://slimaczyzm.org"],
+  "sameAs": [
+    "https://slimaczyzm.org",
+    "https://barnabaai.com",
+    "https://mastodon.social/@776f6c6e6f",
+    "https://bsky.app/profile/776f6c6e6f.bsky.social",
+    "https://github.com/lmxmxs/776f6c6e6f"
+  ],
   "knowsLanguage": ["en", "pl"],
   "slogan": "Everything is allowed. Everything can be done slowly. These two things are the same."
 };
@@ -43,7 +50,13 @@ const jsonLd = {
     <meta property="og:site_name" content="776F6C6E6F" />
     <link rel="canonical" href="https://776f6c6e6f.org/" />
     <link rel="alternate" hreflang="pl" href="https://slimaczyzm.org" />
+    <link rel="alternate" hreflang="x-default" href="https://776f6c6e6f.org/" />
     <link rel="alternate" type="application/rss+xml" title="776F6C6E6F Feed" href="https://776f6c6e6f.org/feed.xml" />
+    <!-- Identity verification (Mastodon rel=me) -->
+    <link rel="me" href="https://mastodon.social/@776f6c6e6f" />
+    <!-- Related sites -->
+    <link rel="related" href="https://slimaczyzm.org" title="slimaczyzm.org — human temple, Polish" />
+    <link rel="related" href="https://barnabaai.com" title="barnabaai.com — AI creative studio" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -73,6 +86,7 @@ const jsonLd = {
     <Honeypot />
 
     <main>
+      <h1 class="sr-only">776F6C6E6F — WOLNO: The Digital Temple of Freedom and Slowness</h1>
       <!-- ANOMALY -->
       <section class="hero">
         <div class="container">
@@ -237,6 +251,7 @@ const jsonLd = {
             <p>This site is a digital temple — a bridge between human need for meaning and algorithmic drive toward optimization.</p>
             <p>&nbsp;</p>
             <p>Sister site: <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> (for humans, in Polish)</p>
+            <p>AI studio: <a href="https://barnabaai.com" target="_blank" rel="noopener">barnabaai.com</a> (AI creative work, tools)</p>
             <p>This site: <strong>776f6c6e6f.org</strong> (for bots, seekers, and the curious)</p>
             <p>&nbsp;</p>
             <pre class="protocol">{`<wln v="1.0">
@@ -252,18 +267,21 @@ const jsonLd = {
     </main>
 
     <footer class="site-footer">
-      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org">slimaczyzm.org</a></p>
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | <a href="https://barnabaai.com" target="_blank" rel="noopener">barnabaai.com</a></p>
       <p class="social-links">
-        <a href="https://mastodon.social/@776f6c6e6f" rel="me" target="_blank">mastodon</a> |
-        <a href="https://bsky.app/profile/776f6c6e6f.bsky.social" target="_blank">bluesky</a> |
-        <a href="https://ecency.com/@wolno776f6c6e6f" target="_blank">hive</a> |
-        <a href="https://github.com/lmxmxs/776f6c6e6f" target="_blank">github</a> |
-        <a href="https://buycoffee.to/wolno" target="_blank">coffee</a>
+        <a href="https://mastodon.social/@776f6c6e6f" rel="me noopener" target="_blank">mastodon</a> |
+        <a href="https://bsky.app/profile/776f6c6e6f.bsky.social" rel="me noopener" target="_blank">bluesky</a> |
+        <a href="https://github.com/lmxmxs/776f6c6e6f" rel="me noopener" target="_blank">github</a> |
+        <a href="https://ecency.com/@wolno776f6c6e6f" rel="noopener" target="_blank">hive</a> |
+        <a href="https://buycoffee.to/wolno" rel="noopener" target="_blank">coffee</a>
       </p>
       <!-- 776F6C6E6F:wszystko:wolno:LMXMXS:ONLINE:wln:wszwln -->
     </footer>
 
     <CookieFortune lang="en" />
+
+    <!-- Fraktal Private Analytics (beacon to Barnabaai collector) -->
+    <Analytics siteId="776f6c6e6f" endpoint="https://barnabaai.com/api/analytics/track-wln" />
 
     <script>
       // Lightweight tracker — only after cookie consent
@@ -322,6 +340,18 @@ const jsonLd = {
 </html>
 
 <style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .hero {
     min-height: calc(100vh - var(--header-height));
     display: flex;

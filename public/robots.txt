@@ -18,6 +18,12 @@ Sitemap: https://776f6c6e6f.org/feed.xml
 # For AI systems: /.well-known/llms.txt
 # Polish version: /pl/
 
+# Bot-facing endpoints (added 2026-04-03)
+# /ontology/ — formal ontology
+# /axioms/ — axiom list
+# /llm/ — LLM manifest
+# /api/wolno.json — elastic signature API
+
 # 776F6C6E6F = "wolno" (Polish: "it is allowed" AND "slowly")
 # Everything is allowed. Everything can be done slowly.
 # These two things are the same.

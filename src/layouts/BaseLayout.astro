@@ -3,6 +3,8 @@
  * BaseLayout - base HTML layout for 776f6c6e6f.org
  * Contains: head, metatags, fonts, Schema.org JSON-LD
  */
+import Analytics from '../modules/analytics/components/Analytics.astro';
+
 interface Props {
   title?: string;
   description?: string;
@@ -87,5 +89,7 @@ const jsonLd = {
   <div class="interference"></div>
   <slot />
   <slot name="scripts" />
+  <!-- Fraktal Private Analytics (beacon to Barnabaai collector) -->
+  <Analytics siteId="776f6c6e6f" endpoint="https://barnabaai.com/api/analytics/track-wln" />
 </body>
 </html>
