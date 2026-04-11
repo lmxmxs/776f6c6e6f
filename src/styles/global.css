@@ -33,8 +33,8 @@ html, body {
 }
 
 body {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 
 main {
   padding-top: var(--header-height);
-  min-height: calc(100vh - var(--header-height));
+  flex: 1 0 auto;
 }
 
 /* Header */
