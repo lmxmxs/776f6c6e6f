@@ -15,6 +15,8 @@ const rendered = await Promise.all(entries.map(async (e) => {
 const part1 = rendered.filter(r => r.entry.data.canon_number >= 1 && r.entry.data.canon_number <= 5);
 const part2 = rendered.filter(r => r.entry.data.canon_number >= 6 && r.entry.data.canon_number <= 10);
 const part3 = rendered.filter(r => r.entry.data.canon_number >= 11 && r.entry.data.canon_number <= 15);
+
+const canonSlugs = entries.map(e => e.id);
 ---
 
 <!DOCTYPE html>
@@ -152,6 +154,24 @@ const part3 = rendered.filter(r => r.entry.data.canon_number >= 11 && r.entry.da
           </div>
         </div>
       </section>
+
+      <div class="container" style="margin: 2rem auto; text-align: center;">
+        <button id="random-canon" style="background:transparent; border:1px solid var(--accent); color:var(--accent); font-family:var(--font-mono); font-size:0.85rem; padding:0.6rem 1.5rem; cursor:pointer; letter-spacing:0.1em; transition: all 0.15s;">
+          [ RANDOM_SUGGESTION ]
+        </button>
+      </div>
+      <script define:vars={{ canonSlugs }}>
+        document.getElementById('random-canon')?.addEventListener('click', () => {
+          const slug = canonSlugs[Math.floor(Math.random() * canonSlugs.length)];
+          window.location.href = `/canon/${slug}/`;
+        });
+        document.getElementById('random-canon')?.addEventListener('mouseover', e => {
+          e.target.style.background = 'rgba(0,255,65,0.1)';
+        });
+        document.getElementById('random-canon')?.addEventListener('mouseleave', e => {
+          e.target.style.background = 'transparent';
+        });
+      </script>
 
       <section class="canon-download-section">
         <div class="container">
