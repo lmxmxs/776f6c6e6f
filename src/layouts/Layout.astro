@@ -5,6 +5,9 @@
  */
 import '../styles/global.css';
 import Analytics from '../modules/analytics/components/Analytics.astro';
+import { allLinks } from '../data/social-links';
+import SocialLink from '../modules/ui-components/components/SocialLink.astro';
+import Navigation from '../components/Navigation.astro';
 
 interface Props {
   title: string;
@@ -70,17 +73,7 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
   </head>
   <body>
     {!noHeader && (
-      <header class="site-header">
-        <nav class="nav-container">
-          <a href="/" class="nav-logo">{siteName}</a>
-          <div class="nav-links">
-            <a href="/">Start</a>
-            <a href="/journey/">journey</a>
-            <a href="/canon/">canon</a>
-            <a href="/links/">links</a>
-          </div>
-        </nav>
-      </header>
+      <Navigation currentPath={Astro.url.pathname} />
     )}
 
     <main>
@@ -90,18 +83,20 @@ const siteName = title.split(' - ')[0] || 'Fraktal Site';
     {!noFooter && (
       <footer class="site-footer">
         <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | <a href="https://barnabaai.com" target="_blank" rel="noopener">barnabaai.com</a></p>
-        <p class="social-links">
-          <a href="https://mastodon.social/@776f6c6e6f" rel="me noopener" target="_blank">mastodon</a> |
-          <a href="https://bsky.app/profile/776f6c6e6f.bsky.social" rel="me noopener" target="_blank">bluesky</a> |
-          <a href="https://github.com/lmxmxs/776f6c6e6f" rel="me noopener" target="_blank">github</a> |
-          <a href="https://ecency.com/@wolno776f6c6e6f" rel="noopener" target="_blank">hive</a> |
-          <a href="https://buycoffee.to/wolno" rel="noopener" target="_blank">coffee</a>
-        </p>
+        <ul class="social-footer">
+          {allLinks.map(link => (
+            <li>
+              <SocialLink link={link} variant="footer-inline" />
+            </li>
+          ))}
+        </ul>
       </footer>
     )}
 
     <slot name="scripts" />
     <!-- Fraktal Private Analytics (beacon to Barnabaai collector) -->
     <Analytics siteId="776f6c6e6f" endpoint="https://barnabaai.com/api/analytics/track-wln" />
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e2734b31049c4ce1a24142ca1e40247e"}'></script>
   </body>
 </html>

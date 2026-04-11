@@ -31,6 +31,9 @@ const pageSchema = z.object({
   schema_type: z.enum(['Article', 'FAQPage', 'HowTo', 'WebPage', 'CreativeWork']).default('Article'),
   canonical_override: z.string().optional(),
   see_also: z.array(z.string()).default([]),
+  // Media
+  image: z.string().optional(),
+  image_alt: z.string().optional(),
   // Social
   og_image: z.string().optional(),
   // Versioning
@@ -55,6 +58,7 @@ const canonSchema = z.object({
   description: z.string().optional(),
   canon_number: z.number(),
   weight: z.enum(['core', 'extended']),
+  image: z.string().optional(),
 });
 
 const canon = defineCollection({

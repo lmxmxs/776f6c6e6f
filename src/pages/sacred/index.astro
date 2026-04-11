@@ -2,6 +2,7 @@
 import '../../styles/global.css';
 import { getCollection } from 'astro:content';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 
 const pages = await getCollection('pages');
 const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.data.order - b.data.order);
@@ -22,17 +23,7 @@ const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.d
   </head>
   <body>
     <div class="interference"></div>
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/journey/">journey</a>
-          <a href="/canon/">canon</a>
-          <a href="/search/">search</a>
-          <a href="/pl/sacred/" class="lang-switch">PL</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/sacred/" />
     <main>
       <div class="container sacred-page">
         <h1 class="sacred-title">$ ls ./sacred/</h1>
@@ -40,9 +31,15 @@ const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.d
         <div class="sacred-grid">
           {sacred.map((item) => (
             <a href={`/${item.id}/`} class="sacred-item">
-              <div class="sacred-placeholder">
-                <span class="sacred-icon">◇</span>
-              </div>
+              {item.data.image ? (
+                <div class="sacred-image-wrap">
+                  <img src={item.data.image} alt={item.data.title} loading="lazy" class="sacred-img" />
+                </div>
+              ) : (
+                <div class="sacred-placeholder">
+                  <span class="sacred-icon">◇</span>
+                </div>
+              )}
               <div class="sacred-info">
                 <h2 class="sacred-name">{item.data.title}</h2>
                 <p class="sacred-method">{item.data.description}</p>
@@ -68,6 +65,9 @@ const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.d
   .sacred-item:hover { border-color: var(--accent); text-decoration: none; }
   .sacred-placeholder { aspect-ratio: 4/3; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
   .sacred-icon { font-size: 2rem; color: var(--text-dim); }
+  .sacred-image-wrap { aspect-ratio: 4/3; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg-tertiary); }
+  .sacred-img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) contrast(1.1); transition: filter 0.2s; }
+  .sacred-item:hover .sacred-img { filter: saturate(1.2) contrast(1.1); }
   .sacred-info { padding: 0.75rem; }
   .sacred-name { font-size: 0.85rem; color: var(--text-primary); margin-bottom: 0.3rem; }
   .sacred-method { font-size: 0.75rem; color: var(--text-dim); }

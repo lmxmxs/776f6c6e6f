@@ -1,0 +1,65 @@
+---
+/**
+ * Contact page — mailto link only, no form
+ */
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact — 776F6C6E6F"
+  description="Contact the temple. Reach out via email."
+>
+  <section class="contact-section">
+    <div class="container">
+      <h1 class="section-title">$ contact</h1>
+      <div class="contact-block">
+        <p class="contact-line">&gt; channel: email</p>
+        <p class="contact-line">&gt; address: <a href="mailto:contact@776f6c6e6f.org" class="contact-email">contact@776f6c6e6f.org</a></p>
+        <p class="contact-line dim">&gt; response_time: wolno (slowly)</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-section {
+    padding: 4rem 0;
+    min-height: calc(100vh - var(--header-height, 60px) - 80px);
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-line {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  .contact-line.dim {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  .contact-email {
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-email:hover {
+    text-decoration: underline;
+  }
+</style>

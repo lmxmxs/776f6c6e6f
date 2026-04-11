@@ -101,6 +101,10 @@ main {
 .nav-links {
   display: flex;
   gap: 1.5rem;
+  min-height: 1.5rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: center;
 }
 
 .nav-links a {
@@ -112,6 +116,24 @@ main {
 .nav-links a:hover {
   color: var(--accent);
   text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 0.75rem;
+    font-size: 0.75rem;
+  }
+  /* Hide full topic tree on mobile — too much vertical space */
+  .topic-tree {
+    display: none;
+  }
+  /* Tighter padding on mobile */
+  .page-article {
+    padding: 1rem 0 2rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 /* Footer */
@@ -438,4 +460,19 @@ blockquote {
   pre, code { font-size: 10pt; border: 1px solid #ccc; }
   h1 { font-size: 20pt; }
   h2 { font-size: 14pt; }
+}
+
+/* Social footer — shared across layouts */
+.social-footer {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+.social-footer li {
+  display: inline-block;
 }

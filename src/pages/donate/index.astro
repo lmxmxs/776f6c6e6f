@@ -1,6 +1,7 @@
 ---
 import '../../styles/global.css';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -29,17 +30,7 @@ const jsonLd = {
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/journey/">journey</a>
-          <a href="/canon/">canon</a>
-          <a href="/search/">search</a>
-          <a href="/pl/donate/" class="lang-switch">PL</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/donate/" />
 
     <main>
       <div class="container donate-page">
@@ -177,8 +168,5 @@ const jsonLd = {
   .donate-footer-note p { color: var(--text-secondary); font-size: 0.85rem; }
   .donate-footer-note .dim { color: var(--text-dim); font-size: 0.75rem; margin-top: 0.5rem; }
 
-  .nav-links { display: flex; align-items: center; gap: 1.25rem; }
-  .nav-links a { font-size: 0.8rem; color: var(--text-secondary); }
-  .nav-links a:hover { color: var(--accent); text-decoration: none; }
-  .lang-switch { border: 1px solid var(--border); padding: 0.15rem 0.5rem; font-size: 0.75rem; letter-spacing: 0.1em; }
+  /* nav-links styles are in global.css */
 </style>

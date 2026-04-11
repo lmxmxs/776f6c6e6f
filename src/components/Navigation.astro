@@ -1,0 +1,84 @@
+---
+import { navItems, getLocalizedNavHref } from '../data/navigation';
+import type { Lang } from '../lib/i18n';
+import { getLocalizedPath } from '../lib/i18n';
+
+interface Props {
+  lang?: Lang;
+  currentPath?: string;
+  showPrint?: boolean;
+}
+
+const {
+  lang = 'en',
+  currentPath = '/',
+  showPrint = false,
+} = Astro.props;
+
+const logoHref = lang === 'pl' ? '/pl/' : '/';
+
+// Lang switch: current path in the other language
+const langSwitchHref = lang === 'en'
+  ? getLocalizedPath(currentPath, 'pl')
+  : getLocalizedPath(currentPath, 'en');
+const langSwitchLabel = lang === 'en' ? 'PL' : 'EN';
+const langSwitchAriaLabel = lang === 'en' ? 'Prze\u0142\u0105cz na polski' : 'Switch to English';
+---
+
+<header class="site-header">
+  <nav class="nav-container" aria-label={lang === 'pl' ? 'Nawigacja g\u0142\u00f3wna' : 'Main navigation'}>
+    <a href={logoHref} class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
+    <div class="nav-links">
+      {navItems.map(item => {
+        const href = getLocalizedNavHref(item.href, lang);
+        const label = lang === 'pl' ? item.label_pl : item.label_en;
+        // normalize trailing slash for comparison
+        const isCurrent = currentPath.replace(/\/$/, '') === href.replace(/\/$/, '') ||
+                          currentPath === href;
+        return (
+          <a
+            href={href}
+            aria-current={isCurrent ? 'page' : undefined}
+          >{label}</a>
+        );
+      })}
+      {showPrint && (
+        <button id="nav-print-btn" class="nav-btn" title="Print" onclick="window.print()">print</button>
+      )}
+      <a
+        href={langSwitchHref}
+        class="lang-switch"
+        aria-label={langSwitchAriaLabel}
+      >{langSwitchLabel}</a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .lang-switch {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    text-decoration: none;
+  }
+  .lang-switch:hover { color: var(--accent); border-color: var(--accent); }
+
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+  }
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .nav-links a[aria-current="page"] {
+    color: var(--accent);
+  }
+</style>

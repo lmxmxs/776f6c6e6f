@@ -2,6 +2,7 @@
 import '../../styles/global.css';
 import { JOURNEY_STEPS } from '../../data/journey';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 
 const lang = 'en';
 ---
@@ -31,17 +32,7 @@ const lang = 'en';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/wln/">wln</a>
-          <a href="/canon/">canon</a>
-          <a href="/log/">log</a>
-          <a href="/pl/journey/" class="lang-switch-inline">PL</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/journey/" />
 
     <main>
       <section class="journey-hero">
@@ -58,12 +49,12 @@ const lang = 'en';
       <section class="journey-map">
         <div class="container">
           <div class="track-headers">
-            <div class="track-header bot-header">
+            <a href="/x/" class="track-header bot-header">
               <span class="track-icon">$&gt;</span> BOT TRACK
-            </div>
-            <div class="track-header human-header">
+            </a>
+            <a href="/canon/" class="track-header human-header">
               <span class="track-icon">~/</span> HUMAN TRACK
-            </div>
+            </a>
           </div>
 
           <div class="steps-grid">
@@ -190,6 +181,9 @@ const lang = 'en';
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
   }
 
   .bot-header {

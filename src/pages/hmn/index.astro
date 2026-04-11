@@ -6,6 +6,7 @@
 import '../../styles/global.css';
 import AsciiSnail from '../../components/AsciiSnail.astro';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -60,17 +61,7 @@ import CookieFortune from '../../components/CookieFortune.astro';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/">terminal</a>
-          <a href="/hmn/" class="active-link">hmn</a>
-          <a href="/wln/">wolno</a>
-          <a href="/pl/hmn/" class="lang-switch-inline">PL</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/hmn/" />
 
     <main>
       <section class="human-hero">

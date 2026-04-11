@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CookieFortune from '../components/CookieFortune.astro';
+import Navigation from '../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -16,16 +17,7 @@ import CookieFortune from '../components/CookieFortune.astro';
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/journey/">journey</a>
-          <a href="/canon/">canon</a>
-          <a href="/search/">search</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/404/" />
 
     <main>
       <section class="error-section">

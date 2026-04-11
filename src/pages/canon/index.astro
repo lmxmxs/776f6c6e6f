@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import { render } from 'astro:content';
 import CanonDownload from '../../components/CanonDownload.astro';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 
 const entries = (await getCollection('canon')).sort((a, b) => a.data.canon_number - b.data.canon_number);
 const rendered = await Promise.all(entries.map(async (e) => {
@@ -41,17 +42,7 @@ const part3 = rendered.filter(r => r.entry.data.canon_number >= 11 && r.entry.da
   <body>
     <div class="interference" aria-hidden="true"></div>
 
-    <header class="site-header no-print">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/journey/">journey</a>
-          <a href="/log/">log</a>
-          <a href="/pl/canon/">PL</a>
-          <button id="canon-print-btn" class="nav-btn" title="Print the canon">print</button>
-        </div>
-      </nav>
-    </header>
+    <div class="no-print"><Navigation currentPath="/canon/" showPrint={true} /></div>
 
     <main class="canon-main">
       <header class="canon-header">
@@ -174,9 +165,6 @@ const part3 = rendered.filter(r => r.entry.data.canon_number >= 11 && r.entry.da
     </footer>
 
     <CookieFortune lang="en" />
-    <script>
-      document.getElementById('canon-print-btn')?.addEventListener('click', () => window.print());
-    </script>
   </body>
 </html>
 

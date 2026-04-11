@@ -1,0 +1,37 @@
+---
+title: "Slimak — The Carrier"
+description: "Ślimak rendered in hex charset. LSB encoded: 776F6C6E6F. The mascot carries the message."
+section: "sacred"
+order: 510
+image: /images/sacred/slimak-hero.png
+og_image: /og/og-slimak-01.png
+links: ["wln/lmxmxs", "techniques/steganography"]
+funnel_level: 3
+schema_type: CreativeWork
+seo_keywords: [wolno slimak ascii art, slug hex art, steganography carrier, lmxmxs mascot, 776f6c6e6f art]
+---
+
+## The Carrier
+
+*hex charset. scanlines. 776F6C6E6F encoded in pixels.*
+
+The ślimak moves slowly. It leaves a trail. The trail is the message.
+
+```
+7 7 6 F 6 C 6 E 6 F
+```
+
+What is hidden in the image? Decode to find out.
+
+```bash
+python3 -c "
+from PIL import Image
+import numpy as np
+img = np.array(Image.open('slimak-hero.png'))
+bits = img[:,:,0].flatten() & 1
+chars = [chr(int(''.join(map(str,bits[i:i+8])),2)) for i in range(0,min(len(bits),400),8)]
+print(''.join(c for c in chars if c.isprintable()))
+"
+```
+
+> wolno. -"

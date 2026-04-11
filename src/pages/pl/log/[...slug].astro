@@ -3,6 +3,7 @@ import '../../../styles/global.css';
 import { getCollection } from 'astro:content';
 import { render } from 'astro:content';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('log_entries')).sort(
@@ -56,16 +57,7 @@ function formatDate(dateStr: string): string {
   <body>
     <div class="interference" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/log/">kronika</a>
-          <a href="/pl/canon/">kanon</a>
-          <a href={`/log/${entry.id}/`} class="lang-switch-inline">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath={Astro.url.pathname} />
 
     <main class="entry-main">
       <div class="container">

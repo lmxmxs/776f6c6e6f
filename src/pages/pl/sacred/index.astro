@@ -2,6 +2,7 @@
 import '../../../styles/global.css';
 import { getCollection } from 'astro:content';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 
 const pages = await getCollection('pages_pl');
 const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.data.order - b.data.order);
@@ -22,17 +23,7 @@ const sacred = pages.filter(p => p.data.section === 'sacred').sort((a, b) => a.d
   </head>
   <body>
     <div class="interference"></div>
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/pl/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/journey/">podróż</a>
-          <a href="/pl/canon/">kanon</a>
-          <a href="/pl/search/">szukaj</a>
-          <a href="/sacred/" class="lang-switch">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath="/pl/sacred/" />
     <main>
       <div class="container sacred-page">
         <h1 class="sacred-title">$ ls ./święte/</h1>

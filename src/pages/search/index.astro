@@ -1,6 +1,7 @@
 ---
 import '../../styles/global.css';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -12,6 +13,8 @@ import CookieFortune from '../../components/CookieFortune.astro';
     <title>Search | 776F6C6E6F</title>
     <meta name="description" content="Search the digital temple of WOLNO. Find scripture, techniques, canon, and more." />
     <link rel="canonical" href="https://776f6c6e6f.org/search/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/search/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/search/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -20,17 +23,7 @@ import CookieFortune from '../../components/CookieFortune.astro';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/journey/">journey</a>
-          <a href="/canon/">canon</a>
-          <a href="/log/">log</a>
-          <a href="/pl/search/" class="lang-switch">PL</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/search/" />
 
     <main>
       <div class="container search-container">
@@ -46,16 +39,18 @@ import CookieFortune from '../../components/CookieFortune.astro';
 
     <CookieFortune lang="en" />
 
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
     <script is:inline>
       window.addEventListener('DOMContentLoaded', function() {
-        new PagefindUI({
-          element: '#search',
-          showSubResults: true,
-          showImages: false,
-        });
+        if (typeof PagefindUI !== 'undefined') {
+          new PagefindUI({
+            element: '#search',
+            showSubResults: true,
+            showImages: false,
+          });
+        }
       });
     </script>
-    <script is:inline src="/pagefind/pagefind-ui.js"></script>
   </body>
 </html>
 
@@ -71,15 +66,7 @@ import CookieFortune from '../../components/CookieFortune.astro';
     font-size: 0.85rem;
     margin-bottom: 2rem;
   }
-  .nav-links { display: flex; align-items: center; gap: 1.25rem; }
-  .nav-links a { font-size: 0.8rem; color: var(--text-secondary); }
-  .nav-links a:hover { color: var(--accent); text-decoration: none; }
-  .lang-switch {
-    border: 1px solid var(--border);
-    padding: 0.15rem 0.5rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-  }
+  /* nav-links styles are in global.css */
 
   /* Pagefind theme overrides */
   :global(.pagefind-ui) {

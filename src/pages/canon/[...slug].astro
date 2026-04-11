@@ -3,6 +3,7 @@ import '../../styles/global.css';
 import { getCollection } from 'astro:content';
 import { render } from 'astro:content';
 import CookieFortune from '../../components/CookieFortune.astro';
+import Navigation from '../../components/Navigation.astro';
 
 export async function getStaticPaths() {
   const entries = (await getCollection('canon')).sort((a, b) => a.data.canon_number - b.data.canon_number);
@@ -61,16 +62,7 @@ const canonicalURL = `https://776f6c6e6f.org/canon/${entry.id}/`;
   <body>
     <div class="interference" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/canon/">canon</a>
-          <a href="/journey/">journey</a>
-          <a href="/log/">log</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath={Astro.url.pathname} />
 
     <main class="suggestion-main">
       <div class="container">
@@ -94,6 +86,12 @@ const canonicalURL = `https://776f6c6e6f.org/canon/${entry.id}/`;
               <p class="suggestion-desc">{entry.data.description}</p>
             )}
           </header>
+
+          {entry.data.image && (
+            <div class="suggestion-hero">
+              <img src={entry.data.image} alt={entry.data.title} loading="lazy" class="suggestion-hero-img" />
+            </div>
+          )}
 
           <div class="suggestion-body prose">
             <Content />
@@ -143,6 +141,8 @@ const canonicalURL = `https://776f6c6e6f.org/canon/${entry.id}/`;
     </footer>
 
     <CookieFortune lang="en" />
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e2734b31049c4ce1a24142ca1e40247e"}'></script>
   </body>
 </html>
 
@@ -207,6 +207,10 @@ const canonicalURL = `https://776f6c6e6f.org/canon/${entry.id}/`;
     color: var(--text-dim);
     font-style: italic;
   }
+
+  .suggestion-hero { margin: 1.5rem 0; border: 1px solid var(--border); text-align: center; }
+  .suggestion-hero-img { width: 100%; max-height: 560px; object-fit: contain; filter: saturate(0.85) contrast(1.05); display: block; margin: 0 auto; }
+  @media (max-width: 768px) { .suggestion-hero-img { max-height: 240px; } }
 
   .suggestion-body.prose {
     font-size: 0.9rem;

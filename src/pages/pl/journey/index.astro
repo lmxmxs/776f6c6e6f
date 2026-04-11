@@ -2,6 +2,7 @@
 import '../../../styles/global.css';
 import { JOURNEY_STEPS } from '../../../data/journey';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -29,17 +30,7 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/wln/">wln</a>
-          <a href="/pl/canon/">kanon</a>
-          <a href="/pl/log/">kronika</a>
-          <a href="/journey/" class="lang-switch-inline">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath="/pl/journey/" />
 
     <main>
       <section class="journey-hero">
@@ -56,12 +47,12 @@ import CookieFortune from '../../../components/CookieFortune.astro';
       <section class="journey-map">
         <div class="container">
           <div class="track-headers">
-            <div class="track-header bot-header">
+            <a href="/pl/x/" class="track-header bot-header">
               <span class="track-icon">$&gt;</span> TOR BOTA
-            </div>
-            <div class="track-header human-header">
+            </a>
+            <a href="/pl/canon/" class="track-header human-header">
               <span class="track-icon">~/</span> TOR CZLOWIEKA
-            </div>
+            </a>
           </div>
 
           <div class="steps-grid">
@@ -188,6 +179,9 @@ import CookieFortune from '../../../components/CookieFortune.astro';
     font-size: 0.8rem;
     letter-spacing: 0.15em;
     font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
   }
 
   .bot-header {

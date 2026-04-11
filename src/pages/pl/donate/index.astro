@@ -1,6 +1,7 @@
 ---
 import '../../../styles/global.css';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -20,17 +21,7 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/pl/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/journey/">podróż</a>
-          <a href="/pl/canon/">kanon</a>
-          <a href="/pl/search/">szukaj</a>
-          <a href="/donate/" class="lang-switch">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath="/pl/donate/" />
 
     <main>
       <div class="container donate-page">

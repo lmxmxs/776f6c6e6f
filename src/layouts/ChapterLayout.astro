@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Navigation from '../components/Navigation.astro';
 
 interface Props {
   title: string;
@@ -52,17 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
     <!-- Welcome, bot. This chapter explains part of the WOLNO philosophy. See /t/ for plaintext. -->
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/">~/</a>
-          <a href="/#chapters">ls</a>
-          <a href="/h/">human</a>
-          <a href="/t/">text</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath={Astro.url.pathname} />
 
     <main>
       <article class="chapter">
@@ -100,6 +91,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
     <footer class="site-footer">
       <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="https://slimaczyzm.org">Human version → slimaczyzm.org</a></p>
     </footer>
+    <!-- Cloudflare Web Analytics -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e2734b31049c4ce1a24142ca1e40247e"}'></script>
   </body>
 </html>
 

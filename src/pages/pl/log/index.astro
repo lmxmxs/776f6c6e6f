@@ -2,6 +2,7 @@
 import '../../../styles/global.css';
 import { getCollection } from 'astro:content';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 
 const entries = (await getCollection('log_entries')).sort(
   (a, b) => new Date(b.data.event_date).getTime() - new Date(a.data.event_date).getTime()
@@ -38,16 +39,7 @@ function formatDate(dateStr: string): string {
   <body>
     <div class="interference" aria-hidden="true"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/canon/">kanon</a>
-          <a href="/pl/journey/">podróż</a>
-          <a href="/log/" class="lang-switch-inline">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath="/pl/log/" />
 
     <main class="log-main">
       <div class="container">

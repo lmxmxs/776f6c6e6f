@@ -4,6 +4,7 @@
  * ePrivacy Directive compliance
  */
 import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -21,16 +22,7 @@ import '../../styles/global.css';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/" class="nav-logo">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/">terminal</a>
-          <a href="/hmn/">hmn</a>
-          <a href="/privacy/">privacy</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation currentPath="/cookies/" />
 
     <main>
       <section class="legal-content">

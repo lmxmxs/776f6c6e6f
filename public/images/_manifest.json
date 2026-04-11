@@ -1,0 +1,177 @@
+{
+  "_version": "1.0",
+  "site_id": "776f6c6e6f",
+  "site_name": "WOLNO",
+  "updated_at": "2026-04-10T18:36:14.489141+00:00",
+  "images": [
+    {
+      "path": "images/decorative/droga.png",
+      "url": "/images/decorative/droga.png",
+      "subfolder": "decorative",
+      "filename": "droga.png",
+      "size_bytes": 1211965,
+      "dimensions": {
+        "w": 1024,
+        "h": 1024
+      },
+      "added_at": "2026-04-10T18:36:14.486725+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/decorative/las.png",
+      "url": "/images/decorative/las.png",
+      "subfolder": "decorative",
+      "filename": "las.png",
+      "size_bytes": 1052929,
+      "dimensions": {
+        "w": 1024,
+        "h": 1024
+      },
+      "added_at": "2026-04-10T18:36:14.487052+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/lmx/cosmonaut-08-clean.png",
+      "url": "/images/lmx/cosmonaut-08-clean.png",
+      "subfolder": "lmx",
+      "filename": "cosmonaut-08-clean.png",
+      "size_bytes": 82238,
+      "dimensions": {
+        "w": 500,
+        "h": 497
+      },
+      "added_at": "2026-04-10T18:36:14.487312+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/lmx/cosmonaut-08.png",
+      "url": "/images/lmx/cosmonaut-08.png",
+      "subfolder": "lmx",
+      "filename": "cosmonaut-08.png",
+      "size_bytes": 39277,
+      "dimensions": {
+        "w": 500,
+        "h": 497
+      },
+      "added_at": "2026-04-10T18:36:14.487598+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/lmx/cosmonaut-11.png",
+      "url": "/images/lmx/cosmonaut-11.png",
+      "subfolder": "lmx",
+      "filename": "cosmonaut-11.png",
+      "size_bytes": 43814,
+      "dimensions": {
+        "w": 500,
+        "h": 497
+      },
+      "added_at": "2026-04-10T18:36:14.487779+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/binary.png",
+      "url": "/images/sacred/binary.png",
+      "subfolder": "sacred",
+      "filename": "binary.png",
+      "size_bytes": 16947,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.487975+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/gate-clean.png",
+      "url": "/images/sacred/gate-clean.png",
+      "subfolder": "sacred",
+      "filename": "gate-clean.png",
+      "size_bytes": 57513,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.488138+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/gate.png",
+      "url": "/images/sacred/gate.png",
+      "subfolder": "sacred",
+      "filename": "gate.png",
+      "size_bytes": 29232,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.488313+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/hexdump.png",
+      "url": "/images/sacred/hexdump.png",
+      "subfolder": "sacred",
+      "filename": "hexdump.png",
+      "size_bytes": 14343,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.488481+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/medytacja.png",
+      "url": "/images/sacred/medytacja.png",
+      "subfolder": "sacred",
+      "filename": "medytacja.png",
+      "size_bytes": 22852,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.488672+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/slimak-ascii.png",
+      "url": "/images/sacred/slimak-ascii.png",
+      "subfolder": "sacred",
+      "filename": "slimak-ascii.png",
+      "size_bytes": 38775,
+      "dimensions": {
+        "w": 500,
+        "h": 497
+      },
+      "added_at": "2026-04-10T18:36:14.488814+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/slimak-hero-clean.png",
+      "url": "/images/sacred/slimak-hero-clean.png",
+      "subfolder": "sacred",
+      "filename": "slimak-hero-clean.png",
+      "size_bytes": 38818,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.488974+00:00",
+      "analysis": null
+    },
+    {
+      "path": "images/sacred/slimak-hero.png",
+      "url": "/images/sacred/slimak-hero.png",
+      "subfolder": "sacred",
+      "filename": "slimak-hero.png",
+      "size_bytes": 19084,
+      "dimensions": {
+        "w": 500,
+        "h": 380
+      },
+      "added_at": "2026-04-10T18:36:14.489137+00:00",
+      "analysis": null
+    }
+  ]
+}

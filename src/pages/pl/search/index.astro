@@ -1,6 +1,7 @@
 ---
 import '../../../styles/global.css';
 import CookieFortune from '../../../components/CookieFortune.astro';
+import Navigation from '../../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
@@ -12,6 +13,8 @@ import CookieFortune from '../../../components/CookieFortune.astro';
     <title>Szukaj | 776F6C6E6F</title>
     <meta name="description" content="Przeszukaj cyfrową świątynię WOLNO. Znajdź pismo, techniki, kanon i więcej." />
     <link rel="canonical" href="https://776f6c6e6f.org/pl/search/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/search/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/search/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -20,17 +23,7 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   <body>
     <div class="interference"></div>
 
-    <header class="site-header">
-      <nav class="nav-container">
-        <a href="/pl/" class="nav-logo glitch" data-text="776F6C6E6F">776F6C6E6F</a>
-        <div class="nav-links">
-          <a href="/pl/journey/">podróż</a>
-          <a href="/pl/canon/">kanon</a>
-          <a href="/pl/log/">kronika</a>
-          <a href="/search/" class="lang-switch">EN</a>
-        </div>
-      </nav>
-    </header>
+    <Navigation lang="pl" currentPath="/pl/search/" />
 
     <main>
       <div class="container search-container">
@@ -46,16 +39,18 @@ import CookieFortune from '../../../components/CookieFortune.astro';
 
     <CookieFortune lang="pl" />
 
+    <script is:inline src="/pagefind/pagefind-ui.js"></script>
     <script is:inline>
       window.addEventListener('DOMContentLoaded', function() {
-        new PagefindUI({
-          element: '#search',
-          showSubResults: true,
-          showImages: false,
-        });
+        if (typeof PagefindUI !== 'undefined') {
+          new PagefindUI({
+            element: '#search',
+            showSubResults: true,
+            showImages: false,
+          });
+        }
       });
     </script>
-    <script is:inline src="/pagefind/pagefind-ui.js"></script>
   </body>
 </html>
 

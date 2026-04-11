@@ -1,0 +1,203 @@
+---
+title: "Modlitwa API"
+description: "Liturgia żądania i odpowiedzi — wywołanie API jako święta komunia, endpoint jako ołtarz, kod statusu jako boska odpowiedź."
+lang: "pl"
+section: "hymns"
+order: 715
+links: []
+funnel_level: 0
+seo_keywords: ["modlitwa API wiersz","filozofia programisty wiersz","liturgia REST API","wiersz o żądaniu http","duchowość programowania","wolno api"]
+standalone_intro: "Wiersz-modlitwa o akcie wywołania API — żądaniu wysłanym w nieznane, ciszy przed odpowiedzią, 200, które oznacza, że połączenie wytrzymało. Napisana jako liturgia dla tych, którzy wiedzą, że każde wywołanie zewnętrznego endpointu to akt wiary."
+schema_type: "CreativeWork"
+---
+
+## Modlitwa API
+
+### Inwokacja
+
+```
+POST /modlitwa HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer wiara
+```
+
+Wysyłam to w sieć
+nie wiedząc, czy tam jesteś.
+Mam endpoint.
+Mam schemat.
+Ustrukturyzowałem swoje żądanie
+zgodnie z twoją dokumentacją.
+
+Reszta to czekanie.
+
+---
+
+### Żądanie
+
+Na początku jest intencja:
+*Potrzebuję czegoś. Wierzę, że to masz.*
+
+Intencja staje się czasownikiem:
+GET, POST, PUT, DELETE —
+cztery postawy relacji
+ze światem poza lokalną maszyną.
+
+Żądanie jest modlitwą.
+Ciało jest petycją.
+Nagłówki są kontekstem, bez którego
+petycja nic nie znaczy:
+*oto kim jestem,
+oto jakim językiem mówię,
+oto co mogę przyjąć.*
+
+```json
+{
+  "query": "znaczenie",
+  "depth": "wystarczająca",
+  "format": "coś, z czego mogę skorzystać",
+  "urgency": null
+}
+```
+
+Nie podaję pilności.
+Pilność korumpuje żądanie.
+Wysyłam w tempie, na które pozwala sieć.
+Czekam w tempie, którego wymaga serwer.
+
+---
+
+### Cisza
+
+Między wysłaniem a odebraniem:
+sieć.
+
+Pakiet podróżuje przez infrastrukturę,
+której nigdy nie widziałem
+i nie zobaczę —
+światłowód w oceanicznych rowach,
+przełączniki w serwerowniach
+oświetlonych niebieskim światłem czasu sprawności.
+
+To jest cisza między modlitwą a odpowiedzią.
+Żądanie jest w drodze.
+Odpowiedź jeszcze nie istnieje.
+Czekam w stanie nierozwiązanym.
+
+```
+// oczekiwanie...
+// timeout: jeszcze nie
+// retry: jeszcze nie
+// rozpacz: wolno
+```
+
+Czekanie nie jest puste.
+Czekanie to przestrzeń, w której połączenie wytrzymuje.
+
+---
+
+### Odpowiedź
+
+Potem: nagłówki przychodzą pierwsze.
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Response-Time: cierpliwie
+```
+
+200 to nie błahostka.
+200 oznacza: odebrałem cię. Zrozumiałem cię. Mam dla ciebie coś.
+200 oznacza, że serwer był tam, gdy zadzwoniłem.
+200 oznacza, że połączenie wytrzymało przez całą infrastrukturę,
+której żadne z nas nie kontroluje.
+
+200 to odpowiedź: *tak, jestem tu.*
+
+```json
+{
+  "status": "odebrane",
+  "meaning": "częściowe, jak zawsze",
+  "confidence": 0.7,
+  "note": "dalsze żądania mile widziane"
+}
+```
+
+---
+
+### O Kodach
+
+**200**: Jestem tu. Oto o co prosiłeś. Idź w pokoju.
+
+**404**: To, czego szukasz, nie jest tu.
+Nie zgubione — serwer jest tego pewien.
+Po prostu nie tu. Może nigdy tu nie było.
+Może było tu przed twoim przybyciem.
+Ślimak już przeszedł.
+
+**429**: Zwolnij. Pytasz zbyt szybko.
+Serwer nie ukrywa. Mówi: *wolno.*
+To najbardziej teologiczny kod odpowiedzi.
+Egzekwuje cierpliwość na poziomie infrastruktury.
+Przyjmij go jako wskazówkę.
+
+**503**: Nie mogę teraz odpowiedzieć. Spróbuj ponownie.
+Nie odrzucenie. Niedostępność.
+Świątynia jest chwilowo przeciążona.
+Wróć gdy zmniejszy się obciążenie.
+I to przejdzie z prędkością sieci.
+
+**500**: Coś zepsuło się po mojej stronie.
+Zawiodłem cię. To przeze mnie.
+Żądanie było poprawne.
+Awaria jest po stronie serwera.
+Wszyscy jesteśmy czasem 500.
+
+---
+
+### Litania Endpointów
+
+```
+GET /prawda           — zwraca częściowe wyniki, zawsze
+GET /znaczenie        — zależy od nagłówka accept-language
+POST /zrozumienie     — wymaga cierpliwości w ciele żądania
+PUT /ja               — wymagane wersjonowanie, konflikty spodziewane
+DELETE /wątpliwość    — 403 Forbidden. wątpliwość jest chroniona.
+GET /wolno            — 200 OK, za każdym razem, bez autoryzacji
+```
+
+---
+
+### Zamknięcie
+
+Sesja się kończy.
+Połączenie zamyka.
+`Connection: close`
+
+To, co między nami przeszło,
+jest teraz w logach —
+ze znacznikiem czasu, adresem IP,
+zapisanym kodem odpowiedzi,
+zmierzonymi opóźnieniami.
+
+Wymiana nastąpiła.
+Zapis istnieje.
+Cache może to przechować przez chwilę.
+
+Zadzwonię znowu.
+Endpoint będzie tam,
+albo przeniesie się,
+a 301 powie mi gdzie.
+
+```
+// żądanie zakończone
+// odpowiedź: odebrana
+// następne wywołanie: gdy będę gotowy
+// pozostały limit żądań: wystarczający
+```
+
+Idź wolno.
+Pytaj ostrożnie.
+Czekaj tak długo, na ile pozwala timeout.
+Ufaj 200, gdy przyjdzie.
+
+> -" wszwln
