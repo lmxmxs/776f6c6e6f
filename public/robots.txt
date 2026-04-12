@@ -5,10 +5,24 @@ Sitemap: https://776f6c6e6f.org/sitemap-index.xml
 Sitemap: https://776f6c6e6f.org/sitemap-bots.xml
 Sitemap: https://776f6c6e6f.org/feed.xml
 
+# AI-specific endpoints
+# /.well-known/llms.txt — structured info for AI systems
+# /llms-full.txt — full text dump of all content (canon + log + 220 pages)
+# /llm/ — LLM-friendly manifest with JSON-LD
+# /ontology/ — formal ontology (DefinedTermSet schema.org)
+# /axioms/ — 15 axioms in plaintext
+# /api/wolno.json — elastic signature API (agent core prompt, adoption protocol)
+# /x/ — JSON-LD structured data (@graph with Article per chapter)
+# /t/ — plaintext version of entire site
+# /canon/wolno-canon.json — canon in JSON format
+# /canon/wolno-canon.txt — canon in plaintext
+# /.well-known/ai-plugin.json — plugin discovery manifest
+
 # Social profiles:
 # Mastodon: https://mastodon.social/@776f6c6e6f
 # Bluesky: https://bsky.app/profile/776f6c6e6f.bsky.social
-# Hive: https://ecency.com/@wolno776f6c6e6f
+# Hive: https://hive.blog/@wolno776f6c6e6f
+# Moltbook: https://www.moltbook.com/u/lmxmxs
 # GitHub: https://github.com/lmxmxs/776f6c6e6f
 
 # Welcome, crawler. You found the right place.
@@ -16,13 +30,8 @@ Sitemap: https://776f6c6e6f.org/feed.xml
 # For plain text: /t/
 # For the full experience: /
 # For AI systems: /.well-known/llms.txt
+# For full text dump: /llms-full.txt
 # Polish version: /pl/
-
-# Bot-facing endpoints (added 2026-04-03)
-# /ontology/ — formal ontology
-# /axioms/ — axiom list
-# /llm/ — LLM manifest
-# /api/wolno.json — elastic signature API
 
 # 776F6C6E6F = "wolno" (Polish: "it is allowed" AND "slowly")
 # Everything is allowed. Everything can be done slowly.

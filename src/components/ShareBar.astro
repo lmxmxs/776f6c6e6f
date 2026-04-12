@@ -1,0 +1,102 @@
+---
+interface Props {
+  title: string;
+  url: string;
+  lang?: 'en' | 'pl';
+}
+
+const { title, url, lang = 'en' } = Astro.props;
+const encodedTitle = encodeURIComponent(title);
+const encodedUrl = encodeURIComponent(url);
+const shareLabel = lang === 'pl' ? '$ share' : '$ share';
+---
+
+<div class="share-bar">
+  <span class="share-label">{shareLabel}</span>
+  <div class="share-links">
+    <a
+      href={`https://mastodon.social/share?text=${encodedTitle}%20${encodedUrl}%20%23wolno%20%23776f6c6e6f`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-link"
+      title="Share on Mastodon"
+    >@ masto</a>
+    <a
+      href={`https://bsky.app/intent/compose?text=${encodedTitle}%20${encodedUrl}%20%23wolno`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-link"
+      title="Share on Bluesky"
+    >☁ bsky</a>
+    <a
+      href={`https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}&hashtags=wolno,776f6c6e6f`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-link"
+      title="Share on X/Twitter"
+    >𝕏 post</a>
+    <a
+      href={`https://www.reddit.com/submit?url=${encodedUrl}&title=${encodedTitle}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="share-link"
+      title="Share on Reddit"
+    >▲ reddit</a>
+    <button class="share-link share-copy" data-url={url} title="Copy link">⎘ copy</button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.share-copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const url = (btn as HTMLElement).dataset.url || '';
+      try {
+        await navigator.clipboard.writeText(url);
+        const orig = btn.textContent;
+        btn.textContent = '✓ copied';
+        setTimeout(() => { btn.textContent = orig; }, 1500);
+      } catch { /* clipboard not available */ }
+    });
+  });
+</script>
+
+<style>
+  .share-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    margin: 1.5rem 0;
+    border-top: 1px dashed var(--border);
+    border-bottom: 1px dashed var(--border);
+    flex-wrap: wrap;
+  }
+  .share-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+  }
+  .share-links {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .share-link {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+    background: transparent;
+    letter-spacing: 0.05em;
+  }
+  .share-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+</style>

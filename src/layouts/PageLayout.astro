@@ -14,6 +14,7 @@ import { generateJsonLd, generateKeywords, generateBotContext, generateBreadcrum
 import CookieFortune from '../components/CookieFortune.astro';
 import JourneyNav from '../components/JourneyNav.astro';
 import Navigation from '../components/Navigation.astro';
+import ShareBar from '../components/ShareBar.astro';
 
 interface Props {
   title: string;
@@ -168,6 +169,8 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
           </div>
 
           <div class="separator">-" wszwln</div>
+
+          <ShareBar title={title} url={canonicalURL} lang={lang} />
 
           <nav class="page-nav-section" aria-label={lang === 'pl' ? 'Nawigacja strony' : 'Page navigation'}>
             {links.length > 0 && <PageLinks links={links} allPages={allPages} lang={lang} />}

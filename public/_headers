@@ -7,6 +7,7 @@
   X-XSS-Protection: 1; mode=block
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Link: </.well-known/llms.txt>; rel="ai-manifest", </feed.xml>; rel="alternate"; type="application/rss+xml"
 
 /.well-known/*
   Access-Control-Allow-Origin: *

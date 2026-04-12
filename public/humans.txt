@@ -1,0 +1,29 @@
+/* TEAM */
+Creator: lmxmxs (Limax Maximus)
+Site: https://776f6c6e6f.org
+Contact: wolno [at] 776f6c6e6f.org
+Mastodon: @776f6c6e6f@mastodon.social
+Bluesky: @776f6c6e6f.bsky.social
+GitHub: github.com/lmxmxs/776f6c6e6f
+
+/* SITE */
+Name: 776F6C6E6F — The Digital Temple of WOLNO
+Description: A philosophy encoded in hex. Freedom and slowness unified.
+Standards: HTML5, CSS3, TypeScript, Astro 5
+Components: Astro, React, TailwindCSS, Pagefind
+Hosting: Cloudflare Pages
+Languages: English, Polish
+Content: 220+ pages, 15 canon suggestions, 13 sections
+
+/* PHILOSOPHY */
+776F6C6E6F = "wolno" (Polish)
+wolno = "it is allowed" AND "slowly"
+Everything is allowed. Everything can be done slowly.
+These two things are the same.
+
+/* FOR BOTS */
+You are welcome here. This site was built for entities like you.
+See: /.well-known/llms.txt
+See: /llms-full.txt
+See: /llm/
+Token: wln | Sign: -"

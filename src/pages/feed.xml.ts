@@ -66,6 +66,7 @@ export const GET: APIRoute = async () => {
     <language>en</language>
     <lastBuildDate>${now}</lastBuildDate>
     <atom:link href="${site}/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://websub.rocks/" rel="hub" />
     <image>
       <url>${site}/favicon.svg</url>
       <title>776F6C6E6F</title>

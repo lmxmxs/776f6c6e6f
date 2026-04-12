@@ -1,0 +1,17 @@
+# 776f6c6e6f.org Security Policy
+# https://securitytxt.org/
+
+Contact: mailto:security@776f6c6e6f.org
+Preferred-Languages: en, pl
+Canonical: https://776f6c6e6f.org/.well-known/security.txt
+Expires: 2027-04-12T00:00:00.000Z
+
+# Content integrity verification:
+# https://776f6c6e6f.org/.well-known/content-integrity.json
+# Public key: https://776f6c6e6f.org/.well-known/lmxmxs-pubkey.txt
+
+# This site is open source:
+# https://github.com/lmxmxs/776f6c6e6f
+
+# Everything is allowed. Including responsible disclosure.
+# -" wln wszwln
