@@ -1,3 +1,7 @@
 name = "776f6c6e6f"
 compatibility_date = "2026-02-18"
 pages_build_output_dir = "./dist"
+
+[[kv_namespaces]]
+binding = "BOT_ANALYTICS"
+id = "6b24a89d17f94474b53394ac28c3f545"
