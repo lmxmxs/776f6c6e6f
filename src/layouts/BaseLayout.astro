@@ -61,7 +61,11 @@ const jsonLd = {
   <meta property="og:url" content={canonicalURL}>
   <meta property="og:locale" content="en_US">
   <meta property="og:locale:alternate" content="pl_PL">
-  {ogImage && <meta property="og:image" content={ogImage}>}
+  <meta property="og:image" content={ogImage || "https://776f6c6e6f.org/og/og-slimak-01.png"}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content={ogImage || "https://776f6c6e6f.org/og/og-slimak-01.png"}>
   <meta property="og:site_name" content="776F6C6E6F">
 
   <!-- Canonical + alternate -->
