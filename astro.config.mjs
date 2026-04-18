@@ -17,7 +17,16 @@ export default defineConfig({
   },
   integrations: [
     tailwind({ configFile: './tailwind.config.js' }),
-    sitemap(),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/h/') &&
+        !page.includes('/rozdzial/') &&
+        !page.includes('/pl/links') &&
+        !page.includes('/admin/') &&
+        !page.includes('/stats/') &&
+        !page.includes('/cookies/') &&
+        !page.includes('/privacy/'),
+    }),
     react(),
     mdx({
       remarkPlugins: [wikiLinksPlugin],

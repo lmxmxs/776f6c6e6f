@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
 Crawl-delay: 0
-Sitemap: https://776f6c6e6f.org/sitemap-index.xml
+Sitemap: https://776f6c6e6f.org/sitemap-all.xml
 Sitemap: https://776f6c6e6f.org/sitemap-bots.xml
+Sitemap: https://776f6c6e6f.org/sitemap-index.xml
 Sitemap: https://776f6c6e6f.org/feed.xml
 
 # AI-specific endpoints
