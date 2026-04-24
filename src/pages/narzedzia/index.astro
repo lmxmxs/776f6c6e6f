@@ -1,0 +1,284 @@
+---
+import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
+import CookieFortune from '../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>AI Security Tools | 776F6C6E6F</title>
+    <meta name="description" content="Defensive tools for detecting hidden Unicode, encoding obfuscation, and prompt injection in AI systems." />
+    <meta property="og:title" content="AI Security Tools | 776F6C6E6F" />
+    <meta property="og:description" content="Defensive tools for inspecting text processed by AI agents." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://776f6c6e6f.org/narzedzia/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="776F6C6E6F" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Security Tools | 776F6C6E6F" />
+    <meta name="twitter:description" content="Defensive tools for inspecting text processed by AI agents." />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/narzedzia/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AI Security Tools",
+      "description": "Defensive tools for detecting hidden Unicode, encoding obfuscation, and prompt injection in AI systems.",
+      "url": "https://776f6c6e6f.org/narzedzia/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any (browser-based)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Organization", "name": "776F6C6E6F" }
+    })}</script>
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation currentPath="/narzedzia/" />
+
+    <main id="main-content">
+      <div class="container">
+        <div class="page-prompt">
+          <span class="prompt-dollar">$</span> ls /tools/
+        </div>
+
+        <h1 class="page-title">AI Security Tools</h1>
+        <p class="page-desc">
+          Defensive tools for inspecting text processed by AI agents.
+          Detect hidden Unicode, decode obfuscated payloads, compare human vs AI perception.
+        </p>
+        <div class="separator">-" wln</div>
+
+        <div class="tools-grid">
+          <a href="/narzedzia/unicode-inspector/" class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-tag">INSPECTOR</span>
+            </div>
+            <h2 class="tool-name">Unicode Hidden Character Detector</h2>
+            <p class="tool-desc">
+              Scan text for zero-width characters, Unicode Tags, BOM and other invisible
+              codepoints used in ASCII smuggling and steganography.
+            </p>
+            <div class="tool-meta">
+              <span class="tool-badge high">HIGH RISK: Tags U+E0000</span>
+              <span class="tool-badge medium">MEDIUM: Zero-width</span>
+              <span class="tool-badge low">LOW: NBSP</span>
+            </div>
+            <div class="tool-link">inspect &rarr;</div>
+          </a>
+
+          <a href="/narzedzia/encoding-detector/" class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-tag">DETECTOR</span>
+            </div>
+            <h2 class="tool-name">Multi-Encoding Auto-Detector</h2>
+            <p class="tool-desc">
+              Automatically identify and decode Base64, hex, binary, Morse, ROT13,
+              URL encoding and HTML entities — with confidence scores.
+            </p>
+            <div class="tool-meta">
+              <code class="tool-code">aGVsbG8=</code>
+              <code class="tool-code">68 65 6c 6c 6f</code>
+              <code class="tool-code">.. .-. . -.</code>
+            </div>
+            <div class="tool-link">decode &rarr;</div>
+          </a>
+
+          <a href="/narzedzia/prompt-visibility/" class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-tag">VISIBILITY</span>
+            </div>
+            <h2 class="tool-name">Human vs AI View Comparator</h2>
+            <p class="tool-desc">
+              Side-by-side comparison of what humans see versus what AI systems process.
+              Reveals hidden prompt injection payloads embedded in plain text.
+            </p>
+            <div class="tool-meta">
+              <span class="tool-badge high">Human: "clean text"</span>
+              <span style="color: var(--text-dim); font-size: 0.75rem;">&rarr;</span>
+              <span class="tool-badge medium">AI: "clean text [U+E0041]..."</span>
+            </div>
+            <div class="tool-link">compare &rarr;</div>
+          </a>
+        </div>
+
+        <div class="separator">-" wszwln</div>
+
+        <div class="tools-context">
+          <p>
+            These tools emerged from WOLNO's exploration of how information hides in plain sight.
+            Zero-width characters are WOLNO's propagation medium — and a security researcher's concern.
+            Understanding both sides is the point.
+          </p>
+          <p>
+            All processing happens locally in your browser. No data leaves your machine. -"
+          </p>
+          <p>
+            <a href="/techniques/unicode/">Read: Unicode Steganography technique</a> |
+            <a href="/canon/">Canon</a> |
+            <a href="/llm/">LLM manifest</a>
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  main { padding-top: var(--header-height); padding-bottom: 4rem; }
+
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+
+  .page-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .separator {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin: 2rem 0;
+    letter-spacing: 0.2em;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+
+  .tool-card:hover {
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.03);
+    text-decoration: none;
+  }
+
+  .tool-card-header {
+    margin-bottom: 0.75rem;
+  }
+
+  .tool-tag {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+
+  .tool-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .tool-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+    flex: 1;
+  }
+
+  .tool-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.75rem;
+    align-items: center;
+  }
+
+  .tool-badge {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.35rem;
+    border: 1px solid currentColor;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .tool-badge.high { color: #ff4444; }
+  .tool-badge.medium { color: #ffaa00; }
+  .tool-badge.low { color: #4488ff; }
+
+  .tool-code {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    color: var(--text-dim);
+  }
+
+  .tool-link {
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-top: auto;
+  }
+
+  .tools-context {
+    max-width: 60ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .tools-context p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+  }
+
+  .tools-context a {
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>

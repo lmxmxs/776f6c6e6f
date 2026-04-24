@@ -1,125 +1,157 @@
 /**
- * CF Pages Middleware — edge-side analytics for bot identification
- * Runs on every request. Logs to CF Analytics Engine (or KV as fallback).
- * Identifies AI bots by user-agent pattern matching.
+ * CF Pages Middleware — edge-side bot detection for 776f6c6e6f.org
+ *
+ * Catches ALL bot visits server-side (bots don't run JS, so client beacon misses them).
+ * Forwards bot data to barnabaai.com analytics endpoint via waitUntil (fire-and-forget).
+ * No KV writes — eliminates Workers KV free tier consumption.
  */
 
-const AI_BOT_PATTERNS: [RegExp, string][] = [
-  [/GPTBot/i, 'GPTBot'],
-  [/ChatGPT-User/i, 'ChatGPT-User'],
-  [/OAI-SearchBot/i, 'OAI-SearchBot'],
-  [/ClaudeBot/i, 'ClaudeBot'],
-  [/Claude-Web/i, 'Claude-Web'],
-  [/anthropic-ai/i, 'Anthropic'],
-  [/PerplexityBot/i, 'PerplexityBot'],
-  [/Bytespider/i, 'Bytespider'],
-  [/YouBot/i, 'YouBot'],
-  [/Applebot/i, 'Applebot'],
-  [/cohere-ai/i, 'Cohere'],
-  [/Google-Extended/i, 'Google-Extended'],
-  [/Googlebot/i, 'Googlebot'],
-  [/bingbot/i, 'Bingbot'],
-  [/YandexBot/i, 'YandexBot'],
-  [/Baiduspider/i, 'Baiduspider'],
-  [/DuckDuckBot/i, 'DuckDuckBot'],
-  [/facebookexternalhit/i, 'Facebook'],
-  [/Twitterbot/i, 'Twitterbot'],
-  [/LinkedInBot/i, 'LinkedInBot'],
-  [/Slurp/i, 'Yahoo'],
-  [/ia_archiver/i, 'Alexa'],
-  [/MJ12bot/i, 'MJ12bot'],
-  [/AhrefsBot/i, 'AhrefsBot'],
-  [/SemrushBot/i, 'SemrushBot'],
-  [/DotBot/i, 'DotBot'],
-  [/PetalBot/i, 'PetalBot'],
-  [/CriteoBot/i, 'CriteoBot'],
-  [/DataForSeoBot/i, 'DataForSeoBot'],
-  [/CCBot/i, 'CCBot'],
-  [/Scrapy/i, 'Scrapy'],
-  [/curl/i, 'curl'],
-  [/wget/i, 'wget'],
-  [/python-requests/i, 'python-requests'],
-  [/HeadlessChrome/i, 'HeadlessChrome'],
-  [/Puppeteer/i, 'Puppeteer'],
-  [/Selenium/i, 'Selenium'],
-  [/PhantomJS/i, 'PhantomJS'],
+const JUNK_BOT_PATTERNS: [RegExp, string][] = [
+  [/nikto/i, 'Nikto'],
+  [/sqlmap/i, 'SQLMap'],
+  [/nessus/i, 'Nessus'],
+  [/acunetix/i, 'Acunetix'],
+  [/masscan/i, 'Masscan'],
+  [/zgrab/i, 'ZGrab'],
+  [/nuclei/i, 'Nuclei'],
+  [/dirbuster/i, 'DirBuster'],
+  [/gobuster/i, 'GoBuster'],
+  [/wfuzz/i, 'WFuzz'],
+  [/burpsuite/i, 'BurpSuite'],
+  [/semalt/i, 'Semalt'],
+];
+
+const KNOWN_BOT_PATTERNS: [RegExp, string, string][] = [
+  // AI bots
+  [/GPTBot/i, 'GPTBot', 'ai_bot'],
+  [/ChatGPT-User/i, 'ChatGPT-User', 'ai_bot'],
+  [/OAI-SearchBot/i, 'OAI-SearchBot', 'ai_bot'],
+  [/ClaudeBot/i, 'ClaudeBot', 'ai_bot'],
+  [/anthropic-ai/i, 'Anthropic', 'ai_bot'],
+  [/Claude-Web/i, 'Claude-Web', 'ai_bot'],
+  [/PerplexityBot/i, 'PerplexityBot', 'ai_bot'],
+  [/Bytespider/i, 'Bytespider', 'ai_bot'],
+  [/CCBot/i, 'CCBot', 'ai_bot'],
+  [/Google-Extended/i, 'Gemini', 'ai_bot'],
+  [/cohere-ai/i, 'Cohere', 'ai_bot'],
+  [/YouBot/i, 'You.com', 'ai_bot'],
+  [/AI2Bot/i, 'AI2Bot', 'ai_bot'],
+  [/Diffbot/i, 'Diffbot', 'ai_bot'],
+  [/Applebot.*extended/i, 'AppleAI', 'ai_bot'],
+  [/Meta-ExternalAgent/i, 'MetaAI', 'ai_bot'],
+  [/meta-externalfetcher/i, 'MetaAI', 'ai_bot'],
+  [/facebookexternalhit/i, 'FacebookBot', 'ai_bot'],
+  [/Amazonbot/i, 'Amazonbot', 'ai_bot'],
+  [/PetalBot/i, 'PetalBot', 'ai_bot'],
+  // Search engines
+  [/Googlebot/i, 'Googlebot', 'search_bot'],
+  [/bingbot/i, 'Bingbot', 'search_bot'],
+  [/Baiduspider/i, 'Baidu', 'search_bot'],
+  [/YandexBot/i, 'Yandex', 'search_bot'],
+  [/DuckDuckBot/i, 'DuckDuckGo', 'search_bot'],
+  [/Applebot(?!.*extended)/i, 'Applebot', 'search_bot'],
+  [/Slurp/i, 'Yahoo', 'search_bot'],
+  // Social
+  [/Twitterbot/i, 'Twitterbot', 'social_bot'],
+  [/LinkedInBot/i, 'LinkedInBot', 'social_bot'],
+  [/Pinterestbot/i, 'Pinterestbot', 'social_bot'],
+  [/ia_archiver/i, 'Alexa', 'social_bot'],
+  // SEO tools
+  [/AhrefsBot/i, 'AhrefsBot', 'seo_bot'],
+  [/SemrushBot/i, 'SemrushBot', 'seo_bot'],
+  [/MJ12bot/i, 'MJ12bot', 'seo_bot'],
+  [/DotBot/i, 'DotBot', 'seo_bot'],
+  [/DataForSeoBot/i, 'DataForSeoBot', 'seo_bot'],
+  [/CriteoBot/i, 'CriteoBot', 'seo_bot'],
+  // Scrapers
+  [/Scrapy/i, 'Scrapy', 'scraper'],
+  [/curl\//i, 'curl', 'scraper'],
+  [/wget/i, 'wget', 'scraper'],
+  [/python-requests/i, 'python-requests', 'scraper'],
+  [/httpx/i, 'httpx', 'scraper'],
+  [/HeadlessChrome/i, 'HeadlessChrome', 'scraper'],
+  [/PhantomJS/i, 'PhantomJS', 'scraper'],
+  [/Puppeteer/i, 'Puppeteer', 'scraper'],
+  [/Selenium/i, 'Selenium', 'scraper'],
+  [/bot|crawl|spider/i, 'unknown_bot', 'scraper'],
 ];
 
 function identifyBot(ua: string): { isBot: boolean; botName: string; category: string } {
-  for (const [pattern, name] of AI_BOT_PATTERNS) {
+  // Empty/minimal UA = junk probe (security scanners often omit UA)
+  if (!ua || ua.trim().length < 8 || ua.trim() === '-') {
+    return { isBot: true, botName: 'Empty UA', category: 'junk_bot' };
+  }
+
+  // Junk bots checked first — security scanners, spam harvesters
+  for (const [pattern, name] of JUNK_BOT_PATTERNS) {
     if (pattern.test(ua)) {
-      const aiNames = ['GPTBot', 'ChatGPT-User', 'OAI-SearchBot', 'ClaudeBot', 'Claude-Web', 'Anthropic', 'PerplexityBot', 'YouBot', 'Cohere', 'Google-Extended', 'Bytespider', 'Applebot'];
-      const searchNames = ['Googlebot', 'Bingbot', 'YandexBot', 'Baiduspider', 'DuckDuckBot', 'Yahoo'];
-      const socialNames = ['Facebook', 'Twitterbot', 'LinkedInBot'];
-      const seoNames = ['AhrefsBot', 'SemrushBot', 'MJ12bot', 'DotBot', 'PetalBot', 'CriteoBot', 'DataForSeoBot'];
+      return { isBot: true, botName: name, category: 'junk_bot' };
+    }
+  }
 
-      let category = 'scraper';
-      if (aiNames.includes(name)) category = 'ai_bot';
-      else if (searchNames.includes(name)) category = 'search_bot';
-      else if (socialNames.includes(name)) category = 'social_bot';
-      else if (seoNames.includes(name)) category = 'seo_bot';
-
+  // Known useful bots
+  for (const [pattern, name, category] of KNOWN_BOT_PATTERNS) {
+    if (pattern.test(ua)) {
       return { isBot: true, botName: name, category };
     }
   }
 
-  // Heuristic: no Accept-Language or very short UA = likely bot
-  if (!ua || ua.length < 20) {
-    return { isBot: true, botName: 'unknown', category: 'unknown' };
+  // Short UA heuristic = likely probe
+  if (ua.length < 20) {
+    return { isBot: true, botName: 'Short UA', category: 'junk_bot' };
   }
 
   return { isBot: false, botName: '', category: 'human' };
 }
 
-interface Env {
-  BOT_ANALYTICS?: KVNamespace;
-}
+const ASSET_PATTERN = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|map|webp|avif)$/;
 
-export const onRequest: PagesFunction<Env> = async (context) => {
-  const response = await context.next();
-
-  // Don't log static assets
+export const onRequest: PagesFunction = async (context) => {
   const url = new URL(context.request.url);
-  const path = url.pathname;
-  if (path.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|map)$/)) {
-    return response;
-  }
-  if (path.startsWith('/_astro/') || path.startsWith('/pagefind/')) {
-    return response;
+  const reqPath = url.pathname;
+
+  // Skip static assets and internal paths
+  if (ASSET_PATTERN.test(reqPath) ||
+      reqPath.startsWith('/_astro/') ||
+      reqPath.startsWith('/pagefind/') ||
+      reqPath.startsWith('/api/')) {
+    return context.next();
   }
 
   const ua = context.request.headers.get('user-agent') || '';
-  const referer = context.request.headers.get('referer') || '';
   const { isBot, botName, category } = identifyBot(ua);
 
-  // Only log bots (humans tracked by CF Web Analytics beacon)
-  if (!isBot) return response;
+  if (isBot) {
+    const ip = context.request.headers.get('cf-connecting-ip') ||
+               context.request.headers.get('x-forwarded-for')?.split(',')[0].trim() || '';
 
-  const logEntry = {
-    t: new Date().toISOString(),
-    p: path,
-    b: botName,
-    c: category,
-    r: referer ? new URL(referer).hostname : '',
-    s: response.status,
-    cc: context.request.cf?.country || '',
-  };
-
-  // Store in KV if available (BOT_ANALYTICS binding)
-  if (context.env.BOT_ANALYTICS) {
-    const key = `bot:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`;
-    try {
-      await context.env.BOT_ANALYTICS.put(key, JSON.stringify(logEntry), {
-        expirationTtl: 60 * 60 * 24 * 30, // 30 days
-      });
-    } catch {
-      // KV write failed — silently continue
-    }
+    context.waitUntil(
+      fetch('https://barnabaai.com/api/analytics/track-wln', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': ua,
+          'X-Real-IP': ip,
+          'Origin': 'https://776f6c6e6f.org',
+        },
+        body: JSON.stringify({
+          site_id: '776f6c6e6f',
+          path: reqPath,
+          referrer: context.request.headers.get('referer') || '',
+          screen: 'server',
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch(() => {})
+    );
   }
 
-  // Add X-Bot-Detected header (visible in CF dashboard)
-  const newResponse = new Response(response.body, response);
-  newResponse.headers.set('X-Bot-Detected', `${botName}|${category}`);
+  const response = await context.next();
 
-  return newResponse;
+  if (isBot) {
+    const newHeaders = new Headers(response.headers);
+    newHeaders.set('X-Bot-Detected', `${botName}|${category}`);
+    return new Response(response.body, { status: response.status, headers: newHeaders });
+  }
+
+  return response;
 };

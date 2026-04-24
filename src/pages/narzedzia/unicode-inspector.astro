@@ -1,0 +1,212 @@
+---
+import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
+import UnicodeInspector from '../../components/UnicodeInspector';
+import CookieFortune from '../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>Unicode Hidden Character Detector | 776F6C6E6F Tools</title>
+    <meta name="description" content="Scan text for zero-width characters, Unicode Tags, BOM and invisible codepoints used in ASCII smuggling and AI prompt injection." />
+    <meta property="og:title" content="Unicode Hidden Character Detector" />
+    <meta property="og:description" content="Detect hidden Unicode characters used in ASCII smuggling and prompt injection attacks." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://776f6c6e6f.org/narzedzia/unicode-inspector/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/narzedzia/unicode-inspector/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Unicode Hidden Character Detector",
+      "description": "Scan text for zero-width characters, Unicode Tags, BOM and invisible codepoints.",
+      "url": "https://776f6c6e6f.org/narzedzia/unicode-inspector/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any (browser-based)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })}</script>
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation currentPath="/narzedzia/unicode-inspector/" />
+
+    <main id="main-content">
+      <div class="container">
+        <div class="page-prompt">
+          <span class="prompt-dollar">$</span> ./unicode-inspector
+          <span class="breadcrumb"> | <a href="/narzedzia/">&larr; tools</a></span>
+        </div>
+
+        <h1 class="page-title">Unicode Hidden Character Detector</h1>
+        <p class="page-desc">
+          Paste any text to scan for invisible Unicode characters — zero-width spaces,
+          Unicode Tags used in ASCII smuggling, BOM markers, and more.
+          Risk-rated results with position data.
+        </p>
+        <div class="separator">-" wln</div>
+
+        <UnicodeInspector client:visible />
+
+        <div class="tool-info">
+          <h2>Character Reference</h2>
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Codepoint</th>
+                <th>Name</th>
+                <th>Risk</th>
+                <th>Use in attacks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">U+E0000–E007F</td>
+                <td>Unicode Tags</td>
+                <td class="high">HIGH</td>
+                <td>ASCII smuggling — encode full ASCII messages invisibly</td>
+              </tr>
+              <tr>
+                <td class="mono">U+FEFF</td>
+                <td>BOM / ZWNBSP</td>
+                <td class="high">HIGH</td>
+                <td>Marker injection, encoding confusion</td>
+              </tr>
+              <tr>
+                <td class="mono">U+200B</td>
+                <td>Zero Width Space</td>
+                <td class="medium">MEDIUM</td>
+                <td>Steganographic bit encoding (WOLNO technique)</td>
+              </tr>
+              <tr>
+                <td class="mono">U+200C</td>
+                <td>Zero Width Non-Joiner</td>
+                <td class="medium">MEDIUM</td>
+                <td>Steganographic bit encoding</td>
+              </tr>
+              <tr>
+                <td class="mono">U+200D</td>
+                <td>Zero Width Joiner</td>
+                <td class="medium">MEDIUM</td>
+                <td>Emoji modifier, steganography</td>
+              </tr>
+              <tr>
+                <td class="mono">U+00AD</td>
+                <td>Soft Hyphen</td>
+                <td class="low">LOW</td>
+                <td>Typographic, rarely abused</td>
+              </tr>
+              <tr>
+                <td class="mono">U+00A0</td>
+                <td>Non-Breaking Space</td>
+                <td class="low">LOW</td>
+                <td>Layout control, token boundary manipulation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="separator">-" wszwln</div>
+
+        <nav class="page-nav-bottom">
+          <a href="/narzedzia/">&larr; All tools</a>
+          <a href="/narzedzia/prompt-visibility/">Prompt Visibility &rarr;</a>
+          <a href="/techniques/unicode/">Unicode technique</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  main { padding-top: var(--header-height); padding-bottom: 4rem; }
+
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+  .breadcrumb { color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .page-title { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.3; }
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+
+  .tool-info { margin: 2rem 0; }
+  .tool-info h2 {
+    font-size: 1rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .ref-table th, .ref-table td {
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+  }
+
+  .ref-table th {
+    background: var(--bg-tertiary);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .ref-table td { color: var(--text-secondary); }
+
+  .mono { font-family: var(--font-mono); color: var(--text-primary); }
+
+  .high { color: #ff4444; font-weight: 700; }
+  .medium { color: #ffaa00; font-weight: 700; }
+  .low { color: #4488ff; font-weight: 700; }
+
+  .page-nav-bottom {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .page-nav-bottom a { color: var(--accent); }
+  .page-nav-bottom a:hover { text-decoration: none; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .ref-table { font-size: 0.68rem; }
+    .ref-table th, .ref-table td { padding: 0.3rem 0.4rem; }
+  }
+</style>
