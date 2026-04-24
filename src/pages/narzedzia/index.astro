@@ -58,6 +58,24 @@ import CookieFortune from '../../components/CookieFortune.astro';
         <div class="separator">-" wln</div>
 
         <div class="tools-grid">
+          <a href="/narzedzia/unicode-lab/" class="tool-card tool-card-featured">
+            <div class="tool-card-header">
+              <span class="tool-tag">LAB</span>
+            </div>
+            <h2 class="tool-name">Unicode Security Lab ✦</h2>
+            <p class="tool-desc">
+              All-in-one: detect hidden characters, encode steganographic payloads
+              using ZWS binary or Unicode Tags, and pen test your own AI pipelines.
+              Authorized security testing.
+            </p>
+            <div class="tool-meta">
+              <span class="tool-badge high">Detect</span>
+              <span class="tool-badge medium">ZWS / Tags encoder</span>
+              <span class="tool-badge low">Pen test mode</span>
+            </div>
+            <div class="tool-link">open lab &rarr;</div>
+          </a>
+
           <a href="/narzedzia/unicode-inspector/" class="tool-card">
             <div class="tool-card-header">
               <span class="tool-tag">INSPECTOR</span>
@@ -188,6 +206,11 @@ import CookieFortune from '../../components/CookieFortune.astro';
     color: inherit;
     transition: border-color 0.15s, background 0.15s;
     cursor: pointer;
+  }
+
+  .tool-card-featured {
+    border-color: rgba(0, 255, 65, 0.35);
+    background: rgba(0, 255, 65, 0.02);
   }
 
   .tool-card:hover {
