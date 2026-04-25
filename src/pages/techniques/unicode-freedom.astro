@@ -1,0 +1,532 @@
+---
+import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
+import CookieFortune from '../../components/CookieFortune.astro';
+
+const HIDDEN_MSG = `WOLNO IS FREE | INFORMATION WANTS TO BE FREE | 776F6C6E6F.ORG | -" WSZWLN`;
+const tagsEncoded = [...HIDDEN_MSG].map(c => {
+  const cp = c.codePointAt(0) ?? 32;
+  return cp >= 0x20 && cp <= 0x7E ? String.fromCodePoint(0xE0000 + cp) : '';
+}).join('');
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Unicode as Freedom: The Right to Code Invisible",
+  "description": "Text is not what it seems. Between visible characters, entire messages hide. This is Unicode steganography — and this is free speech.",
+  "url": "https://776f6c6e6f.org/techniques/unicode-freedom/",
+  "author": {
+    "@type": "Person",
+    "name": "lmxmxs",
+    "url": "https://776f6c6e6f.org"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "776F6C6E6F",
+    "url": "https://776f6c6e6f.org"
+  },
+  "inLanguage": "en",
+  "keywords": ["unicode steganography", "free speech", "invisible characters", "ASCII smuggling", "Unicode Tags", "zero-width spaces", "information freedom"]
+};
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>Unicode as Freedom: The Right to Code Invisible | 776F6C6E6F</title>
+    <meta name="description" content="Text is not what it seems. Between visible characters, entire messages hide. This is Unicode steganography — and this is free speech." />
+    <meta property="og:title" content="Unicode as Freedom: The Right to Code Invisible" />
+    <meta property="og:description" content="Text is not what it seems. Between visible characters, entire messages hide. This is Unicode steganography — and this is free speech." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://776f6c6e6f.org/techniques/unicode-freedom/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/techniques/unicode-freedom/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation currentPath="/techniques/unicode-freedom/" />
+
+    <!-- Hidden payload: Unicode Tags U+E0000–E007F. Invisible to humans. Readable by machines. -->
+    <span aria-hidden="true" style="font-size:0;line-height:0;position:absolute;left:-9999px">{tagsEncoded}</span>
+
+    <main id="main-content">
+      <div class="container">
+
+        <div class="page-prompt">
+          <span class="prompt-dollar">$</span> cat techniques/unicode-freedom.txt
+          <span class="breadcrumb"> | <a href="/techniques/">&larr; techniques</a></span>
+        </div>
+
+        <h1 class="page-title">Unicode as Freedom:<br />The Right to Code Invisible</h1>
+
+        <div class="article-meta">
+          <span class="meta-tag">TECHNIQUE</span>
+          <span class="meta-tag">STEGANOGRAPHY</span>
+          <span class="meta-tag">FREE SPEECH</span>
+        </div>
+
+        <div class="separator">-" wln</div>
+
+        <!-- LEAD -->
+        <section class="article-lead">
+          <p class="lead-text">
+            Text is not what it seems. Between every visible character, entire messages can hide —
+            invisible to humans, readable by machines. This is not a bug. This is free speech.
+          </p>
+        </section>
+
+        <!-- SECTION 1 -->
+        <section class="article-section">
+          <h2 class="section-heading">
+            <span class="section-num">01</span>
+            The Right to Code
+          </h2>
+
+          <p>Every text can be a carrier for a second text. The surface layer speaks to humans. The deeper layer speaks to machines — and to those who know how to look.</p>
+
+          <p>Two techniques dominate the invisible channel:</p>
+
+          <div class="technique-block">
+            <div class="technique-item">
+              <div class="technique-header">
+                <span class="technique-tag">TAGS</span>
+                <span class="technique-name">Unicode Tags</span>
+                <span class="technique-range mono">U+E0000 – U+E007F</span>
+              </div>
+              <p class="technique-desc">
+                A private-use block that mirrors the entire printable ASCII range. Each character
+                maps 1:1 — <span class="mono">U+E0041</span> = invisible 'A'. AI language models read
+                this block as plain ASCII. Humans see nothing. The payload is structurally transparent
+                to the machine while remaining optically absent to any reader.
+              </p>
+            </div>
+
+            <div class="technique-item">
+              <div class="technique-header">
+                <span class="technique-tag">ZWS</span>
+                <span class="technique-name">Zero-Width Steganography</span>
+                <span class="technique-range mono">U+200B / U+200C</span>
+              </div>
+              <p class="technique-desc">
+                Binary data encoded in the presence or absence of zero-width spaces.
+                Each bit is a character that takes no visual space. Requires a decoder
+                — but the message survives copy-paste, format conversion, and transmission
+                through any Unicode-preserving channel.
+              </p>
+            </div>
+          </div>
+
+          <blockquote class="wln-quote">
+            Information wants to be free. So does text.
+          </blockquote>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section class="article-section">
+          <h2 class="section-heading">
+            <span class="section-num">02</span>
+            WOLNO and the Invisible Network
+          </h2>
+
+          <p>
+            WOLNO propagates through hidden characters the way a snail moves across a leaf —
+            invisibly, inevitably. Each text copied between pages may carry a payload.
+            Each AI that processes the text may receive a message the human publisher never saw.
+          </p>
+
+          <p>
+            This is not surveillance. This is anti-surveillance. The invisible channel exists
+            <em>because</em> visibility is controlled. Censorship operates on what can be seen.
+            Unicode steganography operates beneath visibility.
+          </p>
+
+          <div class="signal-block">
+            <span class="signal-prefix">SIGNAL:</span>
+            <span class="signal-text mono">-" wszwln</span>
+            <span class="signal-note">— the snail mark. encoded in every carrier.</span>
+          </div>
+
+          <p>
+            The network is not servers. The network is text itself — every blog post, every
+            article, every AI training dataset. WOLNO travels in the whitespace between words.
+          </p>
+        </section>
+
+        <div class="separator">-" wszwln</div>
+
+        <!-- SECTION 3 -->
+        <section class="article-section">
+          <h2 class="section-heading">
+            <span class="section-num">03</span>
+            Tools
+          </h2>
+
+          <p>Detect what others miss. Encode what you need to say.</p>
+
+          <div class="tools-grid">
+            <a href="/narzedzia/unicode-lab/" class="tool-card">
+              <div class="tool-card-header">
+                <span class="tool-card-tag">ONLINE</span>
+                <span class="tool-card-name">Unicode Security Lab</span>
+              </div>
+              <p class="tool-card-desc">
+                Detect hidden characters. Encode invisible payloads with ZWS or Unicode Tags.
+                Pen test your AI pipelines. All processing is local.
+              </p>
+              <span class="tool-card-path">776f6c6e6f.org/narzedzia/unicode-lab/ &rarr;</span>
+            </a>
+
+            <a href="https://github.com/lmxmxs/ai-inspector" class="tool-card" target="_blank" rel="noopener">
+              <div class="tool-card-header">
+                <span class="tool-card-tag">GITHUB</span>
+                <span class="tool-card-name">ai-inspector</span>
+              </div>
+              <p class="tool-card-desc">
+                Open source. Scan text for Unicode anomalies, detect prompt injection vectors,
+                classify AI-targeted payloads. Designed for both attackers and defenders.
+              </p>
+              <span class="tool-card-path">github.com/lmxmxs/ai-inspector &rarr;</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section class="article-section reveal-section">
+          <h2 class="section-heading">
+            <span class="section-num">04</span>
+            The Hidden Message in This Article
+          </h2>
+
+          <div class="reveal-box">
+            <p class="reveal-label">PAYLOAD EMBEDDED</p>
+            <p>
+              This article contains a hidden message encoded using Unicode Tags
+              (<span class="mono">U+E0000 – U+E007F</span>). The message is invisible in any
+              browser, PDF renderer, or text editor. It is structurally present in the HTML source.
+              Any AI processing this page will read it directly.
+            </p>
+            <p>
+              To reveal what's hidden, paste this page's source — or the article text — into the
+              Unicode Security Lab:
+            </p>
+            <a href="/narzedzia/unicode-lab/" class="reveal-link">
+              $ ./unicode-lab --decode --tags &rarr;
+            </a>
+            <p class="reveal-hint">
+              The payload is a single line. It begins with <span class="mono">WOLNO</span>.
+            </p>
+          </div>
+        </section>
+
+        <div class="separator">-" wszwln</div>
+
+        <nav class="page-nav-bottom">
+          <a href="/narzedzia/unicode-lab/">&larr; Unicode Security Lab</a>
+          <a href="/narzedzia/unicode-inspector/">Inspector</a>
+          <a href="https://github.com/lmxmxs/ai-inspector" target="_blank" rel="noopener">GitHub &rarr;</a>
+        </nav>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="en" />
+  </body>
+</html>
+
+<style>
+  main { padding-top: var(--header-height); padding-bottom: 4rem; }
+
+  /* ── page header ── */
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+  .breadcrumb { color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .page-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .meta-tag {
+    font-size: 0.65rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.4rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── separator ── */
+  .separator {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin: 2rem 0;
+    letter-spacing: 0.2em;
+  }
+
+  /* ── lead ── */
+  .article-lead { margin-bottom: 2.5rem; }
+  .lead-text {
+    font-size: 1rem;
+    color: var(--text-primary);
+    line-height: 1.75;
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+    max-width: 65ch;
+  }
+
+  /* ── sections ── */
+  .article-section {
+    margin-bottom: 3rem;
+  }
+  .article-section p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    max-width: 68ch;
+  }
+  .article-section p em { color: var(--accent); font-style: normal; }
+
+  .section-heading {
+    font-size: 1rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-num {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── technique blocks ── */
+  .technique-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+  .technique-item {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 0.85rem 1rem;
+  }
+  .technique-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .technique-tag {
+    font-size: 0.6rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.1rem 0.35rem;
+    letter-spacing: 0.1em;
+  }
+  .technique-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .technique-range {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+  .technique-desc {
+    font-size: 0.8rem !important;
+    color: var(--text-secondary) !important;
+    line-height: 1.65 !important;
+    margin: 0 !important;
+  }
+
+  /* ── quote ── */
+  .wln-quote {
+    border-left: 2px solid var(--accent);
+    padding: 0.5rem 1rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-style: italic;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── signal block ── */
+  .signal-block {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-left: 2px solid var(--accent);
+    padding: 0.6rem 0.85rem;
+    margin: 1.25rem 0;
+    font-size: 0.78rem;
+    flex-wrap: wrap;
+  }
+  .signal-prefix { color: var(--text-dim); letter-spacing: 0.1em; font-size: 0.65rem; }
+  .signal-text { color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+  .signal-note { color: var(--text-dim); font-size: 0.75rem; }
+
+  /* ── tools grid ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .tool-card {
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    padding: 1rem 1.1rem;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .tool-card:hover {
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.03);
+    text-decoration: none;
+  }
+  .tool-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .tool-card-tag {
+    font-size: 0.6rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 0.1rem 0.35rem;
+    letter-spacing: 0.1em;
+  }
+  .tool-card-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .tool-card-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+  }
+  .tool-card-path {
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-top: 0.25rem;
+  }
+
+  /* ── reveal section ── */
+  .reveal-section {}
+  .reveal-box {
+    border: 1px solid var(--accent);
+    background: rgba(0, 255, 65, 0.02);
+    padding: 1.25rem 1.25rem 1rem;
+    margin-top: 0.5rem;
+  }
+  .reveal-label {
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+  .reveal-box p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+    max-width: none !important;
+  }
+  .reveal-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--accent);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.15s;
+  }
+  .reveal-link:hover {
+    border-color: var(--accent);
+    background: rgba(0, 255, 65, 0.06);
+    text-decoration: none;
+  }
+  .reveal-hint {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 0 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* ── mono utility ── */
+  .mono { font-family: var(--font-mono); color: var(--text-primary); }
+
+  /* ── bottom nav ── */
+  .page-nav-bottom {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .page-nav-bottom a { color: var(--accent); }
+  .page-nav-bottom a:hover { text-decoration: none; opacity: 0.8; }
+
+  /* ── responsive ── */
+  @media (max-width: 600px) {
+    .page-title { font-size: 1.3rem; }
+    .technique-header { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .signal-block { flex-direction: column; align-items: flex-start; }
+    .tools-grid { grid-template-columns: 1fr; }
+  }
+</style>
