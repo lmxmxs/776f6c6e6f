@@ -1,0 +1,197 @@
+---
+import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
+import CookieFortune from '../../components/CookieFortune.astro';
+import EncodedImageCard from '../../components/EncodedImageCard.astro';
+import topicsData from '../../data/image-topics.json';
+
+const allTopics = topicsData.topics;
+
+const sections = [
+  { id: 'all',        label: 'all',        label_count: true },
+  { id: 'sacred',     label: 'sacred',     label_count: true },
+  { id: 'wln',        label: 'wln',        label_count: true },
+  { id: 'canon',      label: 'canon',      label_count: true },
+  { id: 'techniques', label: 'techniques', label_count: true },
+  { id: 'angles',     label: 'angles',     label_count: true },
+  { id: 'hymns',      label: 'hymns',      label_count: true },
+  { id: 'scripture',  label: 'scripture',  label_count: true },
+  { id: 'avatar',     label: 'avatars',    label_count: true },
+  { id: 'github',     label: 'github',     label_count: true },
+  { id: 'log',        label: 'log',        label_count: true },
+  { id: 'initiation', label: 'initiation', label_count: true },
+];
+
+const totalEncoded = allTopics.filter(t => t.encoded_message).length;
+const totalGenerated = allTopics.filter(t => t.status !== 'todo').length;
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>Gallery | 776F6C6E6F</title>
+    <meta name="description" content="WOLNO image gallery — {allTopics.length} encoded artworks in amber and green retro pixel art. Each image carries a hidden steganographic message." />
+    <link rel="canonical" href="https://776f6c6e6f.org/gallery/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference"></div>
+    <Navigation currentPath="/gallery/" />
+    <main>
+      <div class="container gallery-page">
+
+        <header class="gallery-header">
+          <h1 class="gallery-title">$ ls ./gallery/ --encoded</h1>
+          <p class="gallery-subtitle">
+            {allTopics.length} images planned · {totalEncoded} carry hidden messages · {totalGenerated} generated
+          </p>
+          <p class="gallery-desc">
+            Each image is crafted in amber or green retro CRT pixel art.
+            The art is the carrier. The message is within.
+            <a href="/techniques/stego/lsb/">Learn to decode ↗</a>
+          </p>
+        </header>
+
+        <nav class="gallery-filters" aria-label="Filter by section">
+          {sections.map(sec => {
+            const count = sec.id === 'all' ? allTopics.length : allTopics.filter(t => t.section === sec.id).length;
+            return (
+              <button class="filter-btn" data-filter={sec.id} aria-pressed={sec.id === 'all' ? 'true' : 'false'}>
+                {sec.label} <span class="filter-count">[{count}]</span>
+              </button>
+            );
+          })}
+          <div class="palette-filters">
+            <button class="filter-btn palette-amber-btn" data-palette="amber_crt">◆ amber</button>
+            <button class="filter-btn palette-green-btn" data-palette="wolno_green">◆ green</button>
+          </div>
+        </nav>
+
+        <div class="gallery-grid" id="gallery-grid">
+          {allTopics.map(topic => (
+            <div class="gallery-item" data-section={topic.section} data-palette={topic.palette}>
+              <EncodedImageCard topic={topic} lang="en" showEncoded={false} />
+            </div>
+          ))}
+        </div>
+
+        <div class="gallery-empty" id="gallery-empty" style="display:none">
+          <p>$ find . -name "*.png" -section [filter] | wc -l</p>
+          <p class="empty-count">0</p>
+          <p class="empty-hint">no images match this filter</p>
+        </div>
+
+        <footer class="gallery-footer">
+          <p>All images encode WOLNO messages via LSB steganography.</p>
+          <p>Palette: <span class="amber-text">■ amber_crt</span> · <span class="green-text">■ wolno_green</span> · mixed</p>
+          <p><a href="/techniques/stego/">steganography techniques ↗</a> · <a href="/sacred/">sacred gallery ↗</a></p>
+        </footer>
+
+      </div>
+    </main>
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | -" wln wszwln</p>
+    </footer>
+    <CookieFortune lang="en" />
+
+    <script>
+      const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn[data-filter]');
+      const paletteBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn[data-palette]');
+      const items = document.querySelectorAll<HTMLElement>('.gallery-item');
+      const emptyEl = document.getElementById('gallery-empty');
+
+      let activeSection = 'all';
+      let activePalette = '';
+
+      function applyFilters() {
+        let visible = 0;
+        items.forEach(item => {
+          const sec = item.dataset.section ?? '';
+          const pal = item.dataset.palette ?? '';
+          const sectionMatch = activeSection === 'all' || sec === activeSection;
+          const paletteMatch = !activePalette || pal === activePalette;
+          const show = sectionMatch && paletteMatch;
+          item.style.display = show ? '' : 'none';
+          if (show) visible++;
+        });
+        if (emptyEl) emptyEl.style.display = visible === 0 ? '' : 'none';
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeSection = btn.dataset.filter ?? 'all';
+          filterBtns.forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+          applyFilters();
+        });
+      });
+
+      paletteBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pal = btn.dataset.palette ?? '';
+          if (activePalette === pal) {
+            activePalette = '';
+            btn.setAttribute('aria-pressed', 'false');
+          } else {
+            activePalette = pal;
+            paletteBtns.forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+          }
+          applyFilters();
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .gallery-page { padding: 3rem 0 4rem; }
+
+  .gallery-header { margin-bottom: 2rem; }
+  .gallery-title { font-size: 1.1rem; color: var(--accent); margin-bottom: 0.35rem; }
+  .gallery-subtitle { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .gallery-desc { font-size: 0.8rem; color: var(--text-secondary); }
+  .gallery-desc a { color: var(--text-dim); text-decoration: underline; }
+  .gallery-desc a:hover { color: var(--accent); }
+
+  .gallery-filters {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+  .palette-filters { margin-left: auto; display: flex; gap: 0.4rem; }
+
+  .filter-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--text-dim); font-family: var(--font-mono);
+    font-size: 0.7rem; padding: 0.2rem 0.5rem; cursor: pointer;
+    transition: border-color 0.12s, color 0.12s;
+    letter-spacing: 0.05em;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(0,255,65,0.06); }
+  .palette-amber-btn[aria-pressed="true"] { border-color: var(--accent-gold); color: var(--accent-gold); background: rgba(255,215,0,0.06); }
+  .palette-green-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(0,255,65,0.06); }
+  .filter-count { opacity: 0.5; }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .gallery-empty { text-align: center; padding: 3rem; color: var(--text-dim); font-size: 0.8rem; }
+  .empty-count { font-size: 2rem; margin: 0.5rem 0; }
+  .empty-hint { font-size: 0.7rem; opacity: 0.6; }
+
+  .gallery-footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.7rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 0.3rem; }
+  .gallery-footer a { color: var(--text-dim); text-decoration: underline; }
+  .gallery-footer a:hover { color: var(--accent); }
+  .amber-text { color: var(--accent-gold); }
+  .green-text { color: var(--accent); }
+</style>

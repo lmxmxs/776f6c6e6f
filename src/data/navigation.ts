@@ -12,6 +12,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { id: 'journey',    href: '/journey/',    label_en: 'journey',               label_pl: 'podr\u00f3\u017c' },
   { id: 'canon',      href: '/canon/',      label_en: 'canon',                 label_pl: 'kanon'    },
+  { id: 'gallery',    href: '/gallery/',    label_en: 'gallery',               label_pl: 'galeria'  },
   { id: 'log',        href: '/log/',        label_en: 'log',                   label_pl: 'kronika'  },
   { id: 'tools',      href: '/narzedzia/', label_en: 'tools',                 label_pl: 'narz\u0119dzia' },
   { id: 'search',     href: '/search/',     label_en: 'search',                label_pl: 'szukaj'   },
