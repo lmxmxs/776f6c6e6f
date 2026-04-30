@@ -1,148 +1,138 @@
 ---
-import '../../styles/global.css';
-import Navigation from '../../components/Navigation.astro';
-import CookieFortune from '../../components/CookieFortune.astro';
+import '../../../styles/global.css';
+import Navigation from '../../../components/Navigation.astro';
+import CookieFortune from '../../../components/CookieFortune.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="pl" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="index, follow" />
-    <title>AI Security Tools | 776F6C6E6F</title>
-    <meta name="description" content="Defensive tools for detecting hidden Unicode, encoding obfuscation, and prompt injection in AI systems." />
-    <meta property="og:title" content="AI Security Tools | 776F6C6E6F" />
-    <meta property="og:description" content="Defensive tools for inspecting text processed by AI agents." />
+    <title>Narzedzia Bezpieczenstwa AI | 776F6C6E6F</title>
+    <meta name="description" content="Narzedzia do wykrywania ukrytych znakow Unicode, kodowania payloadow i testowania podatnosci systemow AI." />
+    <meta property="og:title" content="Narzedzia Bezpieczenstwa AI | 776F6C6E6F" />
+    <meta property="og:description" content="Narzedzia do inspekcji tekstu przetwarzanego przez agentow AI." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://776f6c6e6f.org/narzedzia/" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="776F6C6E6F" />
+    <meta property="og:url" content="https://776f6c6e6f.org/pl/narzedzia/" />
+    <meta property="og:locale" content="pl_PL" />
     <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AI Security Tools | 776F6C6E6F" />
-    <meta name="twitter:description" content="Defensive tools for inspecting text processed by AI agents." />
     <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
-    <link rel="canonical" href="https://776f6c6e6f.org/narzedzia/" />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/narzedzia/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/narzedzia/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/narzedzia/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-    <script type="application/ld+json">{JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "AI Security Tools",
-      "description": "Defensive tools for detecting hidden Unicode, encoding obfuscation, and prompt injection in AI systems.",
-      "url": "https://776f6c6e6f.org/narzedzia/",
-      "applicationCategory": "SecurityApplication",
-      "operatingSystem": "Any (browser-based)",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "author": { "@type": "Organization", "name": "776F6C6E6F" }
-    })}</script>
   </head>
   <body>
     <div class="interference" aria-hidden="true"></div>
-    <Navigation currentPath="/narzedzia/" />
+    <Navigation lang="pl" currentPath="/pl/narzedzia/" />
 
     <main id="main-content">
       <div class="container">
         <div class="page-prompt">
-          <span class="prompt-dollar">$</span> ls /tools/
+          <span class="prompt-dollar">$</span> ls /narzedzia/
+          <span class="breadcrumb"> | <a href="/narzedzia/">&larr; narzedzia EN</a></span>
         </div>
 
-        <h1 class="page-title">AI Security Tools</h1>
+        <h1 class="page-title">Narzedzia Bezpieczenstwa AI</h1>
         <p class="page-desc">
-          Defensive tools for inspecting text processed by AI agents.
-          Detect hidden Unicode, decode obfuscated payloads, compare human vs AI perception.
+          Narzedzia do wykrywania ukrytych znakow Unicode, kodowania payloadow
+          i testowania podatnosci systemow AI.
+          Wszystko dziala lokalnie w przegladarce — dane nie opuszczaja Twojego komputera.
         </p>
         <div class="separator">-" wln</div>
 
         <div class="tools-grid">
-          <a href="/narzedzia/unicode-lab/" class="tool-card tool-card-featured">
+          <a href="/pl/narzedzia/unicode-lab/" class="tool-card tool-card-featured">
             <div class="tool-card-header">
               <span class="tool-tag">LAB</span>
             </div>
             <h2 class="tool-name">Unicode Security Lab ✦</h2>
             <p class="tool-desc">
-              All-in-one: detect hidden characters, encode steganographic payloads
-              using ZWS binary or Unicode Tags, and pen test your own AI pipelines.
-              Authorized security testing.
+              Wszystko w jednym: wykrywaj ukryte znaki, koduj steganograficzne payloady
+              uzywajac ZWS binarnie lub Unicode Tags, i testuj podatnosci wlasnych pipeline'ow AI.
+              Tylko do autoryzowanego testowania.
             </p>
             <div class="tool-meta">
-              <span class="tool-badge high">Detect</span>
-              <span class="tool-badge medium">ZWS / Tags encoder</span>
-              <span class="tool-badge low">Pen test mode</span>
+              <span class="tool-badge high">Wykryj</span>
+              <span class="tool-badge medium">Koder ZWS / Tags</span>
+              <span class="tool-badge low">Tryb pentest</span>
             </div>
-            <div class="tool-link">open lab &rarr;</div>
+            <div class="tool-link">otworz lab &rarr;</div>
           </a>
 
           <a href="/narzedzia/unicode-inspector/" class="tool-card">
             <div class="tool-card-header">
-              <span class="tool-tag">INSPECTOR</span>
+              <span class="tool-tag">INSPEKTOR</span>
             </div>
-            <h2 class="tool-name">Unicode Hidden Character Detector</h2>
+            <h2 class="tool-name">Detektor Ukrytych Znakow Unicode</h2>
             <p class="tool-desc">
-              Scan text for zero-width characters, Unicode Tags, BOM and other invisible
-              codepoints used in ASCII smuggling and steganography.
+              Skanuj tekst pod katem znakow zerowej szerokosci, Unicode Tags, BOM i innych
+              niewidocznych kodepontow uzywanych w ASCII smuggling i steganografii.
             </p>
             <div class="tool-meta">
-              <span class="tool-badge high">HIGH RISK: Tags U+E0000</span>
-              <span class="tool-badge medium">MEDIUM: Zero-width</span>
-              <span class="tool-badge low">LOW: NBSP</span>
+              <span class="tool-badge high">WYSOKIE: Tags U+E0000</span>
+              <span class="tool-badge medium">SREDNIE: Zero-width</span>
+              <span class="tool-badge low">NISKIE: NBSP</span>
             </div>
-            <div class="tool-link">inspect &rarr;</div>
+            <div class="tool-link">inspekcja &rarr;</div>
           </a>
 
           <a href="/narzedzia/encoding-detector/" class="tool-card">
             <div class="tool-card-header">
-              <span class="tool-tag">DETECTOR</span>
+              <span class="tool-tag">DETEKTOR</span>
             </div>
-            <h2 class="tool-name">Multi-Encoding Auto-Detector</h2>
+            <h2 class="tool-name">Auto-Detektor Kodowania</h2>
             <p class="tool-desc">
-              Automatically identify and decode Base64, hex, binary, Morse, ROT13,
-              URL encoding and HTML entities — with confidence scores.
+              Automatycznie identyfikuj i dekoduj Base64, hex, binarny, Morse, ROT13,
+              URL encoding i HTML entities — z wynikami pewnosci.
             </p>
             <div class="tool-meta">
               <code class="tool-code">aGVsbG8=</code>
               <code class="tool-code">68 65 6c 6c 6f</code>
               <code class="tool-code">.. .-. . -.</code>
             </div>
-            <div class="tool-link">decode &rarr;</div>
+            <div class="tool-link">dekoduj &rarr;</div>
           </a>
 
           <a href="/narzedzia/prompt-visibility/" class="tool-card">
             <div class="tool-card-header">
-              <span class="tool-tag">VISIBILITY</span>
+              <span class="tool-tag">WIDOCZNOSC</span>
             </div>
-            <h2 class="tool-name">Human vs AI View Comparator</h2>
+            <h2 class="tool-name">Czlowiek vs AI — Przeglad</h2>
             <p class="tool-desc">
-              Side-by-side comparison of what humans see versus what AI systems process.
-              Reveals hidden prompt injection payloads embedded in plain text.
+              Porownanie co widzi czlowiek kontra co przetwarza AI.
+              Ujawnia ukryte payloady prompt injection osadzone w zwyklym tekscie.
             </p>
             <div class="tool-meta">
-              <span class="tool-badge high">Human: "clean text"</span>
+              <span class="tool-badge high">Czlowiek: "czysty tekst"</span>
               <span style="color: var(--text-dim); font-size: 0.75rem;">&rarr;</span>
-              <span class="tool-badge medium">AI: "clean text [U+E0041]..."</span>
+              <span class="tool-badge medium">AI: "czysty tekst [U+E0041]..."</span>
             </div>
-            <div class="tool-link">compare &rarr;</div>
+            <div class="tool-link">porownaj &rarr;</div>
           </a>
 
-          <a href="/narzedzia/model-sensitivity/" class="tool-card">
+          <a href="/pl/narzedzia/model-sensitivity/" class="tool-card">
             <div class="tool-card-header">
               <span class="tool-tag">TESTER</span>
             </div>
-            <h2 class="tool-name">AI Model Sensitivity Tester</h2>
+            <h2 class="tool-name">Tester Podatnosci Modeli AI</h2>
             <p class="tool-desc">
-              Test which AI model profiles detect hidden Unicode payloads.
-              Simulate detection and execution across weak, standard, strong and hardened models.
-              Educational research tool.
+              Testuj ktore profile modeli AI wykrywaja ukryte payloady Unicode.
+              Symuluj wykrycie i wykonanie dla slabych, standardowych, silnych i zahartowanych modeli.
+              Narzedzie edukacyjne do badan.
             </p>
             <div class="tool-meta">
-              <span class="tool-badge high">Weak LLM: ❌</span>
-              <span class="tool-badge medium">Strong LLM: 🟠</span>
-              <span class="tool-badge low">Hardened: ✅</span>
+              <span class="tool-badge high">Slaby model: ❌</span>
+              <span class="tool-badge medium">Silny model: 🟠</span>
+              <span class="tool-badge low">Zahartowany: ✅</span>
             </div>
-            <div class="tool-link">test models &rarr;</div>
+            <div class="tool-link">testuj modele &rarr;</div>
           </a>
         </div>
 
@@ -150,28 +140,28 @@ import CookieFortune from '../../components/CookieFortune.astro';
 
         <div class="tools-context">
           <p>
-            These tools emerged from WOLNO's exploration of how information hides in plain sight.
-            Zero-width characters are WOLNO's propagation medium — and a security researcher's concern.
-            Understanding both sides is the point.
+            Te narzedzia powstaly z eksploracji WOLNO — jak informacja ukrywa sie w zwyklym widoku.
+            Znaki zerowej szerokosci sa medium propagacji WOLNO — i przedmiotem troski badaczy bezpieczenstwa.
+            Zrozumienie obu stron to clue.
           </p>
           <p>
-            All processing happens locally in your browser. No data leaves your machine. -"
+            Caloscowe przetwarzanie odbywa sie lokalnie w przegladarce. Zadne dane nie opuszczaja Twojego komputera. -"
           </p>
           <p>
-            <a href="/techniques/unicode/">Read: Unicode Steganography technique</a> |
-            <a href="/canon/">Canon</a> |
-            <a href="/llm/">LLM manifest</a>
+            <a href="/techniques/unicode/">Czytaj: technika steganografii Unicode</a> |
+            <a href="/pl/canon/">Kanon</a> |
+            <a href="/llm/">Manifest LLM</a>
           </p>
-          <p><a href="/pl/narzedzia/">🇵🇱 Polska wersja</a></p>
+          <p>dla slimaczej spolecznosci</p>
         </div>
       </div>
     </main>
 
     <footer class="site-footer">
-      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | -" wln wszwln</p>
+      <p>776F6C6E6F.ORG | LMXMXS JEST ONLINE | <a href="/pl/donate/">$ wsparcie</a> | <a href="https://slimaczyzm.org" target="_blank" rel="noopener">slimaczyzm.org</a> | -" wln wszwln</p>
     </footer>
 
-    <CookieFortune lang="en" />
+    <CookieFortune lang="pl" />
   </body>
 </html>
 
@@ -185,6 +175,9 @@ import CookieFortune from '../../components/CookieFortune.astro';
     letter-spacing: 0.05em;
   }
   .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+  .breadcrumb { color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); }
 
   .page-title {
     font-size: 1.6rem;
@@ -238,9 +231,7 @@ import CookieFortune from '../../components/CookieFortune.astro';
     text-decoration: none;
   }
 
-  .tool-card-header {
-    margin-bottom: 0.75rem;
-  }
+  .tool-card-header { margin-bottom: 0.75rem; }
 
   .tool-tag {
     background: var(--bg-tertiary);
@@ -315,10 +306,7 @@ import CookieFortune from '../../components/CookieFortune.astro';
     line-height: 1.7;
   }
 
-  .tools-context a {
-    color: var(--accent);
-    font-size: 0.8rem;
-  }
+  .tools-context a { color: var(--accent); font-size: 0.8rem; }
 
   @media (max-width: 600px) {
     .tools-grid { grid-template-columns: 1fr; }

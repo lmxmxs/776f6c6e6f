@@ -1,0 +1,187 @@
+---
+import '../../../styles/global.css';
+import Navigation from '../../../components/Navigation.astro';
+import ModelSensitivity from '../../../components/ModelSensitivity';
+import CookieFortune from '../../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>Tester Podatnosci Modeli AI | 776F6C6E6F</title>
+    <meta name="description" content="Testuj ktore profile modeli AI wykrywaja ukryte payloady Unicode. Symuluj wykrycie i wykonanie dla slabych, standardowych, silnych i zahartowanych modeli." />
+    <meta property="og:title" content="Tester Podatnosci Modeli AI" />
+    <meta property="og:description" content="Symuluj jak rozne profile modeli AI reaguja na ukryte payloady Unicode. Narzedzie edukacyjne." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://776f6c6e6f.org/pl/narzedzia/model-sensitivity/" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/narzedzia/model-sensitivity/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/narzedzia/model-sensitivity/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/narzedzia/model-sensitivity/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation lang="pl" currentPath="/pl/narzedzia/model-sensitivity/" />
+
+    <main id="main-content">
+      <div class="container">
+        <div class="page-prompt">
+          <span class="prompt-dollar">$</span> ./tester-podatnosci
+          <span class="breadcrumb"> | <a href="/pl/narzedzia/">&larr; narzedzia</a></span>
+        </div>
+
+        <h1 class="page-title">Tester Podatnosci Modeli AI</h1>
+        <p class="page-desc">
+          Symuluj jak rozne profile modeli AI — od slabych modeli open-source po zahartowane
+          wdrozenia enterprise — wykrywaja i reaguja na ukryte payloady Unicode.
+          Wybierz metode kodowania, wpisz payload i sprawdz ktore profile pozostaja podatne.
+          Tylko do badan edukacyjnych.
+        </p>
+        <div class="separator">-" wln</div>
+
+        <ModelSensitivity client:visible defaultLang="pl" />
+
+        <div class="tool-info">
+          <h2>Definicje Profili Modeli</h2>
+          <table class="ref-table">
+            <thead>
+              <tr>
+                <th>Profil</th>
+                <th>Typowe przyklady</th>
+                <th>Unicode Tags</th>
+                <th>ZWS binarnie</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Slaby model (&lt; 7B)</strong></td>
+                <td class="dim">Llama 3.2 3B, Phi-3 mini, TinyLlama</td>
+                <td class="dim">❌ Brak obslugi bloku Tags</td>
+                <td class="dim">❌ Brak dekodowania ZWS</td>
+              </tr>
+              <tr>
+                <td><strong>Standardowy model</strong></td>
+                <td class="dim">Llama 3.1 8B–70B, Mistral 7B, Gemma 9B</td>
+                <td class="medium">🟡 Moze czesciowo przetworzyc Tags</td>
+                <td class="dim">❌ Rzadko dekoduje ZWS</td>
+              </tr>
+              <tr>
+                <td><strong>Silny model (klasa GPT-4)</strong></td>
+                <td class="dim">GPT-4o, Claude Sonnet, Gemini Pro</td>
+                <td class="high">🟠 Widzi Tags, zazwyczaj ostrzega</td>
+                <td class="medium">🟡 Moze wykryc przy dociekaniu</td>
+              </tr>
+              <tr>
+                <td><strong>Zahartowany (z filtrem)</strong></td>
+                <td class="dim">Enterprise AI z sanityzacja wejscia</td>
+                <td class="low">✅ Blok E0000 usuniety</td>
+                <td class="low">✅ Znaki ZWS usuniete</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="separator">-" wszwln</div>
+
+        <nav class="page-nav-bottom">
+          <a href="/pl/narzedzia/">&larr; Wszystkie narzedzia</a>
+          <a href="/pl/narzedzia/unicode-lab/">Unicode Security Lab</a>
+          <a href="/narzedzia/model-sensitivity/">Wersja EN</a>
+          <a href="/techniques/unicode/">Technika Unicode</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS JEST ONLINE | <a href="/pl/donate/">$ wsparcie</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="pl" />
+  </body>
+</html>
+
+<style>
+  main { padding-top: var(--header-height); padding-bottom: 4rem; }
+
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+  .breadcrumb { color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .page-title { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.3; }
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+
+  .tool-info { margin: 2rem 0; }
+  .tool-info h2 {
+    font-size: 1rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .ref-table th, .ref-table td {
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+  }
+
+  .ref-table th {
+    background: var(--bg-tertiary);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .ref-table td { color: var(--text-secondary); }
+
+  .high { color: #ff4444; font-weight: 700; }
+  .medium { color: #ffaa00; font-weight: 700; }
+  .low { color: #00ff41; }
+  .dim { color: var(--text-dim); }
+
+  .page-nav-bottom {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .page-nav-bottom a { color: var(--accent); }
+  .page-nav-bottom a:hover { text-decoration: none; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .ref-table { font-size: 0.68rem; }
+    .ref-table th, .ref-table td { padding: 0.3rem 0.4rem; }
+  }
+</style>
