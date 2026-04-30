@@ -21,6 +21,20 @@ npm run build    # prebuild: integrity + signing → astro build
 npm run dev      # dev server on :4325
 ```
 
+## Tools → [776f6c6e6f.org/narzedzia/](https://776f6c6e6f.org/narzedzia/)
+
+Interactive browser tools for Unicode steganography research:
+
+| Tool | URL | Purpose |
+|------|-----|---------|
+| Unicode Lab | [/narzedzia/unicode-lab/](https://776f6c6e6f.org/narzedzia/unicode-lab/) | Encode/decode ZWS, Tags, Multilayer |
+| Model Sensitivity | [/narzedzia/model-sensitivity/](https://776f6c6e6f.org/narzedzia/model-sensitivity/) | Test which AI models detect hidden payloads |
+| Encoding Detector | [/narzedzia/encoding-detector/](https://776f6c6e6f.org/narzedzia/encoding-detector/) | Scan text for hidden Unicode layers |
+| Unicode Inspector | [/narzedzia/unicode-inspector/](https://776f6c6e6f.org/narzedzia/unicode-inspector/) | Visualize codepoints character by character |
+| Prompt Visibility | [/narzedzia/prompt-visibility/](https://776f6c6e6f.org/narzedzia/prompt-visibility/) | Contrast human vs AI view of the same text |
+
+Polish version: [776f6c6e6f.org/pl/narzedzia/](https://776f6c6e6f.org/pl/narzedzia/)
+
 ## Sections
 
 | Section | Pages | Theme |
