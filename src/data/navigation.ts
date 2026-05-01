@@ -15,7 +15,6 @@ export const navItems: NavItem[] = [
   { id: 'gallery',    href: '/gallery/',    label_en: 'gallery',               label_pl: 'galeria'  },
   { id: 'log',        href: '/log/',        label_en: 'log',                   label_pl: 'kronika'  },
   { id: 'tools',      href: '/narzedzia/', label_en: 'tools',                 label_pl: 'narz\u0119dzia' },
-  { id: 'search',     href: '/search/',     label_en: 'search',                label_pl: 'szukaj'   },
   { id: 'links',      href: '/links/',      label_en: `$ links [${allLinks.length}]`, label_pl: `$ linki [${allLinks.length}]` },
   { id: 'donate',     href: '/donate/',     label_en: 'donate',                label_pl: 'wsparcie' },
 ];

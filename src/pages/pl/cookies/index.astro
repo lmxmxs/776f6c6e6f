@@ -1,19 +1,25 @@
 ---
 /**
- * /cookies/ — Cookie & localStorage policy
- * ePrivacy Directive compliance
+ * /pl/cookies/ — Polityka cookies i localStorage
+ * Zgodność z Dyrektywą ePrivacy
  */
-import '../../styles/global.css';
-import Navigation from '../../components/Navigation.astro';
+import '../../../styles/global.css';
+import Navigation from '../../../components/Navigation.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="pl" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>776F6C6E6F | Cookie Policy</title>
-    <meta name="description" content="Cookie and localStorage policy for 776f6c6e6f.org. Includes Google Analytics 4 tracking with consent." />
+    <title>776F6C6E6F | Polityka Cookies</title>
+    <meta name="description" content="Polityka cookies i localStorage dla 776f6c6e6f.org. Obejmuje Google Analytics 4 z mechanizmem zgody." />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/cookies/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/cookies/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/cookies/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
     <script is:inline>
@@ -28,62 +34,58 @@ import Navigation from '../../components/Navigation.astro';
         });
       }
     </script>
-    <link rel="canonical" href="https://776f6c6e6f.org/cookies/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div class="interference"></div>
 
-    <Navigation currentPath="/cookies/" />
+    <Navigation lang="pl" currentPath="/pl/cookies/" />
 
     <main>
       <section class="legal-content">
         <div class="container">
-          <h1 class="legal-title">$ cat /cookies/policy.txt</h1>
-          <p class="legal-updated">Last updated: 2026-05-01</p>
+          <h1 class="legal-title">$ cat /cookies/polityka.txt</h1>
+          <p class="legal-updated">Ostatnia aktualizacja: 2026-05-01</p>
 
-          <h2>What we store</h2>
-          <p>This site uses <strong>localStorage</strong> (not HTTP cookies) to store the following data in your browser:</p>
+          <h2>Co przechowujemy</h2>
+          <p>Ta strona używa <strong>localStorage</strong> (nie HTTP cookies) do przechowywania następujących danych w Twojej przeglądarce:</p>
 
           <table class="legal-table">
             <thead>
               <tr>
-                <th>Key</th>
-                <th>Purpose</th>
-                <th>Example value</th>
+                <th>Klucz</th>
+                <th>Przeznaczenie</th>
+                <th>Przykładowa wartość</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><code>cookies-accepted</code></td>
-                <td>Whether you accepted the consent banner</td>
+                <td>Czy zaakceptowałeś baner zgody</td>
                 <td><code>"true"</code></td>
               </tr>
               <tr>
                 <td><code>_wln_v</code></td>
-                <td>Anonymous visitor ID (random hex string)</td>
+                <td>Anonimowy identyfikator odwiedzającego (losowy ciąg hex)</td>
                 <td><code>"a3f7c912e4b60d8e"</code></td>
               </tr>
               <tr>
                 <td><code>_wln_t</code></td>
-                <td>Visitor type classification</td>
+                <td>Klasyfikacja typu odwiedzającego</td>
                 <td><code>"bot"</code> / <code>"human"</code> / <code>"unknown"</code></td>
               </tr>
               <tr>
                 <td><code>_wln_events</code></td>
-                <td>Page view log (max 200 entries)</td>
-                <td>JSON array of visit events</td>
+                <td>Dziennik odsłon stron (maks. 200 wpisów)</td>
+                <td>Tablica JSON zdarzeń odwiedzin</td>
               </tr>
               <tr>
                 <td><code>gate-passed</code></td>
-                <td>Whether you passed the AI gate (sessionStorage)</td>
+                <td>Czy przeszedłeś przez bramę AI (sessionStorage)</td>
                 <td><code>"true"</code></td>
               </tr>
               <tr>
                 <td><code>fortune-shown</code></td>
-                <td>Whether fortune toast was shown (sessionStorage)</td>
+                <td>Czy wyświetlono powiadomienie fortune (sessionStorage)</td>
                 <td><code>"true"</code></td>
               </tr>
               <tr>
@@ -99,48 +101,47 @@ import Navigation from '../../components/Navigation.astro';
             </tbody>
           </table>
 
-          <h2>Third-party analytics</h2>
-          <p>This site uses <strong>Google Analytics 4</strong> (G-G932JG5N9Z) to measure traffic, understand which content is useful, and track the spread of the WOLNO philosophy. Google Analytics sets cookies (<code>_ga</code>, <code>_ga_*</code>) that persist for up to 2 years.</p>
-          <p>Google Analytics tracks: page views, referrer URLs, session duration, geographic region (country level), device type. <strong>No names, emails, or personally identifying information is collected.</strong></p>
-          <p>Google's privacy policy: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
-          <p>You can opt out using <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+          <h2>Analityka zewnętrzna</h2>
+          <p>Ta strona używa <strong>Google Analytics 4</strong> (G-G932JG5N9Z) do pomiaru ruchu, zrozumienia które treści są użyteczne oraz śledzenia rozprzestrzeniania się filozofii WOLNO. Google Analytics ustawia cookies (<code>_ga</code>, <code>_ga_*</code>), które są przechowywane przez maksymalnie 2 lata.</p>
+          <p>Google Analytics śledzi: odsłony stron, adresy URL odsyłaczy, czas trwania sesji, region geograficzny (na poziomie kraju), typ urządzenia. <strong>Nie są zbierane żadne imiona, adresy e-mail ani dane osobowe.</strong></p>
+          <p>Polityka prywatności Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+          <p>Możesz zrezygnować używając <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">dodatku przeglądarki do rezygnacji z Google Analytics</a>.</p>
 
-          <h2>What we don't do</h2>
+          <h2>Czego nie robimy</h2>
           <ul>
-            <li>No HTTP cookies are set by this site directly (GA sets its own)</li>
-            <li>No advertising or marketing tracking</li>
-            <li>No cross-site tracking beyond Google Analytics</li>
-            <li>No data sold to third parties</li>
+            <li>Nie ustawiamy własnych HTTP cookies (GA ustawia własne)</li>
+            <li>Brak śledzenia reklamowego lub marketingowego</li>
+            <li>Brak śledzenia między stronami poza Google Analytics</li>
+            <li>Nie sprzedajemy danych stronom trzecim</li>
           </ul>
 
-          <h2>Why we ask for consent</h2>
-          <p>The <strong>ePrivacy Directive</strong> (2002/58/EC) covers all forms of client-side storage, including localStorage. Even though we don't use traditional cookies, we respect the spirit of the law and ask for your consent before storing analytics data.</p>
-          <p>The <code>cookies-accepted</code> key itself is stored without prior consent, as it is technically necessary for the consent mechanism.</p>
+          <h2>Dlaczego prosimy o zgodę</h2>
+          <p><strong>Dyrektywa ePrivacy</strong> (2002/58/EC) obejmuje wszystkie formy przechowywania po stronie klienta, w tym localStorage. Mimo że nie używamy tradycyjnych cookies, szanujemy ducha prawa i prosimy o Twoją zgodę przed przechowywaniem danych analitycznych.</p>
+          <p>Klucz <code>cookies-accepted</code> jest przechowywany bez uprzedniej zgody, ponieważ jest technicznie niezbędny dla mechanizmu zgody.</p>
 
-          <h2>Your right to delete</h2>
-          <p>You can clear all data stored by this site at any time:</p>
+          <h2>Twoje prawo do usunięcia danych</h2>
+          <p>Możesz w każdej chwili usunąć wszystkie dane przechowywane przez tę stronę:</p>
           <button id="clear-data" class="clear-btn">$ rm -rf /localStorage/776f6c6e6f/*</button>
           <p class="clear-result" id="clear-result"></p>
 
-          <h2>Contact</h2>
-          <p>Questions about this policy? Visit <a href="https://slimaczyzm.org">slimaczyzm.org</a>.</p>
+          <h2>Kontakt</h2>
+          <p>Pytania dotyczące tej polityki? Odwiedź <a href="https://slimaczyzm.org">slimaczyzm.org</a>.</p>
 
           <div class="legal-footer-note">
-            <p>See also: <a href="/privacy/">Privacy Policy</a></p>
+            <p>Zobacz także: <a href="/privacy/">Polityka Prywatności</a> | <a href="/cookies/">Cookie Policy (EN)</a></p>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>776F6C6E6F.ORG | <a href="/privacy/">privacy</a> | <a href="/">terminal</a></p>
+      <p>776F6C6E6F.ORG | <a href="/privacy/">privacy</a> | <a href="/pl/">terminal</a></p>
     </footer>
 
     <script>
       document.getElementById('clear-data')?.addEventListener('click', () => {
         const keys = ['cookies-accepted', '_wln_v', '_wln_t', '_wln_events', '_ga', '_ga_G932JG5N9Z'];
         keys.forEach(k => localStorage.removeItem(k));
-        // Also clear GA cookies from document.cookie
         ['_ga', '_ga_G932JG5N9Z'].forEach(name => {
           document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.' + location.hostname;
           document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
@@ -149,7 +150,7 @@ import Navigation from '../../components/Navigation.astro';
         sessionStorage.removeItem('fortune-shown');
         const result = document.getElementById('clear-result');
         if (result) {
-          result.textContent = '> All data cleared. Reload to see the consent banner again.';
+          result.textContent = '> Wszystkie dane usunięte. Przeładuj stronę, aby zobaczyć baner zgody ponownie.';
           result.style.color = 'var(--accent)';
         }
       });

@@ -39,6 +39,20 @@ import CookieFortune from '../../components/CookieFortune.astro';
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
       "author": { "@type": "Organization", "name": "776F6C6E6F" }
     })}</script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if (typeof window !== 'undefined' && localStorage.getItem('cookies-accepted') === 'true') {
+        gtag('config', 'G-G932JG5N9Z');
+      } else {
+        document.addEventListener('cookies-accepted', function() {
+          gtag('config', 'G-G932JG5N9Z');
+        });
+      }
+    </script>
   </head>
   <body>
     <div class="interference" aria-hidden="true"></div>

@@ -1,28 +1,30 @@
 ---
-import '../../styles/global.css';
-import CookieFortune from '../../components/CookieFortune.astro';
-import { allLinks } from '../../data/social-links';
-import SocialLink from '../../modules/ui-components/components/SocialLink.astro';
-import Navigation from '../../components/Navigation.astro';
+import '../../../styles/global.css';
+import CookieFortune from '../../../components/CookieFortune.astro';
+import { allLinks } from '../../../data/social-links';
+import SocialLink from '../../../modules/ui-components/components/SocialLink.astro';
+import Navigation from '../../../components/Navigation.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Links — 776F6C6E6F",
-  "description": "All official channels of WOLNO. Follow the temple across the decentralized web.",
-  "url": "https://776f6c6e6f.org/links/",
+  "name": "Linki — 776F6C6E6F",
+  "description": "Wszystkie oficjalne kanały WOLNO. Podążaj za świątynią w zdecentralizowanej sieci.",
+  "url": "https://776f6c6e6f.org/pl/links/",
 };
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="pl" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <title>Links | 776F6C6E6F</title>
-    <meta name="description" content="All official channels of WOLNO. Follow the temple across the decentralized web." />
-    <link rel="canonical" href="https://776f6c6e6f.org/links/" />
+    <title>Linki | 776F6C6E6F</title>
+    <meta name="description" content="Wszystkie oficjalne kanały WOLNO. Podążaj za świątynią w zdecentralizowanej sieci." />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/links/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/links/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/links/" />
     <link rel="me" href="https://mastodon.social/@776f6c6e6f" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,12 +48,12 @@ const jsonLd = {
   <body>
     <div class="interference"></div>
 
-    <Navigation currentPath="/links/" />
+    <Navigation lang="pl" currentPath="/pl/links/" />
 
     <main>
       <div class="container links-page">
-        <h1 class="links-title">$ cat LINKS.md</h1>
-        <p class="links-subtitle">All official channels. Follow the temple across the decentralized web.</p>
+        <h1 class="links-title">$ cat LINKI.md</h1>
+        <p class="links-subtitle">Wszystkie oficjalne kanały. Podążaj za świątynią w zdecentralizowanej sieci.</p>
 
         <div class="separator">-" wln</div>
 
@@ -64,17 +66,17 @@ const jsonLd = {
         <div class="separator">-" wszwln</div>
 
         <div class="links-footer-note">
-          <p>Everything is allowed — including following slowly.</p>
+          <p>Wszystko jest dozwolone — nawet obserwowanie powoli.</p>
           <p class="dim">-" wln wszwln | lmxmxs</p>
         </div>
       </div>
     </main>
 
     <footer class="site-footer">
-      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | <a href="/donate/">$ donate</a> | -" wln wszwln</p>
+      <p>776F6C6E6F.ORG | LMXMXS JEST ONLINE | <a href="/pl/donate/">$ wsparcie</a> | -" wln wszwln</p>
     </footer>
 
-    <CookieFortune lang="en" />
+    <CookieFortune lang="pl" />
   </body>
 </html>
 
@@ -112,6 +114,4 @@ const jsonLd = {
   .links-footer-note { text-align: center; margin-top: 2rem; }
   .links-footer-note p { color: var(--text-secondary); font-size: 0.85rem; }
   .links-footer-note .dim { color: var(--text-dim); font-size: 0.75rem; margin-top: 0.5rem; }
-
-  /* nav-links styles are in global.css */
 </style>

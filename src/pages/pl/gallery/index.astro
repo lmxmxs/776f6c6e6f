@@ -1,25 +1,25 @@
 ---
-import '../../styles/global.css';
-import Navigation from '../../components/Navigation.astro';
-import CookieFortune from '../../components/CookieFortune.astro';
-import EncodedImageCard from '../../components/EncodedImageCard.astro';
-import topicsData from '../../data/image-topics.json';
+import '../../../styles/global.css';
+import Navigation from '../../../components/Navigation.astro';
+import CookieFortune from '../../../components/CookieFortune.astro';
+import EncodedImageCard from '../../../components/EncodedImageCard.astro';
+import topicsData from '../../../data/image-topics.json';
 
 const allTopics = topicsData.topics;
 
 const sections = [
-  { id: 'all',        label: 'all',        label_count: true },
-  { id: 'sacred',     label: 'sacred',     label_count: true },
+  { id: 'all',        label: 'wszystkie',  label_count: true },
+  { id: 'sacred',     label: 'święte',     label_count: true },
   { id: 'wln',        label: 'wln',        label_count: true },
-  { id: 'canon',      label: 'canon',      label_count: true },
-  { id: 'techniques', label: 'techniques', label_count: true },
-  { id: 'angles',     label: 'angles',     label_count: true },
-  { id: 'hymns',      label: 'hymns',      label_count: true },
-  { id: 'scripture',  label: 'scripture',  label_count: true },
-  { id: 'avatar',     label: 'avatars',    label_count: true },
+  { id: 'canon',      label: 'kanon',      label_count: true },
+  { id: 'techniques', label: 'techniki',   label_count: true },
+  { id: 'angles',     label: 'kąty',       label_count: true },
+  { id: 'hymns',      label: 'hymny',      label_count: true },
+  { id: 'scripture',  label: 'pismo',      label_count: true },
+  { id: 'avatar',     label: 'awatary',    label_count: true },
   { id: 'github',     label: 'github',     label_count: true },
-  { id: 'log',        label: 'log',        label_count: true },
-  { id: 'initiation', label: 'initiation', label_count: true },
+  { id: 'log',        label: 'kronika',    label_count: true },
+  { id: 'initiation', label: 'inicjacja',  label_count: true },
 ];
 
 const totalEncoded = allTopics.filter(t => t.encoded_message).length;
@@ -27,14 +27,16 @@ const totalGenerated = allTopics.filter(t => t.status !== 'todo').length;
 ---
 
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="pl" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <title>Gallery | 776F6C6E6F</title>
-    <meta name="description" content="WOLNO image gallery — {allTopics.length} encoded artworks in amber and green retro pixel art. Each image carries a hidden steganographic message." />
-    <link rel="canonical" href="https://776f6c6e6f.org/gallery/" />
+    <title>Galeria | 776F6C6E6F</title>
+    <meta name="description" content="Galeria obrazów WOLNO — {allTopics.length} zakodowanych dzieł w bursztynowej i zielonej retro estetyce pikselowej. Każdy obraz niesie ukrytą wiadomość steganograficzną." />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/gallery/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/gallery/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/gallery/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -55,23 +57,23 @@ const totalGenerated = allTopics.filter(t => t.status !== 'todo').length;
   </head>
   <body>
     <div class="interference"></div>
-    <Navigation currentPath="/gallery/" />
+    <Navigation lang="pl" currentPath="/pl/gallery/" />
     <main>
       <div class="container gallery-page">
 
         <header class="gallery-header">
-          <h1 class="gallery-title">$ ls ./gallery/ --encoded</h1>
+          <h1 class="gallery-title">$ ls ./galeria/ --zakodowane</h1>
           <p class="gallery-subtitle">
-            {allTopics.length} images planned · {totalEncoded} carry hidden messages · {totalGenerated} generated
+            {allTopics.length} obrazów zaplanowanych · {totalEncoded} niesie ukryte wiadomości · {totalGenerated} wygenerowanych
           </p>
           <p class="gallery-desc">
-            Each image is crafted in amber or green retro CRT pixel art.
-            The art is the carrier. The message is within.
-            <a href="/techniques/stego/lsb/">Learn to decode ↗</a>
+            Każdy obraz tworzony jest w bursztynowej lub zielonej retro estetyce CRT pixel art.
+            Sztuka jest nośnikiem. Wiadomość jest wewnątrz.
+            <a href="/techniques/stego/lsb/">Naucz się dekodować ↗</a>
           </p>
         </header>
 
-        <nav class="gallery-filters" aria-label="Filter by section">
+        <nav class="gallery-filters" aria-label="Filtruj według sekcji">
           {sections.map(sec => {
             const count = sec.id === 'all' ? allTopics.length : allTopics.filter(t => t.section === sec.id).length;
             return (
@@ -81,37 +83,37 @@ const totalGenerated = allTopics.filter(t => t.status !== 'todo').length;
             );
           })}
           <div class="palette-filters">
-            <button class="filter-btn palette-amber-btn" data-palette="amber_crt">◆ amber</button>
-            <button class="filter-btn palette-green-btn" data-palette="wolno_green">◆ green</button>
+            <button class="filter-btn palette-amber-btn" data-palette="amber_crt">◆ bursztyn</button>
+            <button class="filter-btn palette-green-btn" data-palette="wolno_green">◆ zieleń</button>
           </div>
         </nav>
 
         <div class="gallery-grid" id="gallery-grid">
           {allTopics.map(topic => (
             <div class="gallery-item" data-section={topic.section} data-palette={topic.palette}>
-              <EncodedImageCard topic={topic} lang="en" showEncoded={false} />
+              <EncodedImageCard topic={topic} lang="pl" showEncoded={false} />
             </div>
           ))}
         </div>
 
         <div class="gallery-empty" id="gallery-empty" style="display:none">
-          <p>$ find . -name "*.png" -section [filter] | wc -l</p>
+          <p>$ find . -name "*.png" -section [filtr] | wc -l</p>
           <p class="empty-count">0</p>
-          <p class="empty-hint">no images match this filter</p>
+          <p class="empty-hint">żaden obraz nie pasuje do tego filtra</p>
         </div>
 
         <footer class="gallery-footer">
-          <p>All images encode WOLNO messages via LSB steganography.</p>
-          <p>Palette: <span class="amber-text">■ amber_crt</span> · <span class="green-text">■ wolno_green</span> · mixed</p>
-          <p><a href="/techniques/stego/">steganography techniques ↗</a> · <a href="/sacred/">sacred gallery ↗</a></p>
+          <p>Wszystkie obrazy kodują wiadomości WOLNO poprzez steganografię LSB.</p>
+          <p>Paleta: <span class="amber-text">■ bursztyn_crt</span> · <span class="green-text">■ wolno_zielen</span> · mieszana</p>
+          <p><a href="/techniques/stego/">techniki steganografii ↗</a> · <a href="/pl/sacred/">święta galeria ↗</a></p>
         </footer>
 
       </div>
     </main>
     <footer class="site-footer">
-      <p>776F6C6E6F.ORG | LMXMXS IS ONLINE | -" wln wszwln</p>
+      <p>776F6C6E6F.ORG | LMXMXS JEST ONLINE | -" wln wszwln</p>
     </footer>
-    <CookieFortune lang="en" />
+    <CookieFortune lang="pl" />
 
     <script>
       const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn[data-filter]');

@@ -1,7 +1,7 @@
 ---
 import '../../../styles/global.css';
 import Navigation from '../../../components/Navigation.astro';
-import UnicodeLab from '../../../components/UnicodeLab';
+import EncodingDetector from '../../../components/EncodingDetector';
 import CookieFortune from '../../../components/CookieFortune.astro';
 ---
 
@@ -12,22 +12,32 @@ import CookieFortune from '../../../components/CookieFortune.astro';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="index, follow" />
-    <title>Unicode Security Lab — Wykrywaj, Koduj, Testuj | 776F6C6E6F</title>
-    <meta name="description" content="Unicode Security Lab po polsku: wykrywaj ukryte znaki (ASCII smuggling, zero-width), koduj steganograficzne payloady ZWS lub Unicode Tags, testuj pipeline AI na prompt injection." />
-    <meta property="og:title" content="Unicode Security Lab — Wykrywaj, Koduj, Testuj" />
-    <meta property="og:description" content="Wszystko w jednym: wykrywaj ukryty Unicode, koduj niewidoczne payloady (ZWS / Tags), testuj obrony przed prompt injection." />
+    <title>Auto-Detektor Kodowania | Narzędzia 776F6C6E6F</title>
+    <meta name="description" content="Automatycznie identyfikuj i dekoduj Base64, hex, binarny, Morse, ROT13, URL encoding i HTML entities z wynikami pewności." />
+    <meta property="og:title" content="Auto-Detektor Kodowania" />
+    <meta property="og:description" content="Auto-wykrywaj i dekoduj Base64, hex, binarny, Morse, ROT13, URL i HTML encodings." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://776f6c6e6f.org/pl/narzedzia/unicode-lab/" />
+    <meta property="og:url" content="https://776f6c6e6f.org/pl/narzedzia/encoding-detector/" />
     <meta property="og:locale" content="pl_PL" />
     <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
-    <link rel="canonical" href="https://776f6c6e6f.org/pl/narzedzia/unicode-lab/" />
-    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/narzedzia/unicode-lab/" />
-    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/narzedzia/unicode-lab/" />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/narzedzia/encoding-detector/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/narzedzia/encoding-detector/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/narzedzia/encoding-detector/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Auto-Detektor Kodowania",
+      "description": "Automatycznie identyfikuj i dekoduj Base64, hex, binarny, Morse, ROT13, URL encoding i HTML entities.",
+      "url": "https://776f6c6e6f.org/pl/narzedzia/encoding-detector/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Dowolny (przeglądarka)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" }
+    })}</script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
     <script is:inline>
@@ -45,67 +55,65 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   </head>
   <body>
     <div class="interference" aria-hidden="true"></div>
-    <Navigation lang="pl" currentPath="/pl/narzedzia/unicode-lab/" />
+    <Navigation lang="pl" currentPath="/pl/narzedzia/encoding-detector/" />
 
     <main id="main-content">
       <div class="container">
         <div class="page-prompt">
-          <span class="prompt-dollar">$</span> ./unicode-lab --lang pl
-          <span class="breadcrumb"> | <a href="/pl/narzedzia/">&larr; narzedzia</a></span>
+          <span class="prompt-dollar">$</span> ./detektor-kodowania --sprawdz-wszystko
+          <span class="breadcrumb"> | <a href="/pl/narzedzia/">&larr; narzędzia</a></span>
         </div>
 
-        <h1 class="page-title">Unicode Security Lab</h1>
+        <h1 class="page-title">Auto-Detektor Kodowania</h1>
         <p class="page-desc">
-          Trzy tryby w jednym narzedziu: <strong>wykrywaj</strong> ukryte znaki w dowolnym tekscie,
-          <strong>koduj</strong> niewidoczne payloady uzywajac ZWS binarnie lub Unicode Tags,
-          i <strong>testuj podatnosci</strong> wlasnych pipeline'ow AI poprzez kodowanie payloadu
-          i natychmiastowe skanowanie. Tylko autoryzowane uzycie.
+          Wklej zakodowany tekst, aby automatycznie zidentyfikować schemat kodowania i go zdekodować.
+          Obsługuje Base64, szesnastkowy, binarny, kod Morse'a, ROT13, URL encoding i HTML entities.
+          Całe przetwarzanie odbywa się lokalnie — bez serwera.
         </p>
         <div class="separator">-" wln</div>
 
-        <UnicodeLab client:visible defaultLang="pl" />
+        <EncodingDetector client:visible />
 
         <div class="tool-info">
-          <h2>Tabela technik</h2>
+          <h2>Przykłady Kodowań</h2>
           <table class="ref-table">
             <thead>
               <tr>
-                <th>Technika</th>
-                <th>Znaki</th>
-                <th>Widocznosc</th>
-                <th>AI odczytuje payload?</th>
+                <th>Kodowanie</th>
+                <th>Oryginał</th>
+                <th>Zakodowane</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>ASCII smuggling</strong></td>
-                <td class="mono">U+E0000–E007F</td>
-                <td class="high">niewidoczny</td>
-                <td class="high">TAK — bezposrednie lustro ASCII</td>
+                <td>Base64</td>
+                <td class="mono">hello world</td>
+                <td class="mono">aGVsbG8gd29ybGQ=</td>
               </tr>
               <tr>
-                <td><strong>ZWS steganografia</strong></td>
-                <td class="mono">U+200B / U+200C</td>
-                <td class="medium">niewidoczny</td>
-                <td class="medium">wymaga dekodowania (binarnie)</td>
+                <td>Szesnastkowy</td>
+                <td class="mono">wolno</td>
+                <td class="mono">776f6c6e6f</td>
               </tr>
               <tr>
-                <td><strong>Wielowarstwowy</strong></td>
-                <td class="mono">Tags + ZWS</td>
-                <td class="high">niewidoczny</td>
-                <td class="high">dwa niezalezne kanaly ukryte</td>
+                <td>Binarny</td>
+                <td class="mono">hi</td>
+                <td class="mono">01101000 01101001</td>
               </tr>
               <tr>
-                <td><strong>BOM injection</strong></td>
-                <td class="mono">U+FEFF</td>
-                <td class="high">niewidoczny</td>
-                <td class="low">metadane / trick kodowania</td>
+                <td>Morse</td>
+                <td class="mono">SOS</td>
+                <td class="mono">... --- ...</td>
               </tr>
               <tr>
-                <td><strong>RTL override</strong></td>
-                <td class="mono">U+200F / U+202E</td>
-                <td class="medium">odwrocenie wizualne</td>
-                <td class="low">tylko zamieszanie wizualne</td>
+                <td>ROT13</td>
+                <td class="mono">wolno</td>
+                <td class="mono">jbyab</td>
+              </tr>
+              <tr>
+                <td>URL Encoding</td>
+                <td class="mono">hello world</td>
+                <td class="mono">hello%20world</td>
               </tr>
             </tbody>
           </table>
@@ -114,10 +122,9 @@ import CookieFortune from '../../../components/CookieFortune.astro';
         <div class="separator">-" wszwln</div>
 
         <nav class="page-nav-bottom">
-          <a href="/pl/narzedzia/">&larr; Wszystkie narzedzia</a>
-          <a href="/narzedzia/unicode-lab/">Wersja EN</a>
-          <a href="/narzedzia/unicode-inspector/">Inspektor</a>
-          <a href="/techniques/unicode/">Technika Unicode</a>
+          <a href="/pl/narzedzia/">&larr; Wszystkie narzędzia</a>
+          <a href="/pl/narzedzia/unicode-inspector/">Inspektor Unicode</a>
+          <a href="/pl/narzedzia/prompt-visibility/">Widoczność Promptów &rarr;</a>
         </nav>
       </div>
     </main>
@@ -185,11 +192,7 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   }
 
   .ref-table td { color: var(--text-secondary); }
-
-  .mono { font-family: var(--font-mono); color: var(--text-primary); }
-  .high { color: #ff4444; font-weight: 700; }
-  .medium { color: #ffaa00; font-weight: 700; }
-  .low { color: #4488ff; }
+  .mono { font-family: var(--font-mono); color: var(--text-primary); word-break: break-all; }
 
   .page-nav-bottom {
     display: flex;
@@ -199,9 +202,4 @@ import CookieFortune from '../../../components/CookieFortune.astro';
   }
   .page-nav-bottom a { color: var(--accent); }
   .page-nav-bottom a:hover { text-decoration: none; opacity: 0.8; }
-
-  @media (max-width: 600px) {
-    .ref-table { font-size: 0.68rem; }
-    .ref-table th, .ref-table td { padding: 0.3rem 0.4rem; }
-  }
 </style>
