@@ -1,0 +1,147 @@
+---
+import '../../styles/global.css';
+import Navigation from '../../components/Navigation.astro';
+import StegoLab from '../../components/StegoLab';
+import CookieFortune from '../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>Image Steganography Lab — LSB, Pixel Art, Alpha | 776F6C6E6F</title>
+    <meta name="description" content="Hide messages in pixels. LSB steganography across R/G/B/Alpha channels, pixel art quantization with amber CRT or phosphor green palettes, PNG metadata encoding. All client-side." />
+    <meta property="og:title" content="Image Steganography Lab" />
+    <meta property="og:description" content="Hide messages in pixels. LSB encoding across channels, pixel art conversion, channel inspector — all browser-based, no upload." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://776f6c6e6f.org/narzedzia/stego-lab/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/narzedzia/stego-lab/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <script type="application/ld+json">{JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Steganography Lab",
+      "description": "Hide and reveal messages in images using LSB steganography, pixel art conversion, and PNG metadata encoding.",
+      "url": "https://776f6c6e6f.org/narzedzia/stego-lab/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Any (browser-based)",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    })}</script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if (typeof window !== 'undefined' && localStorage.getItem('cookies-accepted') === 'true') {
+        gtag('config', 'G-G932JG5N9Z');
+      } else {
+        document.addEventListener('cookies-accepted', function() {
+          gtag('config', 'G-G932JG5N9Z');
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation currentPath="/narzedzia/stego-lab/" />
+
+    <main id="main-content">
+      <div class="container">
+        <div class="page-header">
+          <h1 class="page-title">
+            <span class="title-prefix">//</span> IMAGE STEGANOGRAPHY LAB
+          </h1>
+          <p class="page-subtitle">
+            Hide messages in pixels. LSB encoding across R/G/B/Alpha channels,
+            pixel art quantization, PNG metadata — all client-side.
+          </p>
+        </div>
+
+        <StegoLab client:load />
+
+        <div class="tool-info">
+          <h2>About this tool</h2>
+          <p>
+            Least Significant Bit (LSB) steganography modifies the last bit of each
+            color channel value — a change of 1 that is imperceptible to the human eye
+            but carries your hidden message. This implementation supports single-channel
+            (R, G, or B), multi-channel RGB, and full RGBA encoding including the alpha
+            channel.
+          </p>
+          <p>
+            The pixel art mode quantizes your image to a limited CRT-style palette
+            using Floyd-Steinberg dithering, then optionally encodes a message in the
+            result. All processing runs locally in your browser — no image is uploaded
+            anywhere.
+          </p>
+          <p>
+            Source: <a href="https://github.com/lmxmxs/stego-cli" class="link-phosphor">stego-cli</a> —
+            standalone Python CLI for the same operations.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <CookieFortune />
+  </body>
+</html>
+
+<style>
+  .page-header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid #1a1a2e;
+    margin-bottom: 2rem;
+  }
+  .page-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: #00ff41;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.75rem;
+  }
+  .title-prefix { color: #404060; }
+  .page-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: #6b7280;
+    max-width: 60ch;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .tool-info {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    border: 1px solid #1a1a2e;
+    background: #0d0d1a;
+  }
+  .tool-info h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #ffbe00;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 1rem;
+  }
+  .tool-info p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #6b7280;
+    line-height: 1.8;
+    margin: 0 0 0.75rem;
+  }
+  .link-phosphor {
+    color: #00ff41;
+    text-decoration: none;
+  }
+  .link-phosphor:hover { text-decoration: underline; }
+</style>
