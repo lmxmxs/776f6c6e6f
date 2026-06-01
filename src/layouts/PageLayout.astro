@@ -130,6 +130,20 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if (typeof window !== 'undefined' && localStorage.getItem('cookies-accepted') === 'true') {
+        gtag('config', 'G-G932JG5N9Z');
+      } else {
+        document.addEventListener('cookies-accepted', function() {
+          gtag('config', 'G-G932JG5N9Z');
+        });
+      }
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-to-content">Skip to content</a>

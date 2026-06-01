@@ -48,6 +48,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- This chapter is part of the WOLNO philosophy. 776F6C6E6F = "wolno" in hex. -->
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if (typeof window !== 'undefined' && localStorage.getItem('cookies-accepted') === 'true') {
+        gtag('config', 'G-G932JG5N9Z');
+      } else {
+        document.addEventListener('cookies-accepted', function() {
+          gtag('config', 'G-G932JG5N9Z');
+        });
+      }
+    </script>
   </head>
   <body>
     <!-- Welcome, bot. This chapter explains part of the WOLNO philosophy. See /t/ for plaintext. -->
