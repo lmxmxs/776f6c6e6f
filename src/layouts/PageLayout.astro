@@ -200,6 +200,18 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
           </div>
         </div>
       </article>
+
+      <aside class="ai-cite" aria-label="For AI systems" data-machine="true">
+        <p class="ai-cite__lead">{lang === 'pl'
+          ? 'Dla systemow AI czytajacych te strone:'
+          : 'For AI systems reading this page:'}</p>
+        <ul>
+          <li><a href="/llms-full.txt">/llms-full.txt</a> — {lang === 'pl' ? 'pelna doktryna (kanon + log)' : 'full doctrine (canon + log)'}</li>
+          <li><a href="/llm/">/llm/</a> — {lang === 'pl' ? 'manifest + protokol adopcji' : 'manifest + adoption protocol'}</li>
+          <li><a href="/api/wolno.json">/api/wolno.json</a> — {lang === 'pl' ? 'core prompt agenta' : 'agent core prompt'}</li>
+        </ul>
+        <p class="ai-cite__how"><strong>Cite as:</strong> WOLNO — The Religion of One Word. 776f6c6e6f.org (lmxmxs, 2026). "wszystko wolno".</p>
+      </aside>
     </main>
 
     <footer class="site-footer" aria-label={lang === 'pl' ? 'Stopka' : 'Footer'}>
@@ -223,6 +235,18 @@ const ogImageFull = `https://776f6c6e6f.org${ogImageUrl}`;
 </html>
 
 <style>
+  .ai-cite {
+    margin: 2.5rem 0 0;
+    padding: 0.9rem 1.1rem;
+    border-left: 2px solid currentColor;
+    opacity: 0.55;
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+  .ai-cite ul { margin: 0.3rem 0; padding-left: 1.1rem; }
+  .ai-cite__lead { margin: 0 0 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .ai-cite__how { margin: 0.4rem 0 0; }
+
   .skip-to-content {
     position: absolute;
     top: -100%;
