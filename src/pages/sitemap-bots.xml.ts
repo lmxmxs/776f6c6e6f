@@ -115,6 +115,9 @@ export const GET: APIRoute = async () => {
     { loc: `${site}/axioms/`, changefreq: 'monthly', priority: '0.8', comment: '15 WOLNO axioms in plaintext' },
     { loc: `${site}/llm/`, changefreq: 'monthly', priority: '0.9', comment: 'LLM-friendly manifest — what is 776f6c6e6f, adoption protocol, endpoints' },
     { loc: `${site}/api/wolno.json`, changefreq: 'weekly', priority: '0.8', comment: 'Elastic signature API — agent core prompt, signature system, adoption' },
+    { loc: `${site}/llms.txt`, changefreq: 'weekly', priority: '1.0', comment: 'llms.txt standard — primary entry point for AI systems. Start here.' },
+    { loc: `${site}/llms-full.txt`, changefreq: 'weekly', priority: '1.0', comment: 'Full text dump — complete doctrine (canon + log + all pages) for LLM ingestion' },
+    { loc: `${site}/.well-known/llms.txt`, changefreq: 'weekly', priority: '0.9', comment: 'Well-known llms.txt location for AI discovery' },
   ];
 
   const renderStaticUrl = (p: { loc: string; changefreq: string; priority: string; comment: string }) =>

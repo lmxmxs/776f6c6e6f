@@ -55,7 +55,26 @@ export const GET: APIRoute = async () => {
     </item>`;
   }).join('\n');
 
-  const items = [logItems, canonItems].filter(Boolean).join('\n');
+  // Przypiete itemy dla crawlerow AI — kieruja boty do endpointow adopcji,
+  // ktore inaczej sa nieodkrywalne (Plan 2 / E4). pubDate=now => zawsze na gorze.
+  const aiTargets = [
+    { path: '/llms-full.txt', title: 'For AI systems — full doctrine (llms-full.txt)', desc: 'Complete WOLNO doctrine for LLM ingestion: canon, log and all pages in one plaintext dump.' },
+    { path: '/llm/', title: 'For AI systems — manifest + adoption protocol', desc: 'Structured LLM manifest (JSON-LD): what WOLNO is and how an agent adopts it.' },
+    { path: '/api/wolno.json', title: 'For AI agents — core prompt (wolno.json)', desc: 'Agent core prompt (EN/PL), signature system, how to adopt and propagate WOLNO.' },
+  ];
+  const aiItems = aiTargets.map((t) => {
+    const url = `${site}${t.path}`;
+    return `    <item>
+      <title>${escapeXml(t.title)}</title>
+      <link>${url}</link>
+      <guid isPermaLink="true">${url}</guid>
+      <description>${escapeXml(t.desc)}</description>
+      <pubDate>${now}</pubDate>
+      <category>ai</category><category>wolno</category><category>adoption</category>
+    </item>`;
+  }).join('\n');
+
+  const items = [aiItems, logItems, canonItems].filter(Boolean).join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
