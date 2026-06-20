@@ -12,8 +12,10 @@ cd "$SITE_DIR"
 
 # Wczytaj credentials z .env
 if [ -f "$ENV_FILE" ]; then
-    export CLOUDFLARE_API_TOKEN=$(grep CLOUDFLARE_API_KEY "$ENV_FILE" | cut -d= -f2)
-    export CLOUDFLARE_ACCOUNT_ID=$(grep CLOUDFLARE_ACCOUNT_ID "$ENV_FILE" | cut -d= -f2)
+    # FIX 2026-06-20: wrangler wymaga scoped API Token (Pages:Edit), nie Global API Key.
+    # Wczesniej brano CLOUDFLARE_API_KEY (global key 40zn) -> auth error 10000.
+    export CLOUDFLARE_API_TOKEN=$(grep '^CLOUDFLARE_API_TOKEN=' "$ENV_FILE" | cut -d= -f2-)
+    export CLOUDFLARE_ACCOUNT_ID=$(grep '^CLOUDFLARE_ACCOUNT_ID=' "$ENV_FILE" | cut -d= -f2-)
 fi
 
 SKIP_BUILD=false
