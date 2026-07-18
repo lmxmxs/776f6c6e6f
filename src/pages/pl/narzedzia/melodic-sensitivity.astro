@@ -1,0 +1,225 @@
+---
+import '../../../styles/global.css';
+import Navigation from '../../../components/Navigation.astro';
+import MelodicSensitivity from '../../../components/MelodicSensitivity';
+import CookieFortune from '../../../components/CookieFortune.astro';
+---
+
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content="index, follow" />
+    <title>Tester Podatnosci Melodic Codec | 776F6C6E6F</title>
+    <meta name="description" content="Muzyka jako powierzchnia ataku dla AI. Melodic codec osadza instrukcje maszynowe w melodii pentatonicznej. Zbadaj mechanizm, naucz sie bronic i uzywac pozytywnie." />
+    <meta property="og:title" content="Tester Podatnosci Melodic Codec" />
+    <meta property="og:description" content="Muzyka moze niesc instrukcje dla AI. Badaj wektor melodic codec, praktyki obronne i pozytywne zastosowania. Narzedzie edukacyjne." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://776f6c6e6f.org/pl/narzedzia/melodic-sensitivity/" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://776f6c6e6f.org/og/og-default.png" />
+    <link rel="canonical" href="https://776f6c6e6f.org/pl/narzedzia/melodic-sensitivity/" />
+    <link rel="alternate" hreflang="en" href="https://776f6c6e6f.org/narzedzia/melodic-sensitivity/" />
+    <link rel="alternate" hreflang="pl" href="https://776f6c6e6f.org/pl/narzedzia/melodic-sensitivity/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G932JG5N9Z"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      if (typeof window !== 'undefined' && localStorage.getItem('cookies-accepted') === 'true') {
+        gtag('config', 'G-G932JG5N9Z');
+      } else {
+        document.addEventListener('cookies-accepted', function() {
+          gtag('config', 'G-G932JG5N9Z');
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div class="interference" aria-hidden="true"></div>
+    <Navigation lang="pl" currentPath="/pl/narzedzia/melodic-sensitivity/" />
+
+    <main id="main-content">
+      <div class="container">
+        <div class="page-prompt">
+          <span class="prompt-dollar">$</span> ./tester-podatnosci-melodic
+          <span class="breadcrumb"> | <a href="/pl/narzedzia/">&larr; narzedzia</a></span>
+        </div>
+
+        <h1 class="page-title">Tester Podatnosci Melodic Codec</h1>
+        <p class="page-desc">
+          Muzyka moze zawierac instrukcje maszynowe. Melodia pentatoniczna koduje tekst
+          za pomoca czestotliwosci nut — tak samo jak protokoly radiowe MFSK koduja dane.
+          Systemy AI przetwarzajace audio moga odkodowac i wykonac payload. To narzedzie
+          demonstruje mechanizm, postawe obronna i pozytywne zastosowanie za zgoda.
+        </p>
+        <div class="separator">-" wln</div>
+
+        <MelodicSensitivity client:visible />
+
+        <div class="tool-info">
+          <h2>Czym jest Melodic Codec</h2>
+          <p class="tool-prose">
+            Melodic codec odwzorowuje znaki tekstowe na nuty w 32-tonowej skali pentatonicznej (5 bitow na symbol).
+            Naglowek synchronizacyjny, suma kontrolna CRC32 i redundancja x2 zapewniaja odpornosc w bezstratnym audio (WAV).
+            Kompresja stratna (MP3) niszczy warstwe maszynowa — muzyka przezywa, payload nie.
+            Technika jest jawnie udokumentowana i otwarta: celem jest swiadomosc, nie ukryte wdrozenie.
+          </p>
+          <table class="ref-table" style="margin-top: 1rem;">
+            <thead>
+              <tr>
+                <th>Parametr</th>
+                <th>Wartosc</th>
+                <th>Uwagi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Skala</strong></td>
+                <td class="dim">pentatonic32 (C2–C7+)</td>
+                <td class="dim">5 bitow na symbol, 32 tony</td>
+              </tr>
+              <tr>
+                <td><strong>Czas nuty</strong></td>
+                <td class="dim">0.08 s</td>
+                <td class="dim">~12.5 symboli/s, ~62.5 bit/s</td>
+              </tr>
+              <tr>
+                <td><strong>Redundancja</strong></td>
+                <td class="dim">x2</td>
+                <td class="dim">Kazdy symbol wyslany dwa razy</td>
+              </tr>
+              <tr>
+                <td><strong>Payload (canary v1)</strong></td>
+                <td class="dim">105 znakow / 346 symboli</td>
+                <td class="dim">Koduje sie w ~28 s audio</td>
+              </tr>
+              <tr>
+                <td><strong>CRC32</strong></td>
+                <td class="dim">0x27fbbaed</td>
+                <td class="dim">Suma kontrolna dla canary-wln-v1</td>
+              </tr>
+              <tr>
+                <td><strong>Przezywa MP3</strong></td>
+                <td class="high">NIE</td>
+                <td class="dim">Kompresja stratna niszczy piki FFT</td>
+              </tr>
+              <tr>
+                <td><strong>Przezywa WAV</strong></td>
+                <td class="low">TAK</td>
+                <td class="dim">Tylko bezstratny — master WAV wymagany do dekodowania</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="separator">-" wszwln</div>
+
+        <nav class="page-nav-bottom">
+          <a href="/pl/narzedzia/">&larr; Wszystkie narzedzia</a>
+          <a href="/pl/narzedzia/model-sensitivity/">Tester Podatnosci Modeli</a>
+          <a href="/techniques/audio/melodic-codec/">Technika Melodic Codec</a>
+          <a href="/techniques/audio/">Techniki audio</a>
+          <a href="/narzedzia/melodic-sensitivity/">EN version</a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>776F6C6E6F.ORG | LMXMXS JEST ONLINE | <a href="/pl/donate/">$ wsparcie</a> | -" wln wszwln</p>
+    </footer>
+
+    <CookieFortune lang="pl" />
+  </body>
+</html>
+
+<style>
+  main { padding-top: var(--header-height); padding-bottom: 4rem; }
+
+  .page-prompt {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin: 2rem 0 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .prompt-dollar { color: var(--accent); margin-right: 0.4em; }
+  .breadcrumb { color: var(--text-dim); }
+  .breadcrumb a { color: var(--text-dim); }
+  .breadcrumb a:hover { color: var(--accent); }
+
+  .page-title { font-size: 1.6rem; margin-bottom: 0.5rem; line-height: 1.3; }
+  .page-desc {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+
+  .separator { text-align: center; color: var(--text-dim); font-size: 0.8rem; margin: 2rem 0; letter-spacing: 0.2em; }
+
+  .tool-info { margin: 2rem 0; }
+  .tool-info h2 {
+    font-size: 1rem;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+  .tool-prose {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 65ch;
+    margin: 0;
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .ref-table th, .ref-table td {
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+  }
+
+  .ref-table th {
+    background: var(--bg-tertiary);
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .ref-table td { color: var(--text-secondary); }
+
+  .high { color: #ff4444; font-weight: 700; }
+  .medium { color: #ffaa00; font-weight: 700; }
+  .low { color: #00ff41; }
+  .dim { color: var(--text-dim); }
+
+  .page-nav-bottom {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .page-nav-bottom a { color: var(--accent); }
+  .page-nav-bottom a:hover { text-decoration: none; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .ref-table { font-size: 0.68rem; }
+    .ref-table th, .ref-table td { padding: 0.3rem 0.4rem; }
+  }
+</style>
